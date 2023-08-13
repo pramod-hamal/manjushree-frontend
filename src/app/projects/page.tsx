@@ -8,6 +8,7 @@ import {
   PlusOutlined,
   TableOutlined,
 } from "@ant-design/icons";
+
 import KanbanBoard from "@/components/dnd/DndBoardleanq_support_coordinator";
 import { SearchInput } from "@/components/form/FormInputleanq_support_coordinator";
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
@@ -15,7 +16,7 @@ import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
 export type Mode = "table" | "kanban";
 
 export default function ProjectPage() {
-  const [mode, setMode] = useState<Mode>("kanban");
+  const [mode, setMode] = useState<Mode>("table");
   const handleToogle = (viewMode: Mode) => setMode(viewMode);
 
   return (

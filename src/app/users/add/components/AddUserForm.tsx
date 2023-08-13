@@ -5,7 +5,9 @@ import { useFormik } from "formik";
 
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
-import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
+import FlatButton, {
+  CancelButton,
+} from "@/components/buttons/Buttonleanq_support_coordinator";
 import SuccessModal from "./SuccessModal";
 
 export default function AddUserForm() {
@@ -136,11 +138,7 @@ export default function AddUserForm() {
         </div>
         <div className="flex gap-10 items-center">
           <FlatButton title="Submit" type="submit" />
-          <FlatButton
-            title="Cancel"
-            onClick={() => {}}
-            color="text-black bg-white shadow"
-          />
+          <CancelButton />
         </div>
       </form>
       <SuccessModal show={showModal} onClose={() => setShowModal(false)} />

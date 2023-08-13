@@ -10,7 +10,6 @@ import { SearchInput } from "@/components/form/FormInputleanq_support_coordinato
 
 import { routes } from "@/constants/routesleanq_support_coordinator";
 import { users } from "@/constants/data/usersleanq_support_coordinator";
-import Link from "next/link";
 
 export default function UsersList() {
   const router = useRouter();
@@ -19,11 +18,6 @@ export default function UsersList() {
     {
       title: "Full Name",
       dataIndex: "fullName",
-      render: (name: string) => (
-        <Link className="text-black" href="/user/profile/">
-          {name}
-        </Link>
-      ),
     },
     { title: "Email", dataIndex: "email" },
     { title: "Phone No", dataIndex: "phoneNo" },
@@ -58,7 +52,14 @@ export default function UsersList() {
           }}
         />
       </div>
-      <CusTable columns={columns} dataSource={users} loading={false} />
+      <CusTable
+        onRowClick={(rowData: any) =>
+          router.push(routes.userProfile(rowData.id.$oid))
+        }
+        columns={columns}
+        dataSource={users}
+        loading={false}
+      />
     </div>
   );
 }

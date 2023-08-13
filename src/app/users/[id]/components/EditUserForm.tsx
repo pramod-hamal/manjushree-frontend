@@ -5,10 +5,11 @@ import { useFormik } from "formik";
 
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
-import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
-import SuccessModal from "./SuccessModal";
+import FlatButton, {
+  CancelButton,
+} from "@/components/buttons/Buttonleanq_support_coordinator";
 
-export default function AddUserForm() {
+export default function EdituserForm() {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const initialValues = {
@@ -35,7 +36,7 @@ export default function AddUserForm() {
   });
 
   return (
-    <div className="p-5 flex flex-col gap-5">
+    <div className="p-5 bg-white flex flex-col gap-5">
       <span className="text-2xl font-semibold">Personal details</span>
       <form className="flex flex-col gap-5" onSubmit={formik.handleSubmit}>
         <div className="grid grid-cols-2 gap-5 gap-x-10">
@@ -135,15 +136,11 @@ export default function AddUserForm() {
           />
         </div>
         <div className="flex gap-10 items-center">
-          <FlatButton title="Submit" type="submit" />
-          <FlatButton
-            title="Cancel"
-            onClick={() => {}}
-            color="text-black bg-white shadow"
-          />
+          <FlatButton title="Edit" type="submit" />
+          <CancelButton />
         </div>
       </form>
-      <SuccessModal show={showModal} onClose={() => setShowModal(false)} />
+      {/* <SuccessModal show={showModal} onClose={() => setShowModal(false)} /> */}
     </div>
   );
 }

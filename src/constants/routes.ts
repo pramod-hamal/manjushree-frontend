@@ -7,6 +7,7 @@ export const routes={
       // user
       users:"/users",
       addUser:"/users/add",
+      userProfile:(id:string|number)=> `/users/${id}`,
       // projects
       projects:"/projects",
       addProjects:"/projects/add",

@@ -1,15 +1,18 @@
 "use client";
 
 import React from "react";
-import ProfileHeader from "./components/ProfileHeader";
-import CusTabs from "@/components/tabs/Tabsleanq_support_coordinator";
 import { HeartOutlined, UserOutlined } from "@ant-design/icons";
+
+import CusTabs from "@/components/tabs/Tabsleanq_support_coordinator";
+
+import ProfileHeader from "./components/ProfileHeader";
+import EdituserForm from "./components/EditUserForm";
 
 const items: any[] = [
   {
     label: "Profile",
     key: "1",
-    children: <>Profile</>,
+    children: <EdituserForm />,
     icon: <UserOutlined />,
   },
   {

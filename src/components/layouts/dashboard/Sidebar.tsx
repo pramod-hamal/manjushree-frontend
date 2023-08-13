@@ -53,7 +53,7 @@ const SidebarItems = ({ minimize }: any) => {
                 : "text-white hover:text-black hover:bg-gray-200"
             } gap-5 items-center  cursor-pointer px-5 text-xs`}
           >
-            <span className="py-5">{sidebarItem.icon}</span>
+            <div className="py-5">{sidebarItem.icon}</div>
             <p
               className={`transition-all text-sm ${
                 !minimize ? "block" : "hidden"

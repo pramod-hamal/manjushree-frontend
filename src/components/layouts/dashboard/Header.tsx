@@ -15,7 +15,7 @@ export default function Header() {
           className="w-8"
           src="/images/logo.svg"
         />
-        <span className="text-lg">Support Coordinator</span>
+        <h3 className="text-lg">Support Coordinator</h3>
       </div>
       <div className="flex gap-5 items-center">
         <BellOutlined />

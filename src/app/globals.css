@@ -1,0 +1,51 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    /* border-radius: 50% !important; */
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    /* border-radius: 50px !important; */
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+body{
+  background: #F8F8F8 !important;
+}
+
+/* remove border radius of ant design select component */
+:where(.css-dev-only-do-not-override-1w4v3hc).ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector{
+  border-radius: 0px !important;
+}
+
+/* remove border radius of ant design input component */
+:where(.css-dev-only-do-not-override-1w4v3hc).ant-input {
+  border-radius: 0px !important;
+}
+
+/* remove padding of collapsable header */
+.alert-tag :where(.css-dev-only-do-not-override-1w4v3hc).ant-collapse-borderless >.ant-collapse-item:last-child, :where(.css-dev-only-do-not-override-1w4v3hc).ant-collapse-borderless >.ant-collapse-item:last-child .ant-collapse-header{
+  padding: 0 !important;
+}
+
+.alert-tag .ant-collapse-content-box{
+  padding:0 !important;
+}

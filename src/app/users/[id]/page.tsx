@@ -7,6 +7,7 @@ import CusTabs from "@/components/tabs/Tabsleanq_support_coordinator";
 
 import ProfileHeader from "./components/ProfileHeader";
 import EdituserForm from "./components/EditUserForm";
+import UserRoles from "./components/UserRoles";
 
 const items: any[] = [
   {
@@ -18,7 +19,7 @@ const items: any[] = [
   {
     label: "Role",
     key: "2",
-    children: <>Role</>,
+    children: <UserRoles />,
     icon: <HeartOutlined />,
   },
 ];

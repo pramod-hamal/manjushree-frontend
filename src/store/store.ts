@@ -1,10 +1,12 @@
 "use client";
 
 import { configureStore } from "@reduxjs/toolkit";
+import { sessionReducer } from "./session/sessionSlice";
 
 export const stores = configureStore({
     // Root Reducers
     reducer: {
+        session:sessionReducer
     },
     // Initializing create api middlewares
     middleware:(getDefaultMiddleware)=> getDefaultMiddleware({})

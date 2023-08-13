@@ -1,9 +1,11 @@
-import dynamic from "next/dynamic";
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
+import dynamic from "next/dynamic";
 
+// Code Splitting and Dynamic loading Component making it client side rendering
 const Draggable = dynamic(
   () => import("@hello-pangea/dnd").then((res) => res.Draggable),
+  // ssr:false makes component to load on client side
   { ssr: false }
 );
 

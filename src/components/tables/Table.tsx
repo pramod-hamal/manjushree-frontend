@@ -26,30 +26,40 @@ export default function CusTable(tableProps: CusTableProps) {
     onRowClick,
     renderFooter,
   }: CusTableProps = tableProps;
+
+  const getSelectionType = selectionType
+    ? {
+        type: selectionType ?? undefined,
+      }
+    : undefined;
+
+  /**
+   * Handle Row Click Events
+   * @param {any} record:any
+   * @param {any} _:any
+   * @returns {any}
+   */
+  const onRow = (record: any, _: any): any => {
+    return {
+      onClick: (_: any) => {
+        onRowClick(record);
+      },
+    };
+  };
+
   return (
     <Table
       showSorterTooltip={true}
       columns={columns}
       footer={renderFooter}
-      rowSelection={
-        selectionType
-          ? {
-              type: selectionType ?? undefined,
-            }
-          : undefined
-      }
+      rowSelection={getSelectionType}
       dataSource={dataSource}
       bordered={bordered}
+      rowClassName={onRowClick ? "cursor-pointer" : ""}
       sticky={sticky}
       pagination={pagination}
       loading={loading}
-      onRow={(record: any, _: any) => {
-        return {
-          onClick: (_: any) => {
-            onRowClick(record);
-          },
-        };
-      }}
+      onRow={onRow}
     />
   );
 }

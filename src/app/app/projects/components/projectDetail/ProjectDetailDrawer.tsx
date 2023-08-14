@@ -10,7 +10,7 @@ export interface ProjectDetailDrawerProps {
 }
 
 export default function ProjectDetailDrawer({ open, handleDrawerToogle }: any) {
-  const [childrenDrawer, setChildrenDrawer] = useState<boolean>(true);
+  const [childrenDrawer, setChildrenDrawer] = useState<boolean>(false);
 
   const showChildrenDrawer = () => setChildrenDrawer(true);
 

@@ -1,25 +1,25 @@
-export const routes={
+export const routes = {
       // auth
-      login:"/auth/login",
-      forgetPassword:"/auth/forgetPassword",
+      login: "/auth/login",
+      forgetPassword: "/auth/forgetPassword",
       //dashboard
-      dashboard:"/dashboard",
+      dashboard: "/app/dashboard",
       // user
-      users:"/users",
-      addUser:"/users/add",
-      userProfile:(id:string|number)=> `/users/${id}`,
+      users: "/app/users",
+      addUser: "/app/users/add",
+      userProfile: (id: string | number) => `/app/users/${id}`,
       // projects
-      projects:"/projects",
-      addProjects:"/projects/add",
+      projects: "/app/projects",
+      addProjects: "/app/projects/add",
       // participants
-      participants:"/participants",
-      addParticipants:"/participants/add",
-      participantDetails:"/participantDetail",
+      participants: "/app/participants",
+      addParticipants: "/app/participants/add",
+      participantDetails: "/app/participants/participantDetail",
       // roles
-      roles:"/roles",
+      roles: "/app/roles",
       // contacts
-      individualContact:"/contact/individual",
-      addIndividualContact:"/contact/individual/add",
-      organizationalContact:"/contact/organizational",
-      addOrganizationalContact:"/contact/organizational/add",
+      individualContact: "/app/contact/individual",
+      addIndividualContact: "/app/contact/individual/add",
+      organizationalContact: "/app/contact/organizational",
+      addOrganizationalContact: "/app/contact/organizational/add",
 }

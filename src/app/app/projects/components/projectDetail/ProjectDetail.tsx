@@ -12,7 +12,7 @@ export default function ProjectDetail() {
         <h3 className="text-2xl">
           Personal Information - Update info does not work and displays an error
         </h3>
-        <p className="text-gray-500 text-sm">
+        <p className="text-sm text-gray-500">
           The individual appears to be in good overall health. They have a
           normal body mass index (BMI) and no known chronic medical conditions.
           They engage in regular exercise and follow a balanced diet. They
@@ -28,7 +28,7 @@ export default function ProjectDetail() {
             width={100}
             height={100}
             alt="asd"
-            className="hover:scale:105 transition-all hover:shadow cursor-pointer rounded-full w-8 h-8"
+            className="w-8 h-8 transition-all rounded-full cursor-pointer hover:scale:105 hover:shadow"
             src={"https://randomuser.me/api/portraits/men/75.jpg"}
           />
         </div>
@@ -38,14 +38,14 @@ export default function ProjectDetail() {
             width={100}
             height={100}
             alt="asd"
-            className="hover:scale:105 transition-all hover:shadow cursor-pointer rounded-full w-8 h-8"
+            className="w-8 h-8 transition-all rounded-full cursor-pointer hover:scale:105 hover:shadow"
             src={"https://randomuser.me/api/portraits/men/75.jpg"}
           />
         </div>
       </div>
       <Divider />
       <div className="flex justify-between">
-        <h3 className="text-xl m-0">Tasks </h3>
+        <h3 className="m-0 text-xl">Tasks </h3>
         <FlatButton
           icon={<PlusOutlined />}
           title="Add Task"
@@ -64,7 +64,7 @@ const TaskLists = ({ tasks }: { tasks: any[] }) => {
       {tasks.map((task: any, index: number) => {
         return (
           <div
-            className="bg-white transition-all shadow p-3 my-5 hover:shadow-lg cursor-pointer hover:scale-105"
+            className="p-3 my-5 transition-all bg-white shadow cursor-pointer hover:shadow-lg hover:scale-105"
             key={index}
           >
             <p className="w-full text-sm font-semibold">Personal Information</p>
@@ -79,7 +79,7 @@ const TaskLists = ({ tasks }: { tasks: any[] }) => {
                   width={100}
                   height={100}
                   alt="asd"
-                  className="hover:scale:105 transition-all hover:shadow cursor-pointer rounded-full w-8 h-8"
+                  className="w-8 h-8 transition-all rounded-full cursor-pointer hover:scale:105 hover:shadow"
                   src={"https://randomuser.me/api/portraits/men/75.jpg"}
                 />
               </div>

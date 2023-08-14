@@ -17,7 +17,7 @@ export default function OrganizationalContactForm() {
   const { formik, renderFormFields } = useFormBuilder({
     initialValues,
     formFields,
-    onSubmit: () => {},
+    onSubmit: () => { },
   });
 
   return (
@@ -32,7 +32,7 @@ export default function OrganizationalContactForm() {
             <FormInput
               errors={""}
               name=""
-              onChange={() => {}}
+              onChange={() => { }}
               label="URL"
               placeHolder="Select Organization"
               value={""}
@@ -40,7 +40,7 @@ export default function OrganizationalContactForm() {
             <FormInput
               errors={""}
               name=""
-              onChange={() => {}}
+              onChange={() => { }}
               label="Service"
               placeHolder="Select Organization"
               value={""}
@@ -57,14 +57,14 @@ export default function OrganizationalContactForm() {
               <span className="text-primary-danger text-sm">*</span>
               <span>Address</span>
             </div>
-            <MapComponent />
+            <MapComponent center={{ lat: 45, lng: 45 }} getLocation={() => { }} />
           </div>
         </div>
         <div className="flex gap-10 items-center">
           <FlatButton title="Submit" type="submit" />
           <FlatButton
             title="Cancel"
-            onClick={() => {}}
+            onClick={() => { }}
             color="text-black bg-white  border-1 border-gray-100"
           />
         </div>

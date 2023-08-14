@@ -4,9 +4,9 @@ import UsersList from "./components/UsersList";
 
 export default function Users() {
   return (
-    <div className="w-full flex flex-col gap-5">
+    <div className="flex flex-col w-full gap-5">
       <PageHeader title="Users" />
-      <div className="bg-white p-5 shadow">
+      <div className="p-5 bg-white shadow">
         <UsersList />
       </div>
     </div>

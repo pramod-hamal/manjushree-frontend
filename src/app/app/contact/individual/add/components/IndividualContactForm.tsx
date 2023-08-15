@@ -12,7 +12,9 @@ import { TextAreaInput } from "@/components/form/FormInputleanq_support_coordina
 import MapComponent, {
   LatLng,
 } from "@/components/map/Mapleanq_support_coordinator";
-import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
+import FlatButton, {
+  CancelButton,
+} from "@/components/buttons/Buttonleanq_support_coordinator";
 
 export default function IndividualContactForm() {
   const { location, error } = useCurrentLocation();
@@ -71,11 +73,7 @@ export default function IndividualContactForm() {
         </div>
         <div className="flex gap-10 items-center">
           <FlatButton title="Submit" type="submit" />
-          <FlatButton
-            title="Cancel"
-            onClick={() => {}}
-            color="text-black bg-white  border-1 border-gray-100"
-          />
+          <CancelButton />
         </div>
       </form>
     </div>

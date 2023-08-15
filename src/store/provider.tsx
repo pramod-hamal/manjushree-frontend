@@ -5,12 +5,9 @@ import { Provider } from "react-redux";
 import { stores } from "./store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AppProgressBar } from "next-nprogress-bar";
+import withAuth from "@/lib/withAuthleanq_support_coordinator";
 
-export default function StoreProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+function StoreProvider({ children }: { children: React.ReactNode }) {
   const [queryClient] = React.useState(() => new QueryClient());
   return (
     <QueryClientProvider client={queryClient}>
@@ -24,3 +21,5 @@ export default function StoreProvider({
     </QueryClientProvider>
   );
 }
+
+export default withAuth(StoreProvider);

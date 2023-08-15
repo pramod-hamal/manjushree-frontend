@@ -4,7 +4,14 @@ import {
 } from "@/constants/endpointsleanq_support_coordinator";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const baseQuery = fetchBaseQuery({ baseUrl: baseUrl, headers: {} });
+const baseQuery = fetchBaseQuery({
+  baseUrl: baseUrl,
+  prepareHeaders: (headers: Headers) => {
+    // prepare headers for api requests
+    // const token: string | null = localStorage.getItem("token");
+    // token && headers.set("Authorization", "Bearer " + token);
+  },
+});
 
 export const projectsApi = createApi({
   baseQuery,

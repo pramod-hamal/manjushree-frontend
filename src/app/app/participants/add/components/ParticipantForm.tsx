@@ -3,7 +3,9 @@ import React, { useState } from "react";
 import PersonalDetail from "./PersonalDetail";
 import ReferenceNumbers from "./ReferenceNumbers";
 import { useFormik } from "formik";
-import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
+import FlatButton, {
+  CancelButton,
+} from "@/components/buttons/Buttonleanq_support_coordinator";
 import SuccessModal from "./SuccessModal";
 
 export default function ParticipantForm() {
@@ -24,11 +26,7 @@ export default function ParticipantForm() {
       <ReferenceNumbers formik={addParticipantsFormik} />
       <div className="flex gap-10 items-center">
         <FlatButton title="Submit" type="submit" />
-        <FlatButton
-          title="Cancel"
-          onClick={() => {}}
-          color="text-black bg-white shadow"
-        />
+        <CancelButton />
       </div>
       <SuccessModal show={showModal} onClose={() => setShowModal(false)} />
     </div>

@@ -3,6 +3,14 @@ import { Drawer } from "antd";
 
 import ProjectDetail from "./ProjectDetail";
 import AddTask from "./AddTask";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/store/hooksleanq_support_coordinator";
+import {
+  projectData,
+  toogleTaskDrawer,
+} from "@/store/features/projects/projectSliceleanq_support_coordinator";
 
 export interface ProjectDetailDrawerProps {
   open: boolean;
@@ -10,11 +18,13 @@ export interface ProjectDetailDrawerProps {
 }
 
 export default function ProjectDetailDrawer({ open, handleDrawerToogle }: any) {
-  const [childrenDrawer, setChildrenDrawer] = useState<boolean>(false);
+  const { showTaskDrawer } = useAppSelector(projectData);
 
-  const showChildrenDrawer = () => setChildrenDrawer(true);
+  const dispatch = useAppDispatch();
 
-  const onChildrenDrawerClose = () => setChildrenDrawer(false);
+  const onChildrenDrawerClose = () => {
+    dispatch(toogleTaskDrawer(false));
+  };
 
   return (
     <Drawer
@@ -26,13 +36,12 @@ export default function ProjectDetailDrawer({ open, handleDrawerToogle }: any) {
       open={open}
     >
       <ProjectDetail />
-
       <Drawer
         title="Add Task"
         width={500}
         closable={false}
         onClose={onChildrenDrawerClose}
-        open={childrenDrawer}
+        open={showTaskDrawer}
       >
         <AddTask />
       </Drawer>

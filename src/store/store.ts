@@ -1,16 +1,31 @@
 "use client";
 
-import { configureStore } from "@reduxjs/toolkit";
-import { sessionReducer } from "./session/sessionSlice";
+import {  configureStore } from "@reduxjs/toolkit";
+
+import { projectReducer } from "./features/projects/projectSlice";
+
+import { projectsApi } from "./features/projects/apiSlice";
+import { contactApi } from "./features/contact/apiSlice";
+import { participantsApi } from "./features/participants/apiSlice";
+import { usersApi } from "./features/users/apiSlice";
 
 export const stores = configureStore({
     // Root Reducers
     reducer: {
-        session:sessionReducer
+        projects:projectReducer,
+        [projectsApi.reducerPath]:projectsApi.reducer,
+        [contactApi.reducerPath]:contactApi.reducer,
+        [participantsApi.reducerPath]:participantsApi.reducer,
+        [usersApi.reducerPath]:usersApi.reducer
     },
     // Initializing create api middlewares
     middleware:(getDefaultMiddleware)=> getDefaultMiddleware({})
-    .concat()
+    .concat(
+        projectsApi.middleware,
+        contactApi.middleware,
+        participantsApi.middleware,
+        usersApi.middleware
+    )
 });
 
 // create types for state and dispatch

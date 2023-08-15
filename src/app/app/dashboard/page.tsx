@@ -1,5 +1,7 @@
-import PageHeader from "@/components/headers/PageHeaderleanq_support_coordinator";
 import React from "react";
+import { Metadata } from "next";
+
+import PageHeader from "@/components/headers/PageHeaderleanq_support_coordinator";
 import StatusCard, { StatusCardProps } from "./components/StatusCard";
 import {
   FolderOutlined,
@@ -8,6 +10,11 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import ParticipantEnrolledChart from "./components/ParticipantEnrolledChart";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  description: "Support Coordinator Dashboard",
+};
 
 export default function Dashboard() {
   return (

@@ -1,21 +1,11 @@
-"use client"
+"use client";
 
-import React, { useEffect } from "react";
-import { useSession } from "@/hooks/useSessionleanq_support_coordinator";
-import { useRouter } from "next/navigation";
+import React from "react";
 
 export default function AuthLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    const router = useRouter();
-    const session = useSession();
-
-    useEffect(() => {
-        if (session) {
-            router.replace("/dashboard")
-        }
-    }, [session]);
-    return <>{children}</>;
+  return <>{children}</>;
 }

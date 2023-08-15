@@ -1,21 +1,6 @@
-"use client"
-
-import { useSession } from "@/hooks/useSessionleanq_support_coordinator";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export default function Home() {
-  const router = useRouter();
-  const session = useSession();
-
-  useEffect(() => {
-    if (!session) {
-      router.replace("/auth/login")
-    } else {
-      router.replace("/app")
-    }
-  }, [session]);
   return (
     <div className="flex items-center justify-center h-screen ">
       <div className="flex flex-col items-center gap-5 animate-pulse">

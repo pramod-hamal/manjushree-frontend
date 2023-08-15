@@ -5,9 +5,10 @@ import PageHeader from "@/components/headers/PageHeaderleanq_support_coordinator
 import ParticipantList from "./components/ParticipantList";
 
 export const metadata: Metadata = {
-  title: "Support Coordinator",
+  title: "Participants",
   description: "",
 };
+
 export default function ParticipantsPage() {
   return (
     <div className="w-full flex flex-col gap-5">

@@ -5,5 +5,5 @@ export interface PageHeaderProps {
 }
 
 export default function PageHeader({ title }: PageHeaderProps) {
-  return <div className="text-2xl">{title}</div>;
+  return <div className="py-5 text-2xl">{title}</div>;
 }

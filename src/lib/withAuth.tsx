@@ -15,7 +15,7 @@ const withAuth = (WrappedComponent: any) => {
           router.push(path === "/auth/login" ? "/app/dashboard" : path);
         }
       }
-    }, [path, router]);
+    }, []);
     return <WrappedComponent {...props} />;
   };
 

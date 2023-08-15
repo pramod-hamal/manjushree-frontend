@@ -68,8 +68,10 @@ export default function ServiceForm() {
         </CollapsePanel>
       </Collapse>
       {/* Charge Item Table */}
+      <h3 className="text-2xl font-semibold m-0 pb-5">Charge List</h3>
       <ChargeItemList />
       {/* Selected Charge Item Table */}
+      <h3 className="text-2xl font-semibold m-0 pb-5">Selected Charge List</h3>
       <SelectedChargeItemList />
       <div className="flex gap-5 items-center">
         <FlatButton title="Submit" onClick={() => formik.handleSubmit()} />

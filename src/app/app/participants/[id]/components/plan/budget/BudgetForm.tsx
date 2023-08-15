@@ -1,7 +1,9 @@
 import React from "react";
 import { useFormik } from "formik";
 
-import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
+import FlatButton, {
+  CancelButton,
+} from "@/components/buttons/Buttonleanq_support_coordinator";
 
 import CapitalSupport from "./forms/CapitalSupport";
 import CapacitySupport from "./forms/CapacitySupport";
@@ -17,7 +19,7 @@ export default function BudgetForm() {
     onSubmit: (values: any) => {},
   });
   return (
-    <form className="p-5 gap-5 flex flex-col" onSubmit={formik.handleSubmit}>
+    <form className=" gap-5 flex flex-col" onSubmit={formik.handleSubmit}>
       <h3 className="text-2xl font-semibold m-0">Funded Support</h3>
       <div className="flex flex-col gap-5">
         <CoreSupport formik={formik} />
@@ -26,11 +28,7 @@ export default function BudgetForm() {
       </div>
       <div className="flex gap-5 items-center">
         <FlatButton title="Submit" onClick={() => {}} />
-        <FlatButton
-          title="Cancel"
-          onClick={() => {}}
-          color="text-black bg-white shadow border"
-        />
+        <CancelButton />
       </div>
     </form>
   );

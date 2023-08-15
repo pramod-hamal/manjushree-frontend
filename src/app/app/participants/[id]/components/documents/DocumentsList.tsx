@@ -49,7 +49,7 @@ export default function DocumentsList() {
       </div>
       <CusModal
         show={show}
-        style={{ right: "-34%", top: "34%", borderRadius: 0 }}
+        // style={{ right: "-34%", top: "34%", borderRadius: 0 }}
         onClose={() => {
           setShow(false);
         }}

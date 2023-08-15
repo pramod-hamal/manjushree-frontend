@@ -2,7 +2,9 @@ import React from "react";
 import { useFormik } from "formik";
 import { PlusOutlined } from "@ant-design/icons";
 
-import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
+import FlatButton, {
+  CancelButton,
+} from "@/components/buttons/Buttonleanq_support_coordinator";
 import { SearchInput } from "@/components/form/FormInputleanq_support_coordinator";
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
 
@@ -38,11 +40,7 @@ export default function ContactForm() {
       </div>
       <div className="flex gap-10 items-center">
         <FlatButton title="Submit" onClick={() => {}} />
-        <FlatButton
-          title="Cancel"
-          onClick={() => {}}
-          color="text-black bg-white shadow"
-        />
+        <CancelButton />
       </div>
     </form>
   );

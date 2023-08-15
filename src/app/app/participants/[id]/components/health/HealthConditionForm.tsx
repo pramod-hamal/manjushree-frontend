@@ -2,7 +2,9 @@ import React from "react";
 
 import useFormBuilder from "@/hooks/useFormBuilderleanq_support_coordinator";
 
-import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
+import FlatButton, {
+  CancelButton,
+} from "@/components/buttons/Buttonleanq_support_coordinator";
 
 export default function HealthConditionForm() {
   const { formik, renderFormFields } = useFormBuilder({
@@ -41,11 +43,7 @@ export default function HealthConditionForm() {
       <div className="flex flex-col gap-5">{renderFormFields()}</div>
       <div className="flex gap-10 items-center">
         <FlatButton title="Submit" onClick={() => {}} />
-        <FlatButton
-          title="Cancel"
-          onClick={() => {}}
-          color="text-black bg-white shadow"
-        />
+        <CancelButton />
       </div>
     </form>
   );

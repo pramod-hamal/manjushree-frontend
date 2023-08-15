@@ -1,4 +1,6 @@
-import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
+import FlatButton, {
+  CancelButton,
+} from "@/components/buttons/Buttonleanq_support_coordinator";
 import FileUpload from "@/components/form/FileUploadleanq_support_coordinator";
 import useFormBuilder from "@/hooks/useFormBuilderleanq_support_coordinator";
 import React from "react";
@@ -35,11 +37,7 @@ export default function NewDocumentForm() {
       </div>
       <div className="flex gap-10 items-center">
         <FlatButton title="Submit" onClick={() => {}} />
-        <FlatButton
-          title="Cancel"
-          onClick={() => {}}
-          color="text-black bg-white shadow"
-        />
+        <CancelButton />
       </div>
     </form>
   );

@@ -8,14 +8,23 @@ import { projectsApi } from "./features/projects/apiSlice";
 import { contactApi } from "./features/contact/apiSlice";
 import { participantsApi } from "./features/participants/apiSlice";
 import { usersApi } from "./features/users/apiSlice";
+import { participantDetailPlanReducer } from "./features/participants/detail/plan/slice";
 
 export const stores = configureStore({
     // Root Reducers
     reducer: {
+        // projects
         projects:projectReducer,
         [projectsApi.reducerPath]:projectsApi.reducer,
+        
+        // contact
         [contactApi.reducerPath]:contactApi.reducer,
+        
+        // participant
+        participantDetailPlan:participantDetailPlanReducer,
         [participantsApi.reducerPath]:participantsApi.reducer,
+
+        // Users
         [usersApi.reducerPath]:usersApi.reducer
     },
     // Initializing create api middlewares

@@ -11,7 +11,8 @@ import {
 
 import KanbanBoard from "@/components/dnd/DndBoardleanq_support_coordinator";
 import { SearchInput } from "@/components/form/FormInputleanq_support_coordinator";
-import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
+import NavigateButton from "@/components/buttons/Navigateleanq_support_coordinator";
+import { routes } from "@/constants/routesleanq_support_coordinator";
 
 export type Mode = "table" | "kanban";
 
@@ -42,10 +43,10 @@ export default function Projects() {
           <div className="w-[360px]">
             <SearchInput placeHolder="Search Existing" />
           </div>
-          <FlatButton
+          <NavigateButton
             icon={<PlusOutlined />}
             title="Add New"
-            onClick={() => {}}
+            link={routes.addProjects}
           />
         </div>
         {mode === "kanban" ? <KanbanBoard /> : <ProjectsList />}

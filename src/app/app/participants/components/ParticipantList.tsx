@@ -6,10 +6,10 @@ import { PlusOutlined } from "@ant-design/icons";
 
 import { routes } from "@/constants/routesleanq_support_coordinator";
 
-import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
 import CusTable from "@/components/tables/Tableleanq_support_coordinator";
 import { SearchInput } from "@/components/form/FormInputleanq_support_coordinator";
 import { participants } from "@/constants/data/participantsleanq_support_coordinator";
+import NavigateButton from "@/components/buttons/Navigateleanq_support_coordinator";
 
 export default function ParticipantList() {
   const router = useRouter();
@@ -40,12 +40,10 @@ export default function ParticipantList() {
         <div className="w-[360px]">
           <SearchInput placeHolder="Search Existing" />
         </div>
-        <FlatButton
+        <NavigateButton
           icon={<PlusOutlined />}
           title="Add New"
-          onClick={() => {
-            router.push(routes.addParticipants);
-          }}
+          link={routes.addParticipants}
         />
       </div>
       <CusTable

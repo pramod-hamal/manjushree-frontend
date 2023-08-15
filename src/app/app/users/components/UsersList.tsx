@@ -4,12 +4,12 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { PlusOutlined } from "@ant-design/icons";
 
-import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
 import CusTable from "@/components/tables/Tableleanq_support_coordinator";
 import { SearchInput } from "@/components/form/FormInputleanq_support_coordinator";
 
 import { routes } from "@/constants/routesleanq_support_coordinator";
 import { users } from "@/constants/data/usersleanq_support_coordinator";
+import NavigateButton from "@/components/buttons/Navigateleanq_support_coordinator";
 
 export default function UsersList() {
   const router = useRouter();
@@ -44,12 +44,10 @@ export default function UsersList() {
         <div className="w-[360px]">
           <SearchInput placeHolder="Search Existing" />
         </div>
-        <FlatButton
+        <NavigateButton
           icon={<PlusOutlined />}
           title="Add New"
-          onClick={() => {
-            router.push(routes.addUser);
-          }}
+          link={routes.addUser}
         />
       </div>
       <CusTable

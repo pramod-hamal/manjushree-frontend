@@ -1,12 +1,18 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
+  ArrowDownOutlined,
+  ArrowUpOutlined,
+  BankOutlined,
+  ContactsOutlined,
   DashboardOutlined,
   LogoutOutlined,
   MenuOutlined,
+  TeamOutlined,
+  UnlockOutlined,
   UnorderedListOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -16,8 +22,9 @@ import { routes } from "@/constants/routesleanq_support_coordinator";
 export default function Sidebar({ minimize, handleToogle }: any) {
   return (
     <div
-      className={`z-20 xs:hidden md:block transition-all bg-gradient-to-br from-violet-600 to-indigo-600 fixed h-[100vh] ${minimize ? "w-[55px]" : "w-[13%]"
-        } md:block text-white flex flex-col gap-5`}
+      className={`z-20 xs:hidden md:block transition-all bg-gradient-to-br from-violet-600 to-indigo-600 fixed h-[100vh] ${
+        minimize ? "w-[55px]" : "w-[13%]"
+      } md:block text-white flex flex-col gap-5`}
     >
       <div className="flex flex-col justify-between h-full">
         <div>
@@ -42,19 +49,31 @@ const SidebarItems = ({ minimize }: any) => {
   return (
     <div>
       {sidebarItems.map((sidebarItem: SidebarItem, index: number) => {
+        if (sidebarItem.children) {
+          return (
+            <SidebarItemsDropdown
+              key={index}
+              index={index}
+              item={sidebarItem}
+              minimize={minimize}
+            />
+          );
+        }
         return (
           <Link
             key={index}
             href={sidebarItem.link}
-            className={`flex no-underline ${path.includes(sidebarItem.link)
+            className={`flex no-underline ${
+              path.includes(sidebarItem.link)
                 ? " text-black bg-white"
                 : "text-white hover:text-black hover:bg-gray-200"
-              } gap-5 items-center  cursor-pointer px-5 text-xs`}
+            } gap-5 items-center  cursor-pointer px-5 text-xs`}
           >
             <div className="py-5">{sidebarItem.icon}</div>
             <p
-              className={`transition-all text-sm ${!minimize ? "block" : "hidden"
-                }`}
+              className={`transition-all text-sm ${
+                !minimize ? "block" : "hidden"
+              }`}
             >
               {sidebarItem.title}
             </p>
@@ -62,6 +81,79 @@ const SidebarItems = ({ minimize }: any) => {
         );
       })}
     </div>
+  );
+};
+
+export interface SidebarItemsDropdownProps {
+  item: SidebarItem;
+  index: number;
+  minimize: boolean;
+}
+
+const SidebarItemsDropdown = ({
+  item,
+  index,
+  minimize,
+}: SidebarItemsDropdownProps) => {
+  const path: string = usePathname();
+  const [show, setShow] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (path.includes("contact")) {
+      setShow(true);
+    }
+  }, [path]);
+
+  return (
+    <>
+      <div
+        onClick={() => setShow(!show)}
+        key={index}
+        className={`flex no-underline ${
+          minimize && path.includes("/app/contact")
+            ? " text-black bg-white"
+            : "text-white hover:text-black hover:bg-gray-200"
+        } gap-5 items-center justify-between cursor-pointer px-5 text-xs`}
+      >
+        <div className="flex gap-5 items-center">
+          <div className="py-5">{item.icon}</div>
+          <p
+            className={`transition-all text-sm ${
+              !minimize ? "block" : "hidden"
+            }`}
+          >
+            {item.title}
+          </p>
+        </div>
+        {!minimize && (!show ? <ArrowDownOutlined /> : <ArrowUpOutlined />)}
+      </div>
+      {show && !minimize && (
+        <div className="transition-all">
+          {item?.children?.map((sidebarItem: any, index: number) => {
+            return (
+              <Link
+                key={index}
+                href={sidebarItem.link}
+                className={`flex no-underline ${
+                  path.includes(sidebarItem.link)
+                    ? " text-black bg-white"
+                    : "text-white hover:text-black hover:bg-gray-200"
+                } gap-5 items-center  cursor-pointer px-8 text-xs`}
+              >
+                <div className="py-5">{sidebarItem.icon}</div>
+                <p
+                  className={`transition-all text-sm ${
+                    !minimize ? "block" : "hidden"
+                  }`}
+                >
+                  {sidebarItem.title}
+                </p>
+              </Link>
+            );
+          })}
+        </div>
+      )}
+    </>
   );
 };
 
@@ -81,7 +173,7 @@ const sidebarItems: SidebarItem[] = [
   {
     link: routes.participants,
     title: "Participants",
-    icon: <UserOutlined style={{ fontSize: 14 }} />,
+    icon: <TeamOutlined style={{ fontSize: 14 }} />,
   },
   {
     link: routes.users,
@@ -96,12 +188,12 @@ const sidebarItems: SidebarItem[] = [
   {
     link: routes.roles,
     title: "Role and Permission",
-    icon: <UnorderedListOutlined style={{ fontSize: 14 }} />,
+    icon: <UnlockOutlined style={{ fontSize: 14 }} />,
   },
   {
     link: "#",
     title: "Contact",
-    icon: <UserOutlined style={{ fontSize: 14 }} />,
+    icon: <ContactsOutlined style={{ fontSize: 14 }} />,
     children: [
       {
         link: "/app/contact/individual",
@@ -111,7 +203,7 @@ const sidebarItems: SidebarItem[] = [
       {
         link: "/app/contact/organizational",
         title: "Organizational",
-        icon: <UserOutlined style={{ fontSize: 14 }} />,
+        icon: <BankOutlined style={{ fontSize: 14 }} />,
       },
     ],
   },

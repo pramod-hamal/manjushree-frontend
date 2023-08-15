@@ -32,7 +32,7 @@ export default function HealthList() {
       <CusModal
         show={show}
         // title="Health Condition"
-        style={{ right: "-34%", top: "34%", borderRadius: 0 }}
+        // style={{ right: "-34%", top: "34%", borderRadius: 0 }}
         onClose={() => {
           setShow(false);
         }}

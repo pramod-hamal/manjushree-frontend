@@ -5,6 +5,7 @@ import CusTable from "@/components/tables/Tableleanq_support_coordinator";
 import { budgets } from "@/constants/data/budgetleanq_support_coordinator";
 import CusModal from "@/components/modals/Modalleanq_support_coordinator";
 import BudgetForm from "./BudgetForm";
+import CusDrawer from "@/components/drawer/Drawerleanq_support_coordinator";
 
 export default function Budget() {
   const [show, setShow] = useState<boolean>(false);
@@ -14,11 +15,18 @@ export default function Budget() {
       <div className="flex  w-full items-center justify-between">
         <span className="text-lg font-semibold">Budget</span>
         <div>
-          <FlatButton title="update" onClick={() => setShow(true)} />
+          <FlatButton title="Update" onClick={() => setShow(true)} />
         </div>
       </div>
       <BudgetList />
-      <CusModal
+      <CusDrawer
+        width={1000}
+        open={show}
+        handleDrawerToogle={() => setShow(false)}
+      >
+        <BudgetForm />
+      </CusDrawer>
+      {/* <CusModal
         show={show}
         width={1183}
         style={{ borderRadius: 0 }}
@@ -27,7 +35,7 @@ export default function Budget() {
         }}
       >
         <BudgetForm />
-      </CusModal>
+      </CusModal> */}
     </div>
   );
 }

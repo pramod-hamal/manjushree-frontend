@@ -3,8 +3,8 @@ import { PlusOutlined } from "@ant-design/icons";
 
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
 import CusTable from "@/components/tables/Tableleanq_support_coordinator";
-import CusModal from "@/components/modals/Modalleanq_support_coordinator";
 import ServiceForm from "./form/ServiceForm";
+import CusDrawer from "@/components/drawer/Drawerleanq_support_coordinator";
 
 export default function ServiceList() {
   const [show, setShow] = useState<boolean>(false);
@@ -30,9 +30,14 @@ export default function ServiceList() {
       <div>
         <CusTable columns={columns} dataSource={[]} loading={false} />
       </div>
-      <CusModal width={1000} show={show} onClose={() => setShow(false)}>
+      <CusDrawer open={show} handleDrawerToogle={() => setShow(false)}>
         <ServiceForm />
-      </CusModal>
+      </CusDrawer>
+      {/* <CusModal
+        width={1000}
+        show={show}
+        onClose={() => setShow(false)}
+      ></CusModal> */}
     </div>
   );
 }

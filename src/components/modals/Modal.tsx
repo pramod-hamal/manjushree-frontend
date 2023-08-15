@@ -32,6 +32,7 @@ export default function CusModal({
       open={showModal}
       onOk={() => {}}
       style={style}
+      centered={true}
       footer={false}
       width={width}
       onCancel={onClose}

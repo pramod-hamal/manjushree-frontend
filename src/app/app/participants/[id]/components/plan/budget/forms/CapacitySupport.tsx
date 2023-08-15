@@ -8,7 +8,7 @@ import CusCheckbox from "@/components/form/Checkboxleanq_support_coordinator";
 
 export default function CapacitySupport() {
   return (
-    <div className="border border-solid border-gray-300 p-5 rounded flex flex-col gap-5">
+    <div className="rounded flex flex-col gap-5">
       <SupportTitleHeader title="Capacity Support" />
       <div className="grid grid-cols-2 gap-5 w-full ">
         <FormInput

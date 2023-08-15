@@ -1,6 +1,8 @@
 import React from "react";
 
-import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
+import FlatButton, {
+  CancelButton,
+} from "@/components/buttons/Buttonleanq_support_coordinator";
 import { TextAreaInput } from "@/components/form/FormInputleanq_support_coordinator";
 
 export default function NewNoteForm() {
@@ -19,11 +21,7 @@ export default function NewNoteForm() {
       </div>
       <div className="flex gap-5 items-center">
         <FlatButton title="Create" onClick={() => {}} />
-        <FlatButton
-          title="Cancel"
-          onClick={() => {}}
-          color="text-black bg-white shadow border"
-        />
+        <CancelButton />
       </div>
     </form>
   );

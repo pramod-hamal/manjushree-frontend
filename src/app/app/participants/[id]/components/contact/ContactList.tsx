@@ -38,7 +38,7 @@ export default function ContactList() {
       <CusModal
         width={625}
         show={show}
-        style={{ right: "-31%", top: "34%", borderRadius: 0 }}
+        // style={{ right: "-31%", top: "34%", borderRadius: 0 }}
         onClose={() => {
           setShow(false);
         }}

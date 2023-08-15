@@ -24,18 +24,19 @@ export default function ProfileTags() {
         {[1, 1].map((tag: any, index: number) => {
           return (
             <div key={index}>
-              <Tag title="Tag" onDelete={() => { }} onEdit={() => { }} />
+              <Tag title="Tag" onDelete={() => {}} onEdit={() => {}} />
             </div>
           );
         })}
         <CusModal
           onClose={() => setShow(false)}
-          style={{ top: "34%", left: "-28%" }}
+          // style={{ top: "34%", left: "-28%" }}
           show={show}
           width={300}
         >
           <TagForm />
         </CusModal>
-      </div></>
+      </div>
+    </>
   );
 }

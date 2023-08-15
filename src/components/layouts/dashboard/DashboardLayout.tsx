@@ -1,20 +1,22 @@
 "use client";
 
-import React, { memo, useState } from "react";
+import React, { memo } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
+import { appState, AppState, LayoutState } from "@/store/features/appSliceleanq_support_coordinator";
 
 function DashboardLayoutComponent({ children }: { children: React.ReactNode }) {
-  const [minimize, setMinize] = useState<boolean>(false);
-  const handleToogle = () => setMinize(!minimize);
+  const { layoutState }: AppState = useAppSelector(appState);
+
+  const { minimized }: LayoutState = layoutState;
 
   return (
     <div className="flex transition-all">
-      <Sidebar minimize={minimize} handleToogle={handleToogle} />
+      <Sidebar />
       <main
-        className={`transition-all flex flex-col ${
-          minimize ? "pl-[55px] w-[97%]" : "pl-[13%] w-[87%]"
-        } `}
+        className={`transition-all flex flex-col ${minimized ? "pl-[55px] w-[97%]" : "pl-[13%] w-[87%]"
+          } `}
       >
         <Header />
         <section className="p-5">{children}</section>

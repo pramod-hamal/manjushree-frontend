@@ -1,6 +1,6 @@
 "use client";
 
-import {  configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 
 import { projectReducer } from "./features/projects/projectSlice";
 
@@ -9,32 +9,35 @@ import { contactApi } from "./features/contact/apiSlice";
 import { participantsApi } from "./features/participants/apiSlice";
 import { usersApi } from "./features/users/apiSlice";
 import { participantDetailPlanReducer } from "./features/participants/detail/plan/slice";
+import { appReducer } from "./features/appSlice";
 
 export const stores = configureStore({
     // Root Reducers
     reducer: {
+        //appstate
+        app: appReducer,
         // projects
-        projects:projectReducer,
-        [projectsApi.reducerPath]:projectsApi.reducer,
-        
+        projects: projectReducer,
+        [projectsApi.reducerPath]: projectsApi.reducer,
+
         // contact
-        [contactApi.reducerPath]:contactApi.reducer,
-        
+        [contactApi.reducerPath]: contactApi.reducer,
+
         // participant
-        participantDetailPlan:participantDetailPlanReducer,
-        [participantsApi.reducerPath]:participantsApi.reducer,
+        participantDetailPlan: participantDetailPlanReducer,
+        [participantsApi.reducerPath]: participantsApi.reducer,
 
         // Users
-        [usersApi.reducerPath]:usersApi.reducer
+        [usersApi.reducerPath]: usersApi.reducer
     },
     // Initializing create api middlewares
-    middleware:(getDefaultMiddleware)=> getDefaultMiddleware({})
-    .concat(
-        projectsApi.middleware,
-        contactApi.middleware,
-        participantsApi.middleware,
-        usersApi.middleware
-    )
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({})
+        .concat(
+            projectsApi.middleware,
+            contactApi.middleware,
+            participantsApi.middleware,
+            usersApi.middleware
+        )
 });
 
 // create types for state and dispatch

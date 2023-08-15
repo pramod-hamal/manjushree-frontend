@@ -9,22 +9,22 @@ import FlatButton, {
 import SuccessModal from "./SuccessModal";
 
 export default function ParticipantForm() {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   const addParticipantsFormik = useFormik({
     initialValues: {
       personalDetail: {},
       referenceNumbers: [],
     },
-    onSubmit: () => {},
+    onSubmit: () => { },
   });
 
   return (
-    <div className="p-5 flex flex-col gap-5">
+    <div className="flex flex-col gap-5 p-5">
       <PersonalDetail />
       <div />
       <ReferenceNumbers formik={addParticipantsFormik} />
-      <div className="flex gap-10 items-center">
+      <div className="flex items-center gap-10">
         <FlatButton title="Submit" type="submit" />
         <CancelButton />
       </div>

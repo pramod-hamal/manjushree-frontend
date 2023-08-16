@@ -3,23 +3,23 @@ export const routes = {
       login: "/auth/login",
       forgetPassword: "/auth/forgetPassword",
       //dashboard
-      dashboard: "/app/dashboard",
+      dashboard: "/dashboard",
       // user
-      users: "/app/users",
-      addUser: "/app/users/add",
-      userProfile: (id: string | number) => `/app/users/${id}`,
+      users: "/users",
+      addUser: "/users/add",
+      userProfile: (id: string | number) => `/users/${id}`,
       // projects
-      projects: "/app/projects",
-      addProjects: "/app/projects/add",
+      projects: "/projects",
+      addProjects: "/projects/add",
       // participants
-      participants: "/app/participants",
-      addParticipants: "/app/participants/add",
-      participantDetails: "/app/participants/participantDetail",
+      participants: "/participants",
+      addParticipants: "/participants/add",
+      participantDetails: "/participants/participantDetail",
       // roles
-      roles: "/app/roles",
+      roles: "/roles",
       // contacts
-      individualContact: "/app/contact/individual",
-      addIndividualContact: "/app/contact/individual/add",
-      organizationalContact: "/app/contact/organizational",
-      addOrganizationalContact: "/app/contact/organizational/add",
+      individualContact: "/contact/individual",
+      addIndividualContact: "/contact/individual/add",
+      organizationalContact: "/contact/organizational",
+      addOrganizationalContact: "/contact/organizational/add",
 }

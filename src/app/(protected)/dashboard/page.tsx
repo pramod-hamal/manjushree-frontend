@@ -9,7 +9,16 @@ import {
   UserAddOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import ParticipantEnrolledChart from "./components/ParticipantEnrolledChart";
+
+const ParticipantEnrolledChart = dynamic(
+  () => import("./components/ParticipantEnrolledChart"),
+  {
+    ssr: false,
+    loading: () => <>loading</>,
+  }
+);
+
+import dynamic from "next/dynamic";
 
 export const metadata: Metadata = {
   title: "Dashboard",

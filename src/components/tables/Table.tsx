@@ -1,6 +1,12 @@
 import React from "react";
-import { Table } from "antd";
 import type { TablePaginationConfig } from "antd/es/table";
+import dynamic from "next/dynamic";
+import SkeletonTable from "../loaders/TableSkeleton";
+
+const ClientTableComponent = dynamic(() => import("antd/es/table"), {
+  ssr: false,
+  loading: () => <SkeletonTable />,
+});
 
 export interface CusTableProps {
   columns: any[];
@@ -48,7 +54,7 @@ export default function CusTable(tableProps: CusTableProps) {
   };
 
   return (
-    <Table
+    <ClientTableComponent
       showSorterTooltip={true}
       columns={columns}
       footer={renderFooter}

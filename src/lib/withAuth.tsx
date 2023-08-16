@@ -12,10 +12,10 @@ const withAuth = (WrappedComponent: any) => {
         if (token === null) {
           router.replace("/auth/login");
         } else {
-          router.push(path === "/auth/login" ? "/app/dashboard" : path);
+          router.push(path === "/auth/login" ? "/dashboard" : path);
         }
       }
-    }, []);
+    }, [path, router]);
     return <WrappedComponent {...props} />;
   };
 

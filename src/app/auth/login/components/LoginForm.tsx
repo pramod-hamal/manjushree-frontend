@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FormikHelpers, useFormik } from "formik";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
@@ -14,30 +15,47 @@ import FormInput, {
 } from "@/components/form/FormInputleanq_support_coordinator";
 
 import { routes } from "@/constants/routesleanq_support_coordinator";
+import { useSignInMutation } from "@/store/features/auth/apiSliceleanq_support_coordinator";
+import { LoginFormDTO } from "../interface/loginFormDTO";
+import {
+  APIBaseResponse,
+  LoginResponseData,
+} from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
 
-interface LoginFormDTO {
-  username: string;
-  password: string;
-  rememberMe: boolean;
-}
+const initialValues: LoginFormDTO = {
+  email: "leanq@digital.com",
+  password: "Pa$$w0rd",
+};
+
+const validationSchema = yup.object().shape({
+  email: yup.string().required("Required"),
+  password: yup.string().required("Required"),
+});
 
 export default function LoginForm() {
-  const initialValues: LoginFormDTO = {
-    username: "",
-    password: "",
-    rememberMe: false,
-  };
+  const router = useRouter();
+  const [login] = useSignInMutation();
 
-  const validationSchema = yup.object().shape({
-    username: yup.string().required("Required"),
-    password: yup.string().required("Required"),
-  });
-
-  const handleLogin = (
-    values: any,
+  const handleLogin = async (
+    values: LoginFormDTO,
     { setSubmitting }: FormikHelpers<LoginFormDTO>
   ) => {
-    console.log(values);
+    try {
+      const { data, error }: any = await login(values);
+      if (data) {
+        const responseData: APIBaseResponse<LoginResponseData | any, null> =
+          data;
+        localStorage.setItem("token", responseData.data.accessToken);
+        router.push("/dashboard");
+      } else {
+        const errorData: APIBaseResponse<any, null> = error.data;
+        console.log(errorData);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const formik = useFormik({
@@ -51,11 +69,11 @@ export default function LoginForm() {
       <div className="flex flex-col gap-3">
         <FormInput
           prefix={<UserOutlined className="text-primary-title pr-4" />}
-          name="username"
-          placeHolder="Username"
-          errors={formik.errors?.username}
+          name="email"
+          placeHolder="Email"
+          errors={formik.errors?.email}
           onChange={formik.handleChange}
-          value={formik.values.username}
+          value={formik.values.email}
         />
         <PasswordFormInput
           prefix={<LockOutlined className="text-primary-title pr-4" />}
@@ -69,7 +87,7 @@ export default function LoginForm() {
       <div className="flex items-center justify-between py-3">
         <CusCheckbox
           name="rememberPassword"
-          value={formik.values.rememberMe}
+          value={false}
           onChange={formik.handleChange}
           title="Remember Password"
         />

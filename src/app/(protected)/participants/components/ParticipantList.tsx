@@ -6,33 +6,20 @@ import { PlusOutlined } from "@ant-design/icons";
 
 import { routes } from "@/constants/routesleanq_support_coordinator";
 
+import { useAllParticipantsQuery } from "@/store/features/participants/apiSliceleanq_support_coordinator";
+import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
+import { participantState } from "@/store/features/participants/participantSliceleanq_support_coordinator";
+import { ParticipanSliceState } from "@/store/features/participants/interface/participantStateleanq_support_coordinator";
+
 import CusTable from "@/components/tables/Tableleanq_support_coordinator";
 import { SearchInput } from "@/components/form/FormInputleanq_support_coordinator";
-import { participants } from "@/constants/data/participantsleanq_support_coordinator";
 import NavigateButton from "@/components/buttons/Navigateleanq_support_coordinator";
 
 export default function ParticipantList() {
   const router = useRouter();
-  const columns: any = [
-    { title: "Full Name", dataIndex: "fullName" },
-    { title: "Email", dataIndex: "email" },
-    { title: "Phone No", dataIndex: "phoneNo" },
-    { title: "NIDS Number", dataIndex: "nidsNo" },
-    {
-      title: "Status",
-      dataIndex: "status",
-      render: (status: number) => (
-        <div
-          className={`px-4 text-xs text-center py-2  text-white ${getStatusBackground(
-            status
-          )}`}
-        >
-          {getStatusTitle(status)}
-        </div>
-      ),
-      width: 150,
-    },
-  ];
+  const { isLoading }: any = useAllParticipantsQuery("");
+  const { participants, paginationMeta }: ParticipanSliceState =
+    useAppSelector(participantState);
 
   return (
     <div className="flex flex-col">
@@ -50,13 +37,37 @@ export default function ParticipantList() {
         onRowClick={(data: any) => {
           router.push(routes.participantDetails);
         }}
+        paginationMeta={paginationMeta}
         columns={columns}
         dataSource={participants}
-        loading={false}
+        loading={isLoading}
       />
     </div>
   );
 }
+
+const columns: any = [
+  { title: "First Name", dataIndex: "firstName" },
+  { title: "Middle Name", dataIndex: "middleName" },
+  { title: "Last Name", dataIndex: "lastName" },
+  { title: "Email", dataIndex: "email" },
+  { title: "Phone No", dataIndex: "phone" },
+  { title: "NIDS Number", dataIndex: "ndisNumber" },
+  {
+    title: "Status",
+    dataIndex: "status",
+    render: (status: number) => (
+      <div
+        className={`px-4 text-xs text-center py-2  text-white ${getStatusBackground(
+          status
+        )}`}
+      >
+        {getStatusTitle(status)}
+      </div>
+    ),
+    width: 150,
+  },
+];
 
 /**
  * Get Status Background Color using user status

@@ -2,9 +2,11 @@ import {
   baseUrl,
   endpoints,
 } from "@/constants/endpointsleanq_support_coordinator";
+import { getHeader } from "@/lib/getHeadersleanq_support_coordinator";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { ParticipantAddDTO } from "./interface/addPrticipantDTO";
 
-const baseQuery = fetchBaseQuery({ baseUrl: baseUrl, headers: {} });
+const baseQuery = fetchBaseQuery({ baseUrl: baseUrl, headers: getHeader() });
 
 export const participantsApi = createApi({
   baseQuery,
@@ -16,7 +18,7 @@ export const participantsApi = createApi({
      * @returns {any}
      */
     allParticipants: build.query<any, string>({
-      query: ({ limit }: any) => endpoints.participants.all(limit),
+      query: () => endpoints.participants.all,
     }),
     /**
      * Add new Participant
@@ -24,7 +26,7 @@ export const participantsApi = createApi({
      * @returns {any}
      */
     addParticipant: build.mutation<any, any>({
-      query: (participantData) => ({
+      query: (participantData: ParticipantAddDTO) => ({
         url: endpoints.participants.add,
         method: "POST",
         body: participantData,

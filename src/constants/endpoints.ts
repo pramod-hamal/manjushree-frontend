@@ -11,7 +11,7 @@ export const endpoints={
     update:""    
   },
   participants:{
-    all :(limit:number)=>`/participants?limit=${limit}`,
+    all :`/participants`,
     add :"/participants",
     update :""
   },

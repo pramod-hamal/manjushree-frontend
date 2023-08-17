@@ -2,6 +2,7 @@ import React from "react";
 import type { TablePaginationConfig } from "antd/es/table";
 import dynamic from "next/dynamic";
 import SkeletonTable from "../loaders/TableSkeleton";
+import { PaginationMetaDTO } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
 
 const ClientTableComponent = dynamic(() => import("antd/es/table"), {
   ssr: false,
@@ -18,6 +19,7 @@ export interface CusTableProps {
   renderFooter?: any;
   pagination?: false | TablePaginationConfig | undefined;
   onRowClick?: any;
+  paginationMeta?: PaginationMetaDTO;
 }
 
 export default function CusTable(tableProps: CusTableProps) {
@@ -29,6 +31,7 @@ export default function CusTable(tableProps: CusTableProps) {
     sticky = true,
     selectionType,
     pagination,
+    paginationMeta,
     onRowClick,
     renderFooter,
   }: CusTableProps = tableProps;
@@ -63,7 +66,13 @@ export default function CusTable(tableProps: CusTableProps) {
       bordered={bordered}
       rowClassName={onRowClick ? "cursor-pointer" : ""}
       sticky={sticky}
-      pagination={pagination}
+      pagination={
+        paginationMeta
+          ? {
+              pageSize: paginationMeta.page_total,
+            }
+          : pagination
+      }
       loading={loading}
       onRow={onRow}
     />

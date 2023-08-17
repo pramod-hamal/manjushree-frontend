@@ -10,29 +10,32 @@ import { participantsApi } from "./features/participants/apiSlice";
 import { usersApi } from "./features/users/apiSlice";
 import { participantDetailPlanReducer } from "./features/participants/detail/plan/slice";
 import { appReducer } from "./features/appSlice";
+import { authApi } from "./features/auth/apiSlice";
+import { authSlice } from "./features/auth/authSlice";
 
 export const stores = configureStore({
     // Root Reducers
     reducer: {
         //appstate
         app: appReducer,
+        // auth
+        auth:authSlice.reducer,
+        [authApi.reducerPath]:authApi.reducer,
         // projects
         projects: projectReducer,
         [projectsApi.reducerPath]: projectsApi.reducer,
-
         // contact
         [contactApi.reducerPath]: contactApi.reducer,
-
         // participant
         participantDetailPlan: participantDetailPlanReducer,
         [participantsApi.reducerPath]: participantsApi.reducer,
-
         // Users
         [usersApi.reducerPath]: usersApi.reducer
     },
     // Initializing create api middlewares
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({})
         .concat(
+            authApi.middleware,
             projectsApi.middleware,
             contactApi.middleware,
             participantsApi.middleware,

@@ -8,7 +8,7 @@ const baseQuery = fetchBaseQuery({ baseUrl: baseUrl, headers: {} });
 
 export const participantsApi = createApi({
   baseQuery,
-  reducerPath: "",
+  reducerPath: "participantsApi",
   endpoints: (build) => ({
     /**
      * Get All Participants
@@ -16,7 +16,7 @@ export const participantsApi = createApi({
      * @returns {any}
      */
     allParticipants: build.query<any, string>({
-      query: () => endpoints.projects.all,
+      query: ({ limit }: any) => endpoints.participants.all(limit),
     }),
     /**
      * Add new Participant

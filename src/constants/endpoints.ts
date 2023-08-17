@@ -1,15 +1,19 @@
-export const baseUrl:string = "https://christhapa98.github.io/fake-api/";
+export const baseUrl:string = "https://scbe.leanq.digital";
 
 export const endpoints={
+  auth:{
+    signIn:"/auth/sign-in",
+    geMe:"/auth/me"
+  },
   projects:{
-    add : baseUrl+"",
-    all : baseUrl+"items.json",
-    update:baseUrl+""    
+    add :"",
+    all :"",
+    update:""    
   },
   participants:{
-    all : baseUrl+"",
-    add : baseUrl+"",
-    update : baseUrl + ""
+    all :(limit:number)=>`/participants?limit=${limit}`,
+    add :"/participants",
+    update :""
   },
   contact:{
     individual:{

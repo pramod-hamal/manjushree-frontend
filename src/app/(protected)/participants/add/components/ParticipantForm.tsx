@@ -12,6 +12,8 @@ import { useAddParticipantMutation } from "@/store/features/participants/apiSlic
 import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
 import { useRouter } from "next/navigation";
 import { Participant } from "@/store/features/participants/interface/participantStateleanq_support_coordinator";
+import { useToast } from "@/lib/ToastProviderleanq_support_coordinator";
+import { defaultDateFormat } from "@/lib/date.utilsleanq_support_coordinator";
 
 const initialValues: ParticipantAddDTO = {
   firstName: "",
@@ -28,6 +30,7 @@ const initialValues: ParticipantAddDTO = {
 };
 
 export default function ParticipantForm() {
+  const showToast = useToast();
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
 
@@ -38,15 +41,26 @@ export default function ParticipantForm() {
     { setSubmitting }: any
   ) => {
     try {
-      const participantData = { ...values, phone: Number(values.phone) };
+      const participantData = {
+        ...values,
+        dateOfBirth: defaultDateFormat(new Date(values.dateOfBirth)),
+      };
       const { data, error }: any = await add(participantData);
       if (data) {
         const responseData: APIBaseResponse<Participant, null> = data;
+        showToast({
+          title: "Participant Added",
+          type: "success",
+        });
         addParticipantsFormik.resetForm();
         router.back();
       } else {
         const errorData: APIBaseResponse<any, null> = error.data;
-        console.log(errorData);
+        showToast({
+          title: errorData.message,
+          description: errorData.error?.message,
+          type: "error",
+        });
       }
     } catch (error) {
     } finally {

@@ -23,9 +23,9 @@ export default function ProfileHeader() {
         />
         <div className="flex flex-col">
           <span className="text-lg flex font-semibold gap-3">
-            {participantDetail?.firstName}
-            {participantDetail?.middleName}
-            {participantDetail?.lastName}
+            <span> {participantDetail?.firstName}</span>
+            <span> {participantDetail?.middleName}</span>
+            <span> {participantDetail?.lastName}</span>
           </span>
           <span className="text-gray-400 text-sm">Primary Diagnosis</span>
         </div>

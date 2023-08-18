@@ -5,7 +5,6 @@ import CusSelect from "@/components/form/Selectleanq_support_coordinator";
 
 export default function PersonalDetail({ formik, disabled }: any) {
   const { handleChange, values, errors } = formik;
-  console.log(values);
   return (
     <div>
       <span className="text-2xl font-semibold ">Personal details</span>

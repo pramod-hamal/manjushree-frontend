@@ -8,11 +8,12 @@ import { projectsApi } from "./features/projects/apiSlice";
 import { contactApi } from "./features/contact/apiSlice";
 import { participantsApi } from "./features/participants/apiSlice";
 import { usersApi } from "./features/users/apiSlice";
-import { participantDetailPlanReducer } from "./features/participants/detail/plan/slice";
 import { appReducer } from "./features/appSlice";
 import { authApi } from "./features/auth/apiSlice";
 import { authSlice } from "./features/auth/authSlice";
 import { participantReducer } from "./features/participants/participantSlice";
+import { participantDetailReducer } from "./features/participants/detail/participantDetailSlice";
+import { participantDetailApi } from "./features/participants/detail/apiSlice";
 
 export const stores = configureStore({
     // Root Reducers
@@ -29,8 +30,9 @@ export const stores = configureStore({
         [contactApi.reducerPath]: contactApi.reducer,
         // participant
         participant:participantReducer,
-        participantDetailPlan: participantDetailPlanReducer,
+        participantDetail:participantDetailReducer,
         [participantsApi.reducerPath]: participantsApi.reducer,
+        [participantDetailApi.reducerPath]:participantDetailApi.reducer,
         // Users
         [usersApi.reducerPath]: usersApi.reducer
     },
@@ -41,7 +43,8 @@ export const stores = configureStore({
             projectsApi.middleware,
             contactApi.middleware,
             participantsApi.middleware,
-            usersApi.middleware
+            participantDetailApi.middleware,
+            usersApi.middleware,
         )
 });
 

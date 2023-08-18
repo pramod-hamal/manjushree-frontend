@@ -1,4 +1,7 @@
 export interface ParticipantAddDTO {
+  id?: number|null;
+  createdAt?: Date;
+  updatedAt?: Date;
   firstName: string;
   middleName: string;
   lastName: string;
@@ -8,7 +11,8 @@ export interface ParticipantAddDTO {
   gender: string;
   pronouns: string;
   preferredLanguage: string;
-  ndisNumber: number;
+  ndisNumber: number|string;
+  primaryCoordinator?: null;
   referenceNo: ReferenceNo[];
 }
 

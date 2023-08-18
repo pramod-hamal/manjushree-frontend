@@ -35,7 +35,8 @@ export default function ParticipantList() {
       </div>
       <CusTable
         onRowClick={(data: any) => {
-          router.push(routes.participantDetails);
+          const id = data.id;
+          router.push(routes.participantDetails(id));
         }}
         paginationMeta={paginationMeta}
         columns={columns}

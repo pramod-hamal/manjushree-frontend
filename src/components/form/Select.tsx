@@ -10,6 +10,7 @@ export interface CusSelectProps {
   label?: string;
   errors?: any;
   required?: boolean;
+  disabled?: boolean;
 }
 
 export interface CusSelectOption {
@@ -29,6 +30,7 @@ export default function CusSelect(selectProps: CusSelectProps) {
         </div>
       )}
       <Select
+        disabled={selectProps.disabled}
         className="w-full rounded-none text-sm placeholder:text-sm"
         size="large"
         value={selectProps.value}

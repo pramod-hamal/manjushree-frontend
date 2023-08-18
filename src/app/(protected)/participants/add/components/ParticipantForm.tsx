@@ -66,10 +66,7 @@ export default function ParticipantForm() {
       const { data, error }: any = await add(participantData);
       if (data) {
         const responseData: APIBaseResponse<Participant, null> = data;
-        showToast({
-          title: "Participant Added",
-          type: "success",
-        });
+        setShowModal(true);
         addParticipantsFormik.resetForm();
         router.back();
       } else {

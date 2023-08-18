@@ -26,6 +26,7 @@ export interface PaginationMetaDTO{
   next?:number|null,
   previous?:number|null,
   page?:number|null,
+  onPageChange?:()=>{} |null
 }
 
 

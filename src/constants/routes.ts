@@ -14,7 +14,7 @@ export const routes = {
       // participants
       participants: "/participants",
       addParticipants: "/participants/add",
-      participantDetails: "/participants/participantDetail",
+      participantDetails: (id:number|string)=>"/participants/"+id,
       // roles
       roles: "/roles",
       // contacts

@@ -55,7 +55,6 @@ export default function CusTable(tableProps: CusTableProps) {
       },
     };
   };
-
   return (
     <ClientTableComponent
       showSorterTooltip={true}
@@ -70,6 +69,11 @@ export default function CusTable(tableProps: CusTableProps) {
         paginationMeta
           ? {
               pageSize: paginationMeta.page_total,
+              pageSizeOptions: [5, 10, 20, 30, 50, 100],
+              total: paginationMeta.total_pages,
+              onChange(page, pageSize) {
+                console.log(page, pageSize);
+              },
             }
           : pagination
       }

@@ -1,19 +1,24 @@
 "use client";
 import React, { useState } from "react";
-import PersonalDetail from "./PersonalDetail";
-import ReferenceNumbers from "./ReferenceNumbers";
+import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
-import FlatButton, {
-  CancelButton,
-} from "@/components/buttons/Buttonleanq_support_coordinator";
-import SuccessModal from "./SuccessModal";
+import * as yup from "yup";
+
+import { Participant } from "@/store/features/participants/interface/participantStateleanq_support_coordinator";
 import { ParticipantAddDTO } from "@/store/features/participants/interface/addPrticipantDTOleanq_support_coordinator";
 import { useAddParticipantMutation } from "@/store/features/participants/apiSliceleanq_support_coordinator";
 import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
-import { useRouter } from "next/navigation";
-import { Participant } from "@/store/features/participants/interface/participantStateleanq_support_coordinator";
+
 import { useToast } from "@/lib/ToastProviderleanq_support_coordinator";
 import { defaultDateFormat } from "@/lib/date.utilsleanq_support_coordinator";
+
+import FlatButton, {
+  CancelButton,
+} from "@/components/buttons/Buttonleanq_support_coordinator";
+
+import SuccessModal from "./SuccessModal";
+import PersonalDetail from "./PersonalDetail";
+import ReferenceNumbers from "./ReferenceNumbers";
 
 const initialValues: ParticipantAddDTO = {
   firstName: "",
@@ -29,6 +34,18 @@ const initialValues: ParticipantAddDTO = {
   referenceNo: [],
 };
 
+const validationSchema = yup.object().shape({
+  firstName: yup.string().required("Required"),
+  lastName: yup.string().required("Required"),
+  phone: yup.number().required("Required"),
+  email: yup.string().required("Required"),
+  gender: yup.string().required("Required"),
+  dateOfBirth: yup.number().required("Required"),
+  preferredLanguage: yup.string().required("Required"),
+  pronouns: yup.string().required("Required"),
+  ndisNumber: yup.number().required("Required"),
+});
+
 export default function ParticipantForm() {
   const showToast = useToast();
   const [showModal, setShowModal] = useState(false);
@@ -43,6 +60,7 @@ export default function ParticipantForm() {
     try {
       const participantData = {
         ...values,
+        phone: values.phone.toString(),
         dateOfBirth: defaultDateFormat(new Date(values.dateOfBirth)),
       };
       const { data, error }: any = await add(participantData);
@@ -71,6 +89,7 @@ export default function ParticipantForm() {
   const addParticipantsFormik = useFormik({
     initialValues,
     onSubmit,
+    validationSchema,
   });
 
   return (

@@ -1,7 +1,11 @@
 "use client";
+
 import PersonalDetail from "@/app/(protected)/participants/add/components/PersonalDetailleanq_support_coordinator";
 import ReferenceNumbers from "@/app/(protected)/participants/add/components/ReferenceNumbersleanq_support_coordinator";
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
+import { useToast } from "@/lib/ToastProviderleanq_support_coordinator";
+import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
+import { useUpdateProfileMutation } from "@/store/features/participants/detail/apiSliceleanq_support_coordinator";
 import {
   participantDetailState,
   toogleEdit,
@@ -15,13 +19,41 @@ import { useFormik } from "formik";
 import React, { useEffect } from "react";
 
 export default function EditProfile() {
+  const showToast = useToast();
   const { participantDetail, disabled } = useAppSelector(
     participantDetailState
   );
+  const [update] = useUpdateProfileMutation();
   const dispatch = useAppDispatch();
 
-  const handleEdit = (values: any, { setSubmitting }: any) => {
-    console.log(values);
+  const handleEdit = async (values: any, { setSubmitting }: any) => {
+    try {
+      const { data, error }: any = await update(values);
+      if (data) {
+        const responseData: APIBaseResponse<any, any> = data;
+        showToast({
+          title: responseData.message,
+          description: "Profile edited successfull",
+          type: "success",
+        });
+      } else {
+        const errorData: APIBaseResponse<any, null> = error.data;
+        showToast({
+          title: errorData.message,
+          description: errorData.error?.message,
+          type: "error",
+        });
+      }
+      dispatch(toogleEdit(!disabled));
+    } catch (error: any) {
+      showToast({
+        title: "Something Went Wrong",
+        description: error?.message,
+        type: "error",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const formik = useFormik({
@@ -37,7 +69,7 @@ export default function EditProfile() {
       };
       formik.setValues(participantDetailData);
     }
-  }, [formik, participantDetail]);
+  }, [participantDetail]);
 
   return (
     <div className="relative">
@@ -53,7 +85,11 @@ export default function EditProfile() {
         <ReferenceNumbers formik={formik} editMode={true} disabled={disabled} />
         {!disabled && (
           <div>
-            <FlatButton title="Edit" type="submit" />
+            <FlatButton
+              loading={formik.isSubmitting}
+              title="Update"
+              type="submit"
+            />
           </div>
         )}
       </form>

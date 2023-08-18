@@ -4,6 +4,7 @@ import {
 } from "@/constants/endpointsleanq_support_coordinator";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { ParticipantAddDTO } from "./interface/addPrticipantDTO";
+import { ParticipantDetail } from "./detail/participantDetailSlice";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseUrl,
@@ -46,9 +47,9 @@ export const participantsApi = createApi({
      * @returns {any}
      */
     updateParticipant: build.mutation<any, any>({
-      query: (toUpdateParticipantData) => ({
-        url: endpoints.participants.update,
-        method: "POST",
+      query: (toUpdateParticipantData: ParticipantDetail) => ({
+        url: endpoints.participants.update(toUpdateParticipantData.id!),
+        method: "PUT",
         body: toUpdateParticipantData,
       }),
     }),

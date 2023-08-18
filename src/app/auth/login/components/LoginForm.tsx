@@ -21,6 +21,7 @@ import {
   APIBaseResponse,
   LoginResponseData,
 } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
+import { useToast } from "@/lib/ToastProviderleanq_support_coordinator";
 
 const initialValues: LoginFormDTO = {
   email: "leanq@digital.com",
@@ -33,6 +34,7 @@ const validationSchema = yup.object().shape({
 });
 
 export default function LoginForm() {
+  const showToast = useToast();
   const router = useRouter();
   const [login] = useSignInMutation();
 
@@ -46,10 +48,18 @@ export default function LoginForm() {
         const responseData: APIBaseResponse<LoginResponseData | any, null> =
           data;
         localStorage.setItem("token", responseData.data.accessToken);
+        showToast({
+          title: "Login Successfull",
+          type: "success",
+        });
         router.push("/dashboard");
       } else {
         const errorData: APIBaseResponse<any, null> = error.data;
-        console.log(errorData);
+        showToast({
+          title: errorData.message,
+          description: errorData.error?.message,
+          type: "error",
+        });
       }
     } catch (error) {
       console.log(error);

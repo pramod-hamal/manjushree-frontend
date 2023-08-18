@@ -2,11 +2,19 @@ import {
   baseUrl,
   endpoints,
 } from "@/constants/endpointsleanq_support_coordinator";
-import { getHeader } from "@/lib/getHeadersleanq_support_coordinator";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { ParticipantAddDTO } from "./interface/addPrticipantDTO";
 
-const baseQuery = fetchBaseQuery({ baseUrl: baseUrl, headers: getHeader() });
+const baseQuery = fetchBaseQuery({
+  baseUrl: baseUrl,
+  prepareHeaders: (headers, api) => {
+    const token: string | null = localStorage.getItem("token");
+    if (token) {
+      headers.set("Authorization", "Bearer " + token);
+    }
+    return;
+  },
+});
 
 export const participantsApi = createApi({
   baseQuery,

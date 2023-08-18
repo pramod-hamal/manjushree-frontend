@@ -13,25 +13,25 @@ import { APIBaseResponse } from "@/store/features/auth/interface/api.responselea
 import { useRouter } from "next/navigation";
 import { Participant } from "@/store/features/participants/interface/participantStateleanq_support_coordinator";
 
+const initialValues: ParticipantAddDTO = {
+  firstName: "",
+  middleName: "",
+  lastName: "",
+  phone: "",
+  email: "",
+  gender: "",
+  dateOfBirth: "",
+  preferredLanguage: "",
+  pronouns: "",
+  ndisNumber: 0,
+  referenceNo: [],
+};
+
 export default function ParticipantForm() {
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
 
   const [add] = useAddParticipantMutation();
-
-  const initialValues: ParticipantAddDTO = {
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    gender: "",
-    dateOfBirth: "",
-    preferredLanguage: "",
-    pronouns: "",
-    ndisNumber: 0,
-    referenceNo: [],
-  };
 
   const onSubmit = async (
     values: ParticipantAddDTO,
@@ -42,6 +42,7 @@ export default function ParticipantForm() {
       const { data, error }: any = await add(participantData);
       if (data) {
         const responseData: APIBaseResponse<Participant, null> = data;
+        addParticipantsFormik.resetForm();
         router.back();
       } else {
         const errorData: APIBaseResponse<any, null> = error.data;

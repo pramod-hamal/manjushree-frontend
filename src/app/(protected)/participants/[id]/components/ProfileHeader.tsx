@@ -1,9 +1,17 @@
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
+import {
+  ParticipantDetailSlice,
+  participantDetailState,
+} from "@/store/features/participants/detail/participantDetailSliceleanq_support_coordinator";
+import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
 import { EditOutlined, EyeOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import React from "react";
 
 export default function ProfileHeader() {
+  const { participantDetail }: ParticipantDetailSlice = useAppSelector(
+    participantDetailState
+  );
   return (
     <div className="flex items center justify-between">
       <div className="flex gap-10 items-center">
@@ -14,7 +22,11 @@ export default function ProfileHeader() {
           alt="Profile"
         />
         <div className="flex flex-col">
-          <span className="text-lg font-semibold">Katherine James</span>
+          <span className="text-lg flex font-semibold gap-3">
+            {participantDetail?.firstName}
+            {participantDetail?.middleName}
+            {participantDetail?.lastName}
+          </span>
           <span className="text-gray-400 text-sm">Primary Diagnosis</span>
         </div>
       </div>

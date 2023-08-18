@@ -3,8 +3,9 @@ import React from "react";
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
 
-export default function PersonalDetail({ formik }: any) {
+export default function PersonalDetail({ formik, disabled }: any) {
   const { handleChange, values, errors } = formik;
+  console.log(values);
   return (
     <div>
       <span className="text-2xl font-semibold ">Personal details</span>
@@ -17,6 +18,7 @@ export default function PersonalDetail({ formik }: any) {
             required={true}
             onChange={handleChange}
             value={values.firstName}
+            disabled={disabled}
           />
           <FormInput
             errors={errors?.middleName}
@@ -25,6 +27,7 @@ export default function PersonalDetail({ formik }: any) {
             required={true}
             onChange={handleChange}
             value={values.middleName}
+            disabled={disabled}
           />
           <FormInput
             errors={errors?.lastName}
@@ -33,6 +36,7 @@ export default function PersonalDetail({ formik }: any) {
             required={true}
             onChange={handleChange}
             value={values.lastName}
+            disabled={disabled}
           />
           <FormInput
             errors={errors?.phone}
@@ -42,6 +46,7 @@ export default function PersonalDetail({ formik }: any) {
             required={true}
             onChange={handleChange}
             value={values.phone}
+            disabled={disabled}
           />
           <FormInput
             errors={errors?.email}
@@ -50,6 +55,7 @@ export default function PersonalDetail({ formik }: any) {
             required={true}
             onChange={handleChange}
             value={values.email}
+            disabled={disabled}
           />
           <FormInput
             errors={errors?.dateOfBirth}
@@ -59,9 +65,11 @@ export default function PersonalDetail({ formik }: any) {
             onChange={handleChange}
             type="date"
             value={values.dateOfBirth}
+            disabled={disabled}
           />
           <CusSelect
             value={values.gender}
+            disabled={disabled}
             options={[
               { value: "male", label: "Male" },
               { value: "female", label: "Female" },
@@ -81,6 +89,7 @@ export default function PersonalDetail({ formik }: any) {
             required={true}
             onChange={handleChange}
             value={values.preferredLanguage}
+            disabled={disabled}
           />
 
           <FormInput
@@ -90,6 +99,7 @@ export default function PersonalDetail({ formik }: any) {
             required={true}
             onChange={handleChange}
             value={values.pronouns}
+            disabled={disabled}
           />
           <FormInput
             errors={errors?.ndisNumber}
@@ -99,6 +109,7 @@ export default function PersonalDetail({ formik }: any) {
             type="number"
             onChange={handleChange}
             value={values.ndisNumber}
+            disabled={disabled}
           />
         </div>
       </div>

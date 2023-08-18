@@ -2,8 +2,11 @@ import React from "react";
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
+import { useAppDispatch } from "@/store/hooksleanq_support_coordinator";
 
-export default function ReferenceNumbers({ formik }: any) {
+export default function ReferenceNumbers({ formik, disabled, editMode }: any) {
+  const dispatch = useAppDispatch();
+
   const addNewreferenceElement = () =>
     formik.setFieldValue("referenceNo", [
       ...formik.values.referenceNo,
@@ -27,10 +30,11 @@ export default function ReferenceNumbers({ formik }: any) {
     <div className="flex flex-col gap-5">
       <span className="text-2xl font-semibold ">Reference Numbers</span>
       <div className="w-full flex gap-5 gap-x-8 flex-col">
-        {formik.values.referenceNo.map((references: any, index: number) => {
+        {formik.values.referenceNo?.map((references: any, index: number) => {
           return (
             <div className="grid grid-cols-2 gap-8" key={index}>
               <FormInput
+                disabled={disabled}
                 value={references.title}
                 name="title"
                 placeHolder="Text Here"
@@ -49,6 +53,7 @@ export default function ReferenceNumbers({ formik }: any) {
                   <FormInput
                     label="Reference Number"
                     value={references.value}
+                    disabled={disabled}
                     required={true}
                     placeHolder="Text Here"
                     name="value"
@@ -73,7 +78,7 @@ export default function ReferenceNumbers({ formik }: any) {
       </div>
       <div
         className="flex text-primary-title gap-2 bg-white"
-        onClick={addNewreferenceElement}
+        onClick={disabled ? () => {} : addNewreferenceElement}
       >
         <PlusOutlined />
         <span>Add Reference</span>

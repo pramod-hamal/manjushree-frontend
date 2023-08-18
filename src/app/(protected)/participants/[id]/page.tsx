@@ -3,6 +3,7 @@
 import {
   BarChartOutlined,
   ContactsOutlined,
+  EditFilled,
   FileOutlined,
   FolderOutlined,
   HeartOutlined,
@@ -18,6 +19,16 @@ import ContactList from "./components/contact/ContactList";
 import Plan from "./components/plan/Plan";
 import NotesList from "./components/notes/NotesList";
 import Profile from "./components/profile/Profile";
+import { useGetUserByIdQuery } from "@/store/features/participants/detail/apiSliceleanq_support_coordinator";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/store/hooksleanq_support_coordinator";
+import {
+  ParticipantDetailSlice,
+  participantDetailState,
+} from "@/store/features/participants/detail/participantDetailSliceleanq_support_coordinator";
+import { Skeleton } from "antd";
 
 const items: any[] = [
   {
@@ -48,12 +59,22 @@ const items: any[] = [
   { label: "Memo", key: "6", children: <NotesList />, icon: <FileOutlined /> },
 ];
 
-export default function ParticipantDetail() {
+export default function ParticipantDetail({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const { isLoading }: any = useGetUserByIdQuery(params.id);
+
   return (
-    <div>
+    <div className="relative">
       <ProfileHeader />
       <div className="py-5" />
-      <CusTabs items={items} type="line" onTabClick={() => {}} />
+      {isLoading ? (
+        <Skeleton />
+      ) : (
+        <CusTabs items={items} type="line" onTabClick={() => {}} />
+      )}
     </div>
   );
 }

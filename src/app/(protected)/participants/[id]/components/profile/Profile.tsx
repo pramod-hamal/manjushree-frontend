@@ -1,7 +1,8 @@
 import React from "react";
+import { Divider } from "antd";
 import ProfileTags from "./tags/Tags";
 import ProfileAlerts from "./alerts/Alerts";
-import { Divider } from "antd";
+import EditProfile from "./form/EditProfile";
 
 export default function Profile() {
   return (
@@ -10,6 +11,7 @@ export default function Profile() {
       <Divider />
       <ProfileAlerts />
       <Divider />
+      <EditProfile />
     </div>
   );
 }

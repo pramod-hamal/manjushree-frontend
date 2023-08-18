@@ -13,7 +13,9 @@ export const endpoints={
   participants:{
     all :`/participants`,
     add :"/participants",
-    update :""
+    getById:(id:string|number)=> '/participants/'+id,
+    update:(id:string|number)=> '/participants/'+id,
+    deleteReference:(id:string|number)=>'/participants/reference/'+id
   },
   contact:{
     individual:{

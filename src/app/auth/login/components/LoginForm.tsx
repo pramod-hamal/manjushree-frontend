@@ -21,7 +21,7 @@ import {
   APIBaseResponse,
   LoginResponseData,
 } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
-import { useToast } from "@/lib/ToastProviderleanq_support_coordinator";
+import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
 
 const initialValues: LoginFormDTO = {
   email: "leanq@digital.com",
@@ -78,7 +78,7 @@ export default function LoginForm() {
     <form className="" onSubmit={formik.handleSubmit}>
       <div className="flex flex-col gap-3">
         <FormInput
-          prefix={<UserOutlined className="text-primary-title pr-4" />}
+          prefix={<UserOutlined className="pr-4 text-primary-title" />}
           name="email"
           placeHolder="Email"
           errors={formik.errors?.email}
@@ -86,7 +86,7 @@ export default function LoginForm() {
           value={formik.values.email}
         />
         <PasswordFormInput
-          prefix={<LockOutlined className="text-primary-title pr-4" />}
+          prefix={<LockOutlined className="pr-4 text-primary-title" />}
           name="password"
           placeHolder="******"
           errors={formik.errors?.password}
@@ -105,7 +105,7 @@ export default function LoginForm() {
           href={routes.forgetPassword}
           className="no-underline transition hover:scale-105"
         >
-          <p className="text-primary-title font-semibold">Forgot Password?</p>
+          <p className="font-semibold text-primary-title">Forgot Password?</p>
         </Link>
       </div>
       <FlatButton type="submit" title="Sign In" loading={formik.isSubmitting} />

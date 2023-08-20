@@ -1,6 +1,6 @@
 import React from "react";
 
-import useFormBuilder from "@/hooks/useFormBuilderleanq_support_coordinator";
+import useFormBuilder from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
 
 import FlatButton, {
   CancelButton,

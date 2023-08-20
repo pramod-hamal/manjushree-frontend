@@ -1,22 +1,7 @@
 import { Select } from "antd";
 import React from "react";
 import ErrorMessage from "./ErrorMessage";
-
-export interface CusSelectProps {
-  placeHolder: string;
-  onChange: any;
-  options: CusSelectOption[];
-  value: any;
-  label?: string;
-  errors?: any;
-  required?: boolean;
-  disabled?: boolean;
-}
-
-export interface CusSelectOption {
-  value: string | number;
-  label: string;
-}
+import { CusSelectProps } from "./interface/form.interface";
 
 export default function CusSelect(selectProps: CusSelectProps) {
   return (

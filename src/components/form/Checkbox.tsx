@@ -1,16 +1,6 @@
 import React from "react";
 import { Checkbox } from "antd";
-
-export interface CusCheckBoxProps {
-  onChange: any;
-  title: string;
-  name: string;
-  value: boolean;
-  label?: string;
-  disabled?: boolean;
-  errors?: any;
-  required?: boolean;
-}
+import { CusCheckBoxProps } from "./interface/form.interface";
 
 export default function CusCheckbox(checkBoxProps: CusCheckBoxProps) {
   const {
@@ -44,4 +34,4 @@ export default function CusCheckbox(checkBoxProps: CusCheckBoxProps) {
   );
 }
 
-export const MultipleCheckBox = () => {};
+export const MultipleCheckBox = () => { };

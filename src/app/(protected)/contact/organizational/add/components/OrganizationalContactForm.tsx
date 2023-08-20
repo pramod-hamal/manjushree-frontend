@@ -4,7 +4,7 @@ import React from "react";
 
 import useFormBuilder, {
   FormField,
-} from "@/hooks/useFormBuilderleanq_support_coordinator";
+} from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
 
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 import MapComponent from "@/components/map/Mapleanq_support_coordinator";

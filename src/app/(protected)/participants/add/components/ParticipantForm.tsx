@@ -9,7 +9,6 @@ import { ParticipantAddDTO } from "@/store/features/participants/interface/addPr
 import { useAddParticipantMutation } from "@/store/features/participants/apiSliceleanq_support_coordinator";
 import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
 
-import { useToast } from "@/lib/ToastProviderleanq_support_coordinator";
 import { defaultDateFormat } from "@/lib/date.utilsleanq_support_coordinator";
 
 import FlatButton, {
@@ -19,6 +18,7 @@ import FlatButton, {
 import SuccessModal from "./SuccessModal";
 import PersonalDetail from "./PersonalDetail";
 import ReferenceNumbers from "./ReferenceNumbers";
+import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
 
 const initialValues: ParticipantAddDTO = {
   firstName: "",

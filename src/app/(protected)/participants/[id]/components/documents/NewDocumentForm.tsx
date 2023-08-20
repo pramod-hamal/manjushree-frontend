@@ -2,7 +2,7 @@ import FlatButton, {
   CancelButton,
 } from "@/components/buttons/Buttonleanq_support_coordinator";
 import FileUpload from "@/components/form/FileUploadleanq_support_coordinator";
-import useFormBuilder from "@/hooks/useFormBuilderleanq_support_coordinator";
+import useFormBuilder from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
 import React from "react";
 
 export default function NewDocumentForm() {

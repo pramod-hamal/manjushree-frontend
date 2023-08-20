@@ -5,7 +5,7 @@ import CollapsePanel from "antd/es/collapse/CollapsePanel";
 
 import useFormBuilder, {
   FormField,
-} from "@/hooks/useFormBuilderleanq_support_coordinator";
+} from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
 
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
 

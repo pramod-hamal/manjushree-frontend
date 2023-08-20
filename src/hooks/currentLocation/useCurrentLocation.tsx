@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-
-export interface Location {
-  lat: number;
-  lng: number;
-}
+import { Location } from "./interface/currentLocation.interface";
 
 const defaultLocation: Location = {
   lat: 27.70085241460845,

@@ -1,7 +1,7 @@
 import React from "react";
 import useFormBuilder, {
   FormField,
-} from "@/hooks/useFormBuilderleanq_support_coordinator";
+} from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
 
 export default function AlertForm() {

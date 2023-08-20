@@ -3,7 +3,7 @@
 import PersonalDetail from "@/app/(protected)/participants/add/components/PersonalDetailleanq_support_coordinator";
 import ReferenceNumbers from "@/app/(protected)/participants/add/components/ReferenceNumbersleanq_support_coordinator";
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
-import { useToast } from "@/lib/ToastProviderleanq_support_coordinator";
+import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
 import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
 import { useUpdateProfileMutation } from "@/store/features/participants/detail/apiSliceleanq_support_coordinator";
 import {
@@ -74,7 +74,7 @@ export default function EditProfile() {
   return (
     <div className="relative">
       <div
-        className="flex p-2 rounded cursor-pointer top-5 items-center  gap-4 text-primary-button absolute right-0"
+        className="absolute right-0 flex items-center gap-4 p-2 rounded cursor-pointer top-5 text-primary-button"
         onClick={() => dispatch(toogleEdit(!disabled))}
       >
         <EditFilled />

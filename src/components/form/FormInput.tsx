@@ -2,24 +2,9 @@ import React from "react";
 import { Input, InputNumber, InputRef } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import ErrorMessage from "./ErrorMessage";
+import { FormInputProps, NumberInputProps } from "./interface/form.interface";
 
-export interface FormInputProps {
-  name: string;
-  onChange: any;
-  placeHolder?: string;
-  value: any;
-  errors: any;
-  disabled?: boolean;
-  key?: any;
-  className?: string;
-  prefix?: React.ReactNode;
-  suffix?: React.ReactNode;
-  type?: FormInputTypes;
-  label?: string;
-  required?: boolean;
-  onKeyDown?: any;
-  ref?: React.Ref<InputRef> | undefined;
-}
+
 
 /**
  * FormInput Component
@@ -121,18 +106,6 @@ export const TextAreaInput = (inputProps: FormInputProps): React.ReactNode => {
   );
 };
 
-export interface NumberInputProps {
-  placeHolder?: string;
-  onChange: any;
-  value: number;
-  name: string;
-  max: number;
-  min: number;
-  errors?: any;
-  label?: string;
-  required?: boolean;
-  class?: string;
-}
 
 /**
  * Number Input Component
@@ -192,27 +165,3 @@ export const SearchInput = (inputProps: any) => {
     />
   );
 };
-
-type FormInputTypes =
-  | "button"
-  | "checkbox"
-  | "color"
-  | "date"
-  | "datetime-local"
-  | "email"
-  | "file"
-  | "hidden"
-  | "image"
-  | "month"
-  | "number"
-  | "password"
-  | "radio"
-  | "range"
-  | "reset"
-  | "search"
-  | "submit"
-  | "tel"
-  | "text"
-  | "time"
-  | "url"
-  | "week";

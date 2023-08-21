@@ -1,14 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { contactApi } from "./apiSlice";
-import { APIBaseResponse } from "../auth/interface/api.response";
+import {
+  APIBaseResponse,
+  PaginationMetaDTO,
+} from "../auth/interface/api.response";
 import { RootState } from "@/store/storeleanq_support_coordinator";
-
-export interface ContactSliceState {
-  individialContactList: [];
-}
+import { ContactSliceState } from "./interface/contact.interface";
 
 const contactSliceInitialState: ContactSliceState = {
   individialContactList: [],
+  individialContactListPagination: {
+    limit: 10,
+    page_total: 0,
+    total: 0,
+    total_pages: 0,
+    next: null,
+    previous: null,
+    page: 0,
+  },
+  organizationalContactList: [],
+  organizationalContactListPagination: {
+    limit: 10,
+    page_total: 0,
+    total: 0,
+    total_pages: 0,
+    next: null,
+    previous: null,
+    page: 0,
+  },
 };
 
 export const contactSlice = createSlice({
@@ -16,12 +35,27 @@ export const contactSlice = createSlice({
   initialState: contactSliceInitialState,
   reducers: {},
   extraReducers: (builder) => {
+    // Individual
     builder.addMatcher(
       contactApi.endpoints.individualContactList.matchFulfilled,
       (state, action) => {
-        const response: APIBaseResponse<any, null> = action.payload;
+        const response: APIBaseResponse<any, PaginationMetaDTO> =
+          action.payload;
         if (response.statusCode === 200) {
           state.individialContactList = response.data;
+          state.individialContactListPagination = response.data?.meta;
+        }
+      }
+    );
+    // Organizational
+    builder.addMatcher(
+      contactApi.endpoints.organizationalContactList.matchFulfilled,
+      (state, action) => {
+        const response: APIBaseResponse<any, PaginationMetaDTO> =
+          action.payload;
+        if (response.statusCode === 200) {
+          state.organizationalContactList = response.data;
+          state.organizationalContactListPagination = response.data?.meta;
         }
       }
     );

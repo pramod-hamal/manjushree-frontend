@@ -2,17 +2,12 @@ import {
   baseUrl,
   endpoints,
 } from "@/constants/endpointsleanq_support_coordinator";
+import { prepareHeader } from "@/lib/getHeadersleanq_support_coordinator";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseUrl,
-  prepareHeaders: (headers, api) => {
-    const token: string | null = localStorage.getItem("token");
-    if (token) {
-      headers.set("Authorization", "Bearer " + token);
-    }
-    return;
-  },
+  prepareHeaders: prepareHeader,
 });
 
 export const contactApi = createApi({

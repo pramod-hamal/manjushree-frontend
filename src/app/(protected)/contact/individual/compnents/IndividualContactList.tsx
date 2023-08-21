@@ -5,9 +5,10 @@ import { PlusOutlined } from "@ant-design/icons";
 
 import { SearchInput } from "@/components/form/FormInputleanq_support_coordinator";
 import CusTable from "@/components/tables/Tableleanq_support_coordinator";
+import NavigateButton from "@/components/buttons/Navigateleanq_support_coordinator";
 
 import { routes } from "@/constants/routesleanq_support_coordinator";
-import NavigateButton from "@/components/buttons/Navigateleanq_support_coordinator";
+
 import { useIndividualContactListQuery } from "@/store/features/contact/apiSliceleanq_support_coordinator";
 import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
 import { contactState } from "@/store/features/contact/contactSliceleanq_support_coordinator";
@@ -16,17 +17,6 @@ export default function IndividualContactList() {
   const { isLoading, error } = useIndividualContactListQuery("");
 
   const { individialContactList } = useAppSelector(contactState);
-
-  const columns: any = [
-    {
-      title: "Full Name",
-      dataIndex: "name",
-    },
-    { title: "Email", dataIndex: "email" },
-    { title: "Phone No", dataIndex: "phone" },
-    { title: "Relation", dataIndex: "relation" },
-    { title: "Organization", dataIndex: "organization" },
-  ];
 
   return (
     <div className="flex flex-col gap-5">
@@ -41,11 +31,23 @@ export default function IndividualContactList() {
         />
       </div>
       <CusTable
-        selectionType="checkbox"
         columns={columns}
+        onRowClick={(data: any) => console.log(data)}
         dataSource={individialContactList}
         loading={isLoading}
       />
     </div>
   );
 }
+
+const columns: any = [
+  {
+    title: "Full Name",
+    dataIndex: "name",
+  },
+  { title: "Email", dataIndex: "email" },
+  { title: "Phone No", dataIndex: "phone" },
+  // { title: "Relation", dataIndex: "relation" },
+  { title: "Occupation", dataIndex: "occupationService" },
+  { title: "Organization", dataIndex: "organization" },
+];

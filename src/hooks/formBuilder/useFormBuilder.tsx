@@ -9,8 +9,6 @@ import FormInput, {
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
 import { FormField, FormbuilderProps } from "./interface/formBuilder.interface";
 
-
-
 const useFormBuilder = ({
   initialValues,
   onSubmit,
@@ -119,7 +117,9 @@ const useFormBuilder = ({
             <CusSelect
               required={formField.required}
               label={formField.label}
-              onChange={formField.onChange}
+              onChange={(selectedValue: any) =>
+                formik.setFieldValue(formField.name, selectedValue)
+              }
               placeHolder={formField.placeHolder ?? ""}
               value={formik.values[formField.name]}
               options={formField.options!}

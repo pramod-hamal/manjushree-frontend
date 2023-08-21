@@ -4,12 +4,33 @@ import {
 } from "@/constants/endpointsleanq_support_coordinator";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const baseQuery = fetchBaseQuery({ baseUrl: baseUrl, headers: {} });
+const baseQuery = fetchBaseQuery({
+  baseUrl: baseUrl,
+  prepareHeaders: (headers, api) => {
+    const token: string | null = localStorage.getItem("token");
+    if (token) {
+      headers.set("Authorization", "Bearer " + token);
+    }
+    return;
+  },
+});
 
 export const contactApi = createApi({
   baseQuery,
   reducerPath: "contactApi",
   endpoints: (build) => ({
+    /**
+     * Add  Contact
+     * @param {any} {query:(contactData
+     * @returns {any}
+     */
+    addContact: build.mutation<any, any>({
+      query: (contactData) => ({
+        url: endpoints.contact.add,
+        method: "POST",
+        body: contactData,
+      }),
+    }),
     // Individual
     /**
      * Get Individual Contact List
@@ -18,18 +39,6 @@ export const contactApi = createApi({
      */
     individualContactList: build.query<any, string>({
       query: () => endpoints.contact.individual.all,
-    }),
-    /**
-     * Add Individual Contact
-     * @param {any} {query:(contactData
-     * @returns {any}
-     */
-    addIndividualContact: build.mutation<any, any>({
-      query: (contactData) => ({
-        url: endpoints.contact.individual.add,
-        method: "POST",
-        body: contactData,
-      }),
     }),
     /**
      * Update Individual Contact
@@ -80,9 +89,9 @@ export const contactApi = createApi({
 });
 
 export const {
+  useAddContactMutation,
   // Individual
   useIndividualContactListQuery,
-  useAddIndividualContactMutation,
   useUpdateIndividualContactMutation,
   // Organizational
   useOrganizationalContactListQuery,

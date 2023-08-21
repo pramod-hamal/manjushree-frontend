@@ -6,18 +6,24 @@ import { PlusOutlined } from "@ant-design/icons";
 import { SearchInput } from "@/components/form/FormInputleanq_support_coordinator";
 import CusTable from "@/components/tables/Tableleanq_support_coordinator";
 
-import { individualContact } from "@/constants/data/individualContactleanq_support_coordinator";
 import { routes } from "@/constants/routesleanq_support_coordinator";
 import NavigateButton from "@/components/buttons/Navigateleanq_support_coordinator";
+import { useIndividualContactListQuery } from "@/store/features/contact/apiSliceleanq_support_coordinator";
+import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
+import { contactState } from "@/store/features/contact/contactSliceleanq_support_coordinator";
 
 export default function IndividualContactList() {
+  const { isLoading, error } = useIndividualContactListQuery("");
+
+  const { individialContactList } = useAppSelector(contactState);
+
   const columns: any = [
     {
       title: "Full Name",
-      dataIndex: "fullName",
+      dataIndex: "name",
     },
     { title: "Email", dataIndex: "email" },
-    { title: "Phone No", dataIndex: "phoneNo" },
+    { title: "Phone No", dataIndex: "phone" },
     { title: "Relation", dataIndex: "relation" },
     { title: "Organization", dataIndex: "organization" },
   ];
@@ -37,8 +43,8 @@ export default function IndividualContactList() {
       <CusTable
         selectionType="checkbox"
         columns={columns}
-        dataSource={individualContact}
-        loading={false}
+        dataSource={individialContactList}
+        loading={isLoading}
       />
     </div>
   );

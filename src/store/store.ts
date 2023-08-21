@@ -14,6 +14,7 @@ import { authSlice } from "./features/auth/authSlice";
 import { participantReducer } from "./features/participants/participantSlice";
 import { participantDetailReducer } from "./features/participants/detail/participantDetailSlice";
 import { participantDetailApi } from "./features/participants/detail/apiSlice";
+import { contactReducer } from "./features/contact/contactSlice";
 
 export const stores = configureStore({
     // Root Reducers
@@ -28,6 +29,7 @@ export const stores = configureStore({
         [projectsApi.reducerPath]: projectsApi.reducer,
         // contact
         [contactApi.reducerPath]: contactApi.reducer,
+        contact:contactReducer,
         // participant
         participant:participantReducer,
         participantDetail:participantDetailReducer,

@@ -2,9 +2,7 @@
 
 import React from "react";
 
-import useFormBuilder, {
-  FormField,
-} from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
+import useFormBuilder from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
 
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 import MapComponent from "@/components/map/Mapleanq_support_coordinator";
@@ -12,6 +10,7 @@ import FlatButton, {
   CancelButton,
 } from "@/components/buttons/Buttonleanq_support_coordinator";
 import FileUpload from "@/components/form/FileUploadleanq_support_coordinator";
+import { FormField } from "@/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
 
 export default function OrganizationalContactForm() {
   const initialValues = {};

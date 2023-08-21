@@ -2,8 +2,7 @@
 
 import React from "react";
 
-import useFormBuilder, {
-} from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
+import useFormBuilder from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
 import useCurrentLocation from "@/hooks/currentLocation/useCurrentLocationleanq_support_coordinator";
 
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
@@ -14,7 +13,7 @@ import MapComponent, {
 import FlatButton, {
   CancelButton,
 } from "@/components/buttons/Buttonleanq_support_coordinator";
-import { FormField } from "@/hooks/formbuilder/interface/formBuilder.interfaceleanq_support_coordinator";
+import { FormField } from "@/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
 
 export default function IndividualContactForm() {
   const { location, error } = useCurrentLocation();

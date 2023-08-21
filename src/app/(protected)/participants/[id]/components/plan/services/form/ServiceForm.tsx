@@ -3,14 +3,13 @@ import { Collapse } from "antd";
 import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
 import CollapsePanel from "antd/es/collapse/CollapsePanel";
 
-import useFormBuilder, {
-  FormField,
-} from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
+import useFormBuilder from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
 
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
 
 import ChargeItemList from "./ChargeItemList";
 import SelectedChargeItemList from "./SelectedChargeItemList";
+import { FormField } from "@/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
 
 export default function ServiceForm() {
   const [collapsed, setCollapsed] = useState<boolean>(false);

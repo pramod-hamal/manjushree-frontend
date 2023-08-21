@@ -1,4 +1,4 @@
-export const baseUrl:string = "https://scbe.leanq.digital";
+export const baseUrl:string = process.env.baseUrl ?? "";
 
 export const endpoints={
   auth:{
@@ -18,7 +18,7 @@ export const endpoints={
     deleteReference:(id:string|number)=>'/participants/reference/'+id,
     health:{
       add:"/participant/health",
-      getAll:(id:number|string)=>"/participant/health?participanId="+id
+      getAll:(id:number|string)=>"/participant/health?participant="+id
     }
   },
   contact:{

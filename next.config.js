@@ -10,7 +10,7 @@ const nextConfig = {
   devIndicators: {
     buildActivityPosition: 'bottom-right',
   },env:{
-    
+    baseUrl:"https://scbe.leanq.digital"
   }
 }
 

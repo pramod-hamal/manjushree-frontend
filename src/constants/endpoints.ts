@@ -15,7 +15,11 @@ export const endpoints={
     add :"/participants",
     getById:(id:string|number)=> '/participants/'+id,
     update:(id:string|number)=> '/participants/'+id,
-    deleteReference:(id:string|number)=>'/participants/reference/'+id
+    deleteReference:(id:string|number)=>'/participants/reference/'+id,
+    health:{
+      add:"/participant/health",
+      getAll:(id:number|string)=>"/participant/health?participanId="+id
+    }
   },
   contact:{
     add:"/contact",

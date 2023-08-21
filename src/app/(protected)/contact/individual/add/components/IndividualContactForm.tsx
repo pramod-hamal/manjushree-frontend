@@ -9,21 +9,58 @@ import CusSelect from "@/components/form/Selectleanq_support_coordinator";
 import { TextAreaInput } from "@/components/form/FormInputleanq_support_coordinator";
 import MapComponent, {
   LatLng,
+  getNameByLatLang,
 } from "@/components/map/Mapleanq_support_coordinator";
 import FlatButton, {
   CancelButton,
 } from "@/components/buttons/Buttonleanq_support_coordinator";
 import { FormField } from "@/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
+import {
+  AddIndividualContactDTO,
+  Address,
+} from "../../interface/contact.interface";
+import { useAddContactMutation } from "@/store/features/contact/apiSliceleanq_support_coordinator";
+import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
+import { FormikHelpers } from "formik";
+
+const initialValues: AddIndividualContactDTO = {
+  name: "",
+  email: "",
+  isOrganization: false,
+  note: "",
+  occupationService: "",
+  preferredContactMethod: "",
+};
 
 export default function IndividualContactForm() {
   const { location, error } = useCurrentLocation();
+  const [addContact] = useAddContactMutation();
 
-  const initialValues = {};
+  const handleAddContact = async (
+    values: AddIndividualContactDTO,
+    { setSubmitting }: FormikHelpers<AddIndividualContactDTO>
+  ) => {
+    try {
+      const { data, error }: any = await addContact(values);
+      if (data) {
+        const responseData: APIBaseResponse<any, any> = data;
+        formik.resetForm();
+        console.log(responseData);
+      } else {
+        const errorData: APIBaseResponse<any, null> = error.data;
+        console.log(errorData);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   const { formik, renderFormFields } = useFormBuilder({
     initialValues,
     formFields,
-    onSubmit: () => {},
+    onSubmit: handleAddContact,
   });
 
   return (
@@ -43,20 +80,25 @@ export default function IndividualContactForm() {
               value={""}
             />
             <CusSelect
-              onChange={() => {}}
+              onChange={(selectedValue: any) =>
+                formik.setFieldValue("preferredContactMethod", selectedValue)
+              }
               required={true}
               label="Prefered Contact"
               placeHolder="Select Prefered Contact"
-              options={[]}
-              value={""}
+              options={[
+                { label: "Email", value: "email" },
+                { label: "Phone", value: "phone" },
+              ]}
+              value={formik.values.preferredContactMethod}
             />
             <TextAreaInput
               label="Note"
-              errors={""}
-              name=""
+              errors={formik.errors?.note}
+              name="note"
               placeHolder="Notes Here"
-              onChange={() => {}}
-              value={""}
+              onChange={formik.handleChange}
+              value={formik.values.note}
             />
           </div>
           <div className="gap-3 flex flex-col">
@@ -66,7 +108,15 @@ export default function IndividualContactForm() {
             </div>
             <MapComponent
               center={location}
-              getLocation={(position: LatLng) => {}}
+              getLocation={async (position: LatLng) => {
+                const place = await getNameByLatLang(position);
+                const address: Address = {
+                  latitude: position.lat,
+                  longitude: position.lng,
+                  name: place,
+                };
+                formik.setFieldValue("address", address);
+              }}
             />
           </div>
         </div>
@@ -81,24 +131,10 @@ export default function IndividualContactForm() {
 
 const formFields: FormField[] = [
   {
-    name: "firstName",
-    label: "First Name",
+    name: "name",
+    label: "Name",
     type: "text",
-    placeHolder: "First name",
-    required: true,
-  },
-  {
-    name: "middleName",
-    label: "Middle Name",
-    placeHolder: "Middle Name",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "lastName",
-    label: "Last Name",
-    placeHolder: "Last Name",
-    type: "text",
+    placeHolder: "Name",
     required: true,
   },
   {
@@ -116,7 +152,7 @@ const formFields: FormField[] = [
     required: true,
   },
   {
-    name: "occupation",
+    name: "occupationService",
     label: "Occupation",
     placeHolder: "Occupation",
     type: "text",

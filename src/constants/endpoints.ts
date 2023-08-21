@@ -18,9 +18,11 @@ export const endpoints={
     deleteReference:(id:string|number)=>'/participants/reference/'+id
   },
   contact:{
+    add:"/contact",
     individual:{
-      add : "",
-      all : "",
+      all : "/contact",
+      getById:(id:number|string)=>"/contact/"+id,
+      add:"",
       update : ""
     },
     organizational:{

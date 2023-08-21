@@ -9,6 +9,7 @@ import {
 } from "@react-google-maps/api";
 
 import FormInput from "../form/FormInput";
+import axios from "axios";
 
 export interface MapComponentProps {
   center: LatLng;
@@ -110,7 +111,7 @@ function MapComponent({ center: mapCenter, getLocation }: MapComponentProps) {
 
   useEffect(() => {
     getLocation(center);
-  }, [center, getLocation]);
+  }, [center]);
 
   const SearchBar = () => (
     <div className="absolute w-[90%] mx-5 top-5">
@@ -185,6 +186,22 @@ const getLatLngByName = async (name: string): Promise<LatLng | null> => {
       lng: longitude,
     } as LatLng;
   } catch (err: any) {
+    return null;
+  }
+};
+
+export const getNameByLatLang = async (geoLocation: LatLng) => {
+  try {
+    const response = await axios.get(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${geoLocation.lat},${geoLocation.lng}&key=AIzaSyCw10y2Ncvk6XpZirQHbf0VUvZZF35rvbg`
+    );
+
+    const result = response.data.results[0];
+    if (result) {
+      return result.formatted_address;
+    }
+  } catch (error) {
+    console.error("Error fetching location data:", error);
     return null;
   }
 };

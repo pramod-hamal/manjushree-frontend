@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { PlusOutlined } from "@ant-design/icons";
 
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
@@ -7,18 +7,23 @@ import CusModal from "@/components/modals/Modalleanq_support_coordinator";
 import { SearchInput } from "@/components/form/FormInputleanq_support_coordinator";
 
 import ContactForm from "./ContactForm";
-import { contacts } from "@/constants/data/contactsleanq_support_coordinator";
+import { useGetAllQuery } from "@/store/features/participants/contact/apiSliceleanq_support_coordinator";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "@/store/hooksleanq_support_coordinator";
+import { participantDetailState } from "@/store/features/participants/detail/participantDetailSliceleanq_support_coordinator";
+import {
+  contactDetailState,
+  toogleModal,
+} from "@/store/features/participants/contact/contactDetailSliceleanq_support_coordinator";
 
 export default function ContactList() {
-  const [show, setShow] = useState<boolean>(false);
+  const { participantDetail } = useAppSelector(participantDetailState);
+  const { contactList, showModal } = useAppSelector(contactDetailState);
+  const { isLoading } = useGetAllQuery(participantDetail?.id);
 
-  const columns: any[] = [
-    { title: "Full Name", dataIndex: "fullName" },
-    { title: "Email", dataIndex: "email" },
-    { title: "Phone No", dataIndex: "phoneNo" },
-    { title: "Relation", dataIndex: "relation" },
-    { title: "Organization", dataIndex: "organization" },
-  ];
+  const dispatch = useAppDispatch();
 
   return (
     <div className="flex flex-col bg-white gap-5 p-5">
@@ -29,22 +34,31 @@ export default function ContactList() {
         <FlatButton
           icon={<PlusOutlined />}
           title="Add Contact"
-          onClick={() => setShow(true)}
+          onClick={() => dispatch(toogleModal(true))}
         />
       </div>
       <div>
-        <CusTable columns={columns} dataSource={contacts} loading={false} />
+        <CusTable
+          columns={columns}
+          dataSource={contactList}
+          loading={isLoading}
+        />
       </div>
       <CusModal
         width={625}
-        show={show}
-        // style={{ right: "-31%", top: "34%", borderRadius: 0 }}
-        onClose={() => {
-          setShow(false);
-        }}
+        show={showModal}
+        onClose={() => dispatch(toogleModal(false))}
       >
         <ContactForm />
       </CusModal>
     </div>
   );
 }
+
+const columns: any[] = [
+  { title: "Full Name", dataIndex: ["contact", "name"] },
+  { title: "Email", dataIndex: ["contact", "email"] },
+  { title: "Phone No", dataIndex: ["contact", "phone"] },
+  { title: "Relation", dataIndex: "relation" },
+  { title: "Organization", dataIndex: ["contact", "organization"] },
+];

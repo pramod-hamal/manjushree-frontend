@@ -13,6 +13,7 @@ const baseQuery = fetchBaseQuery({
 export const contactApi = createApi({
   baseQuery,
   reducerPath: "contactApi",
+  tagTypes: ["Individual"],
   endpoints: (build) => ({
     /**
      * Add  Contact
@@ -56,6 +57,10 @@ export const contactApi = createApi({
     organizationalContactList: build.query<any, string>({
       query: () => endpoints.contact.individual.all,
     }),
+    getContactbyId: build.query<any, any>({
+      query: (id: string | number) => endpoints.contact.individual.getById(id),
+      providesTags: ["Individual"],
+    }),
     /**
      * Add Organizational Contact list
      * @param {any} {query:(contactData
@@ -86,6 +91,7 @@ export const contactApi = createApi({
 export const {
   useAddContactMutation,
   // Individual
+  useGetContactbyIdQuery,
   useIndividualContactListQuery,
   useUpdateIndividualContactMutation,
   // Organizational

@@ -19,6 +19,7 @@ export const routes = {
       roles: "/roles",
       // contacts
       individualContact: "/contact/individual",
+      editIndividualContact:(id:string|number)=>"/contact/individual/"+id,
       addIndividualContact: "/contact/individual/add",
       organizationalContact: "/contact/organizational",
       addOrganizationalContact: "/contact/organizational/add",

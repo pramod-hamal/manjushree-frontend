@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 
 import useFormBuilder from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
 import useCurrentLocation from "@/hooks/currentLocation/useCurrentLocationleanq_support_coordinator";
@@ -19,9 +19,13 @@ import {
   AddIndividualContactDTO,
   Address,
 } from "../../interface/contact.interface";
-import { useAddContactMutation } from "@/store/features/contact/apiSliceleanq_support_coordinator";
+import {
+  useAddContactMutation,
+  useUpdateIndividualContactMutation,
+} from "@/store/features/contact/apiSliceleanq_support_coordinator";
 import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
 import { FormikHelpers } from "formik";
+import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
 
 const initialValues: AddIndividualContactDTO = {
   name: "",
@@ -32,9 +36,19 @@ const initialValues: AddIndividualContactDTO = {
   preferredContactMethod: "",
 };
 
-export default function IndividualContactForm() {
+export interface IndividualContactFormProps {
+  editMode?: boolean;
+  values?: any;
+}
+
+export default function IndividualContactForm({
+  editMode,
+  values,
+}: IndividualContactFormProps) {
+  const showToast = useToast();
   const { location, error } = useCurrentLocation();
   const [addContact] = useAddContactMutation();
+  const [updateContact] = useUpdateIndividualContactMutation();
 
   const handleAddContact = async (
     values: AddIndividualContactDTO,
@@ -57,11 +71,38 @@ export default function IndividualContactForm() {
     }
   };
 
+  const handleEditContact = async (
+    values: any,
+    { setSubmitting }: FormikHelpers<any>
+  ) => {
+    try {
+      const { data, error }: any = await updateContact(values);
+      if (data) {
+        const responseData: APIBaseResponse<any, any> = data;
+        showToast({ title: "Contact Updated Successfully", type: "success" });
+      } else {
+        const errorData: APIBaseResponse<any, null> = error.data;
+        showToast({ title: errorData.data?.message, type: "error" });
+        console.log(errorData);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   const { formik, renderFormFields } = useFormBuilder({
     initialValues,
     formFields,
-    onSubmit: handleAddContact,
+    onSubmit: editMode === true ? handleEditContact : handleAddContact,
   });
+
+  useEffect(() => {
+    if (editMode === true && values !== null) {
+      formik.setValues(values);
+    }
+  }, [editMode, values]);
 
   return (
     <div className="p-5 flex flex-col gap-5">
@@ -121,7 +162,10 @@ export default function IndividualContactForm() {
           </div>
         </div>
         <div className="flex gap-10 items-center">
-          <FlatButton title="Submit" type="submit" />
+          <FlatButton
+            title={editMode === true ? "Edit" : "Submit"}
+            type="submit"
+          />
           <CancelButton />
         </div>
       </form>

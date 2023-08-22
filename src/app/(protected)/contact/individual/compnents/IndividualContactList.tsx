@@ -12,8 +12,11 @@ import { routes } from "@/constants/routesleanq_support_coordinator";
 import { useIndividualContactListQuery } from "@/store/features/contact/apiSliceleanq_support_coordinator";
 import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
 import { contactState } from "@/store/features/contact/contactSliceleanq_support_coordinator";
+import { useRouter } from "next/navigation";
 
 export default function IndividualContactList() {
+  const router = useRouter();
+
   const { isLoading, error } = useIndividualContactListQuery("");
 
   const { individialContactList } = useAppSelector(contactState);
@@ -32,7 +35,9 @@ export default function IndividualContactList() {
       </div>
       <CusTable
         columns={columns}
-        onRowClick={(data: any) => console.log(data)}
+        onRowClick={(data: any) =>
+          router.push(routes.editIndividualContact(data.id))
+        }
         dataSource={individialContactList}
         loading={isLoading}
       />

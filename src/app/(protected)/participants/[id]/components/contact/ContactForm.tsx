@@ -44,22 +44,13 @@ export default function ContactForm() {
       const { data, error }: any = await addContact(values);
       if (data) {
         dispatch(toogleModal(false));
-        showToast({
-          title: "Contact Added",
-          type: "success",
-        });
+        showToast({ title: "Contact Added", type: "success" });
       } else {
         const errorData: APIBaseResponse<any, null> = error;
-        showToast({
-          title: errorData?.data?.message,
-          type: "error",
-        });
+        showToast({ title: errorData?.data?.message, type: "error" });
       }
     } catch (error: any) {
-      showToast({
-        title: error.message,
-        type: "error",
-      });
+      showToast({ title: error.message, type: "error" });
     } finally {
       setSubmitting(false);
     }

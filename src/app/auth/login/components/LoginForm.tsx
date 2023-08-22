@@ -48,10 +48,7 @@ export default function LoginForm() {
         const responseData: APIBaseResponse<LoginResponseData | any, null> =
           data;
         localStorage.setItem("token", responseData.data.accessToken);
-        showToast({
-          title: "Login Successfull",
-          type: "success",
-        });
+        showToast({ title: "Login Successfull", type: "success" });
         router.push("/dashboard");
       } else {
         const errorData: APIBaseResponse<any, null> = error.data;

@@ -17,6 +17,8 @@ import { participantDetailApi } from "./features/participants/detail/apiSlice";
 import { contactReducer } from "./features/contact/contactSlice";
 import { participantHealthApi } from "./features/participants/health/apiSlice";
 import { participantHealthReducer } from "./features/participants/health/participantHealthSlice";
+import { contactDetailReducer } from "./features/participants/contact/contactDetailSlice";
+import { participantDetailContactApi } from "./features/participants/contact/apiSlice";
 
 export const stores = configureStore({
     // Root Reducers
@@ -36,9 +38,11 @@ export const stores = configureStore({
         participant:participantReducer,
         participantDetail:participantDetailReducer,
         participantHealth:participantHealthReducer,
+        contactDetail:contactDetailReducer,
         [participantsApi.reducerPath]: participantsApi.reducer,
         [participantDetailApi.reducerPath]:participantDetailApi.reducer,
         [participantHealthApi.reducerPath]:participantHealthApi.reducer,
+        [participantDetailContactApi.reducerPath]:participantDetailContactApi.reducer,
         // Users
         [usersApi.reducerPath]: usersApi.reducer
     },
@@ -51,6 +55,7 @@ export const stores = configureStore({
             participantsApi.middleware,
             participantDetailApi.middleware,
             participantHealthApi.middleware,
+            participantDetailContactApi.middleware,
             usersApi.middleware,
         )
 });

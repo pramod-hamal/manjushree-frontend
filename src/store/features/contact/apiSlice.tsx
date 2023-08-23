@@ -13,19 +13,20 @@ const baseQuery = fetchBaseQuery({
 export const contactApi = createApi({
   baseQuery,
   reducerPath: "contactApi",
-  tagTypes: ["Individual"],
+  tagTypes: ["Individual", "Organizational"],
   endpoints: (build) => ({
     /**
      * Add  Contact
      * @param {any} {query:(contactData
      * @returns {any}
      */
-    addContact: build.mutation<any, any>({
+    addIndividualContact: build.mutation<any, any>({
       query: (contactData) => ({
-        url: endpoints.contact.add,
+        url: endpoints.contact.individual.add,
         method: "POST",
         body: contactData,
       }),
+      invalidatesTags: ["Individual"],
     }),
     // Individual
     /**
@@ -35,6 +36,7 @@ export const contactApi = createApi({
      */
     individualContactList: build.query<any, string>({
       query: () => endpoints.contact.individual.all,
+      providesTags: ["Individual"],
     }),
     /**
      * Update Individual Contact
@@ -47,6 +49,7 @@ export const contactApi = createApi({
         method: "POST",
         body: toUpdateContactData,
       }),
+      invalidatesTags: ["Individual"],
     }),
     // Organizational
     /**
@@ -58,7 +61,7 @@ export const contactApi = createApi({
       query: () => endpoints.contact.individual.all,
     }),
     getContactbyId: build.query<any, any>({
-      query: (id: string | number) => endpoints.contact.individual.getById(id),
+      query: (id: string | number) => endpoints.contact.getById(id),
       providesTags: ["Individual"],
     }),
     /**
@@ -89,10 +92,10 @@ export const contactApi = createApi({
 });
 
 export const {
-  useAddContactMutation,
   // Individual
   useGetContactbyIdQuery,
   useIndividualContactListQuery,
+  useAddIndividualContactMutation,
   useUpdateIndividualContactMutation,
   // Organizational
   useOrganizationalContactListQuery,

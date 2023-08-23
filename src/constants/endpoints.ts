@@ -30,17 +30,16 @@ export const endpoints={
     }
   },
   contact:{
-    add:"/contact",
+    getById:(id:number|string)=>"/contact/"+id,
     individual:{
-      all : "/contact",
-      getById:(id:number|string)=>"/contact/"+id,
-      add:"",
-      update : ""
+      all : "/contact/individual",
+      add:"/contact/individual",
+      update:"/contact/individual",
     },
     organizational:{
+      all:"/contact/organization",
       add:"",
-      all:"",
-      update:""
+      update:"/contact/organization"
     }
   }
 }

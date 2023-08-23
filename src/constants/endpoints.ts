@@ -34,12 +34,12 @@ export const endpoints={
     individual:{
       all : "/contact/individual",
       add:"/contact/individual",
-      update:"/contact/individual",
+      update:(id:number|string)=>"/contact/individual/"+id,
     },
     organizational:{
       all:"/contact/organization",
-      add:"",
-      update:"/contact/organization"
+      update:(id:number|string)=>"/contact/organization/"+id,
+      add:"/contact/organization",
     }
   }
 }

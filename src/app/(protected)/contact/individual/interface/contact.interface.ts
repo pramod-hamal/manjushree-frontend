@@ -9,7 +9,7 @@ export interface AddIndividualContactDTO {
 }
 
 export interface Address {
-    latitude:  number;
-    longitude: number;
+    latitude?:  number;
+    longitude?: number;
     name:      string;
 }

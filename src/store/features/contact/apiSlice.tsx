@@ -28,8 +28,8 @@ export const contactApi = createApi({
       providesTags: ["Individual"],
     }),
     updateIndividualContact: build.mutation<any, any>({
-      query: (toUpdateContactData) => ({
-        url: endpoints.contact.individual.add,
+      query: (toUpdateContactData: any) => ({
+        url: endpoints.contact.individual.update(toUpdateContactData.id),
         method: "POST",
         body: toUpdateContactData,
       }),
@@ -45,15 +45,15 @@ export const contactApi = createApi({
     }),
     addOrganizationalContact: build.mutation<any, any>({
       query: (contactData) => ({
-        url: endpoints.contact.individual.add,
+        url: endpoints.contact.organizational.add,
         method: "POST",
         body: contactData,
       }),
     }),
     updateOrganizationalContact: build.mutation<any, any>({
-      query: (toUpdateContactData) => ({
-        url: endpoints.contact.individual.add,
-        method: "POST",
+      query: (toUpdateContactData: any) => ({
+        url: endpoints.contact.organizational.update(toUpdateContactData.id),
+        method: "PUT",
         body: toUpdateContactData,
       }),
     }),

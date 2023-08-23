@@ -32,15 +32,15 @@ export const endpoints={
   contact:{
     add:"/contact",
     individual:{
-      all : "/contact",
+      all : "/contact/individual",
       getById:(id:number|string)=>"/contact/"+id,
-      add:"",
-      update : ""
+      add:"/contact/individual",
+      update:"/contact/individual",
     },
     organizational:{
+      all:"/contact/organization",
       add:"",
-      all:"",
-      update:""
+      update:"/contact/organization"
     }
   }
 }

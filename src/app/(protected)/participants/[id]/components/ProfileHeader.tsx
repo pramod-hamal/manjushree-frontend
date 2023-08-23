@@ -1,12 +1,14 @@
+import React from "react";
+import Image from "next/image";
+import { EditOutlined, EyeOutlined } from "@ant-design/icons";
+
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
+
+import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
 import {
   ParticipantDetailSlice,
   participantDetailState,
 } from "@/store/features/participants/detail/participantDetailSliceleanq_support_coordinator";
-import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
-import { EditOutlined, EyeOutlined } from "@ant-design/icons";
-import Image from "next/image";
-import React from "react";
 
 export default function ProfileHeader() {
   const { participantDetail }: ParticipantDetailSlice = useAppSelector(
@@ -22,7 +24,7 @@ export default function ProfileHeader() {
           alt="Profile"
         />
         <div className="flex flex-col">
-          <span className="text-lg flex font-semibold gap-3">
+          <span className="text-lg flex font-semibold gap-2">
             <span> {participantDetail?.firstName}</span>
             <span> {participantDetail?.middleName}</span>
             <span> {participantDetail?.lastName}</span>

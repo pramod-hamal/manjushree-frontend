@@ -12,28 +12,19 @@ import CusModal from "@/components/modals/Modalleanq_support_coordinator";
 import CusTable from "@/components/tables/Tableleanq_support_coordinator";
 import NewDocumentForm from "./NewDocumentForm";
 
-import { documents } from "@/constants/data/documentsleanq_support_coordinator";
+import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
+import { participantDetailState } from "@/store/features/participants/detail/participantDetailSliceleanq_support_coordinator";
+import { participantDocumentState } from "@/store/features/participants/documents/participantDocumentSliceleanq_support_coordinator";
+import { useGetAllDocumentsQuery } from "@/store/features/participants/documents/apiSliceleanq_support_coordinator";
 
 export default function DocumentsList() {
-  const [show, setShow] = useState<boolean>(false);
+  const { participantDetail } = useAppSelector(participantDetailState);
 
-  const columns: any[] = [
-    { title: "Name", dataIndex: "name" },
-    { title: "File", dataIndex: "fileName" },
-    { title: "Date", dataIndex: "date" },
-    {
-      title: "Actions",
-      width: 200,
-      render: () => (
-        <div className="flex gap-5">
-          <EyeOutlined className="text-primary-grey" />
-          <EditOutlined className="text-primary-button" />
-          <DownloadOutlined className="text-primary-green" />
-          <DeleteOutlined className="text-primary-danger" />
-        </div>
-      ),
-    },
-  ];
+  const { isLoading } = useGetAllDocumentsQuery(participantDetail?.id);
+
+  const { documentList } = useAppSelector(participantDocumentState);
+
+  const [show, setShow] = useState<boolean>(false);
 
   return (
     <div className="flex flex-col bg-white gap-5 p-5">
@@ -45,7 +36,11 @@ export default function DocumentsList() {
         />
       </div>
       <div>
-        <CusTable columns={columns} dataSource={documents} loading={false} />
+        <CusTable
+          columns={columns}
+          dataSource={documentList}
+          loading={isLoading}
+        />
       </div>
       <CusModal
         show={show}
@@ -59,3 +54,21 @@ export default function DocumentsList() {
     </div>
   );
 }
+
+const columns: any[] = [
+  { title: "Name", dataIndex: "name" },
+  { title: "File", dataIndex: "fileName" },
+  { title: "Date", dataIndex: "date" },
+  {
+    title: "Actions",
+    width: 200,
+    render: () => (
+      <div className="flex gap-5">
+        <EyeOutlined className="text-primary-grey" />
+        <EditOutlined className="text-primary-button" />
+        <DownloadOutlined className="text-primary-green" />
+        <DeleteOutlined className="text-primary-danger" />
+      </div>
+    ),
+  },
+];

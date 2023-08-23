@@ -36,7 +36,7 @@ export default function DocumentsList() {
 
   useEffect(() => {
     dispatch(toogleModal(false));
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="flex flex-col bg-white gap-5 p-5">
@@ -79,13 +79,17 @@ const columns: any[] = [
   {
     title: "Actions",
     width: 200,
-    render: () => (
-      <div className="flex gap-5">
-        <EyeOutlined className="text-primary-grey" />
-        <EditOutlined className="text-primary-button" />
-        <DownloadOutlined className="text-primary-green" />
-        <DeleteOutlined className="text-primary-danger" />
-      </div>
-    ),
+    render: (data: any) => {
+      return (
+        <div className="flex gap-5">
+          <EyeOutlined className="text-primary-grey" />
+          <EditOutlined className="text-primary-button" />
+          <a download target="_blank" href={data.document.path}>
+            <DownloadOutlined className="text-primary-green cursor-pointer" />
+          </a>
+          <DeleteOutlined className="text-primary-danger" />
+        </div>
+      );
+    },
   },
 ];

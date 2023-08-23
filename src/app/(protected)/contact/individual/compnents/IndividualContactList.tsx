@@ -52,7 +52,5 @@ const columns: any = [
   },
   { title: "Email", dataIndex: "email" },
   { title: "Phone No", dataIndex: "phone" },
-  // { title: "Relation", dataIndex: "relation" },
-  { title: "Occupation", dataIndex: "occupationService" },
   { title: "Organization", dataIndex: "organization" },
 ];

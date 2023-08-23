@@ -12,8 +12,10 @@ import { routes } from "@/constants/routesleanq_support_coordinator";
 import { useOrganizationalContactListQuery } from "@/store/features/contact/apiSliceleanq_support_coordinator";
 import { contactState } from "@/store/features/contact/contactSliceleanq_support_coordinator";
 import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
+import { useRouter } from "next/navigation";
 
 export default function OrganizationalContactList() {
+  const router = useRouter();
   const { isLoading } = useOrganizationalContactListQuery("");
 
   const { organizationalContactList, organizationalContactListPagination } =
@@ -35,6 +37,9 @@ export default function OrganizationalContactList() {
         columns={columns}
         paginationMeta={organizationalContactListPagination}
         dataSource={organizationalContactList}
+        onRowClick={(data: any) =>
+          router.push(routes.editOrganizationalContact(data.id))
+        }
         loading={isLoading}
       />
     </div>

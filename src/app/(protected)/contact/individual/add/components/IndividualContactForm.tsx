@@ -185,7 +185,7 @@ const formFields: FormField[] = [
     required: true,
   },
   {
-    name: "phoneNo",
+    name: "phone",
     label: "Phone Number",
     placeHolder: "Phone Number",
     type: "text",

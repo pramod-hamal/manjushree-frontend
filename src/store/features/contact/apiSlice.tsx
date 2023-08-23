@@ -13,13 +13,8 @@ const baseQuery = fetchBaseQuery({
 export const contactApi = createApi({
   baseQuery,
   reducerPath: "contactApi",
-  tagTypes: ["Individual", "Organizational"],
+  tagTypes: ["Individual", "Organizational", "Detail"],
   endpoints: (build) => ({
-    /**
-     * Add  Contact
-     * @param {any} {query:(contactData
-     * @returns {any}
-     */
     addIndividualContact: build.mutation<any, any>({
       query: (contactData) => ({
         url: endpoints.contact.individual.add,
@@ -28,21 +23,10 @@ export const contactApi = createApi({
       }),
       invalidatesTags: ["Individual"],
     }),
-    // Individual
-    /**
-     * Get Individual Contact List
-     * @param {any} {query:(
-     * @returns {any}
-     */
     individualContactList: build.query<any, string>({
       query: () => endpoints.contact.individual.all,
       providesTags: ["Individual"],
     }),
-    /**
-     * Update Individual Contact
-     * @param {any} {query:(toUpdateContactData
-     * @returns {any}
-     */
     updateIndividualContact: build.mutation<any, any>({
       query: (toUpdateContactData) => ({
         url: endpoints.contact.individual.add,
@@ -51,24 +35,14 @@ export const contactApi = createApi({
       }),
       invalidatesTags: ["Individual"],
     }),
-    // Organizational
-    /**
-     * Get Organizational Contact List
-     * @param {any} {query:(
-     * @returns {any}
-     */
     organizationalContactList: build.query<any, string>({
-      query: () => endpoints.contact.individual.all,
+      query: () => endpoints.contact.organizational.all,
+      providesTags: ["Organizational"],
     }),
     getContactbyId: build.query<any, any>({
       query: (id: string | number) => endpoints.contact.getById(id),
-      providesTags: ["Individual"],
+      providesTags: ["Detail"],
     }),
-    /**
-     * Add Organizational Contact list
-     * @param {any} {query:(contactData
-     * @returns {any}
-     */
     addOrganizationalContact: build.mutation<any, any>({
       query: (contactData) => ({
         url: endpoints.contact.individual.add,
@@ -76,11 +50,6 @@ export const contactApi = createApi({
         body: contactData,
       }),
     }),
-    /**
-     * Update Organizational Contact List
-     * @param {any} {query:(toUpdateContactData
-     * @returns {any}
-     */
     updateOrganizationalContact: build.mutation<any, any>({
       query: (toUpdateContactData) => ({
         url: endpoints.contact.individual.add,

@@ -38,13 +38,14 @@ export default function HealthList() {
       <div>
         <CusTable
           columns={columns}
+          onRowClick={() => {}}
+          paginationMeta={paginationMeta}
           dataSource={healthList}
           loading={isLoading}
         />
       </div>
       <CusModal
         show={showModal}
-        // style={{ right: "-34%", top: "34%", borderRadius: 0 }}
         onClose={() => {
           dispatch(toogleModal(false));
         }}

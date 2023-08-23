@@ -19,11 +19,10 @@ import {
 } from "@/store/features/participants/contact/contactDetailSliceleanq_support_coordinator";
 
 export default function ContactList() {
-  const { participantDetail } = useAppSelector(participantDetailState);
-  const { contactList, showModal } = useAppSelector(contactDetailState);
-  const { isLoading } = useGetAllQuery(participantDetail?.id);
-
   const dispatch = useAppDispatch();
+  const { participantDetail } = useAppSelector(participantDetailState);
+  const { isLoading } = useGetAllQuery(participantDetail?.id);
+  const { contactList, showModal } = useAppSelector(contactDetailState);
 
   return (
     <div className="flex flex-col bg-white gap-5 p-5">

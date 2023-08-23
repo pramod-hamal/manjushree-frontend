@@ -20,6 +20,10 @@ export const endpoints={
       add:"/participant/health",
       getAll:(id:number|string)=>"/participant/health?participant="+id
     },
+    documents:{
+      add:"/participant/document",
+      getAll:(id:number|string)=>"/participant/document?participant="+id
+    },
     contact:{
       add:"/participant/contact",
       getAll:(id:string|number)=>"/participant/contact?participant="+id

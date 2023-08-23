@@ -7,10 +7,10 @@ import EditProfile from "./form/EditProfile";
 export default function Profile() {
   return (
     <div className="p-5 bg-white">
-      <ProfileTags />
+      {/* <ProfileTags />
       <Divider />
       <ProfileAlerts />
-      <Divider />
+      <Divider /> */}
       <EditProfile />
     </div>
   );

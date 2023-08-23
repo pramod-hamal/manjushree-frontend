@@ -20,12 +20,14 @@ import {
   Address,
 } from "../../interface/contact.interface";
 import {
-  useAddContactMutation,
+  useAddIndividualContactMutation,
   useUpdateIndividualContactMutation,
 } from "@/store/features/contact/apiSliceleanq_support_coordinator";
 import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
 import { FormikHelpers } from "formik";
 import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
+import { useRouter } from "next/navigation";
+import { routes } from "@/constants/routesleanq_support_coordinator";
 
 const initialValues: AddIndividualContactDTO = {
   name: "",
@@ -45,9 +47,10 @@ export default function IndividualContactForm({
   editMode,
   values,
 }: IndividualContactFormProps) {
+  const router = useRouter();
   const showToast = useToast();
   const { location, error } = useCurrentLocation();
-  const [addContact] = useAddContactMutation();
+  const [addContact] = useAddIndividualContactMutation();
   const [updateContact] = useUpdateIndividualContactMutation();
 
   const handleAddContact = async (
@@ -57,12 +60,12 @@ export default function IndividualContactForm({
     try {
       const { data, error }: any = await addContact(values);
       if (data) {
-        const responseData: APIBaseResponse<any, any> = data;
         formik.resetForm();
-        console.log(responseData);
+        showToast({ title: "Contact Created Successfully", type: "success" });
+        router.replace(routes.individualContact);
       } else {
         const errorData: APIBaseResponse<any, null> = error.data;
-        console.log(errorData);
+        showToast({ title: errorData.data?.message, type: "error" });
       }
     } catch (error) {
       console.log(error);
@@ -78,12 +81,11 @@ export default function IndividualContactForm({
     try {
       const { data, error }: any = await updateContact(values);
       if (data) {
-        const responseData: APIBaseResponse<any, any> = data;
         showToast({ title: "Contact Updated Successfully", type: "success" });
+        router.replace(routes.individualContact);
       } else {
         const errorData: APIBaseResponse<any, null> = error.data;
         showToast({ title: errorData.data?.message, type: "error" });
-        console.log(errorData);
       }
     } catch (error) {
       console.log(error);
@@ -165,6 +167,7 @@ export default function IndividualContactForm({
           <FlatButton
             title={editMode === true ? "Edit" : "Submit"}
             type="submit"
+            loading={formik.isSubmitting}
           />
           <CancelButton />
         </div>

@@ -60,6 +60,7 @@ const useFormBuilder = ({
               value={formik.values[formField.name]}
               errors={formik.errors[formField.name]}
               onChange={formik.handleChange}
+              disabled={formField.disabled}
             />
           );
         case "textarea":
@@ -67,6 +68,7 @@ const useFormBuilder = ({
             <TextAreaInput
               required={formField.required}
               label={formField.label}
+              disabled={formField.disabled}
               placeHolder={formField.placeHolder}
               name={formField.name}
               suffix={formField.suffix}
@@ -80,6 +82,7 @@ const useFormBuilder = ({
           return (
             <PasswordFormInput
               required={formField.required}
+              disabled={formField.disabled}
               name={formField.name}
               suffix={formField.suffix}
               prefix={formField.prefix}
@@ -93,6 +96,7 @@ const useFormBuilder = ({
           return (
             <CusCheckbox
               required={formField.required}
+              disabled={formField.disabled}
               value={formik.values[formField.name]}
               name={formField.name}
               onChange={formik.handleChange}
@@ -116,6 +120,7 @@ const useFormBuilder = ({
           return (
             <CusSelect
               required={formField.required}
+              disabled={formField.disabled}
               label={formField.label}
               onChange={(selectedValue: any) =>
                 formik.setFieldValue(formField.name, selectedValue)

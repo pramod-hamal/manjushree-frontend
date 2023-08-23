@@ -51,7 +51,7 @@ export default function CusTable(tableProps: CusTableProps) {
   const onRow = (record: any, _: any): any => {
     return {
       onClick: (_: any) => {
-        onRowClick(record);
+        onRowClick ? onRowClick(record) : () => {};
       },
     };
   };

@@ -21,6 +21,7 @@ export const endpoints={
       getAll:(id:number|string)=>"/participant/health?participant="+id
     },
     documents:{
+      add:"/participant/document",
       getAll:(id:number|string)=>"/participant/document?participant="+id
     },
     contact:{

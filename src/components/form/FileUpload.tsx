@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { InboxOutlined } from "@ant-design/icons";
 import { Upload } from "antd";
-import Image from "next/image";
 
 const { Dragger } = Upload;
 
-export default function FileUpload({ onChange }: { onChange: any }) {
+export default function FileUpload({
+  onChange,
+  value,
+}: {
+  onChange: any;
+  value: any;
+}) {
   return (
     <Dragger
       multiple={false}

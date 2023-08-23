@@ -16,8 +16,16 @@ export const participantDocumentApi = createApi({
     getAllDocuments:build.query<any,any>({
       query:(id:number|string)=> endpoints.participants.documents.getAll(id),
       providesTags:["Document"]
+    }),
+    addNewDocument:build.mutation<any,any>({
+      query:(documentFormData)=>({
+        url:endpoints.participants.documents.add,
+        body:documentFormData,
+        method: "POST",
+      }),
+      invalidatesTags: ["Document"],
     })
   })
 })
 
-export const {useGetAllDocumentsQuery} = participantDocumentApi;
+export const {useGetAllDocumentsQuery,useAddNewDocumentMutation} = participantDocumentApi;

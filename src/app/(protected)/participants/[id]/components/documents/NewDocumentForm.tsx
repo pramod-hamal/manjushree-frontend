@@ -6,7 +6,6 @@ import FlatButton, {
 import FileUpload from "@/components/form/FileUploadleanq_support_coordinator";
 
 import useFormBuilder from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
-import { FormField } from "@/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
 
 import { appendFormData } from "@/lib/append-form-dataleanq_support_coordinator";
 import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
@@ -19,6 +18,8 @@ import { APIBaseResponse } from "@/store/features/auth/interface/api.responselea
 import { participantDetailState } from "@/store/features/participants/detail/participantDetailSliceleanq_support_coordinator";
 import { useAddNewDocumentMutation } from "@/store/features/participants/documents/apiSliceleanq_support_coordinator";
 import { toogleModal } from "@/store/features/participants/documents/participantDocumentSliceleanq_support_coordinator";
+
+import { formFields, validationSchema } from "./form-utils";
 
 export default function NewDocumentForm() {
   const { participantDetail } = useAppSelector(participantDetailState);
@@ -34,16 +35,10 @@ export default function NewDocumentForm() {
       if (data) {
         formik.resetForm();
         dispatch(toogleModal(false));
-        showToast({
-          title: "Document Added",
-          type: "success",
-        });
+        showToast({ title: "Document Added", type: "success" });
       } else {
         const errorData: APIBaseResponse<any, null> = error.data;
-        showToast({
-          title: errorData.message,
-          type: "error",
-        });
+        showToast({ title: errorData.message, type: "error" });
       }
     } catch (error) {
       console.log(error);
@@ -59,6 +54,7 @@ export default function NewDocumentForm() {
       participantId: participantDetail?.id,
       category: "Default Category",
     },
+    validationSchema,
     onSubmit: addNewDocument,
     formFields,
   });
@@ -88,22 +84,3 @@ export default function NewDocumentForm() {
     </form>
   );
 }
-
-const formFields: FormField[] = [
-  {
-    name: "name",
-    placeHolder: "File Name",
-    label: "File Name",
-    type: "text",
-    required: true,
-    disabled: true,
-  },
-  {
-    name: "category",
-    label: "Select Category",
-    type: "select",
-    placeHolder: "Select Category",
-    required: true,
-    options: [{ value: "Default Category", labeel: "Default Category" }],
-  },
-];

@@ -7,11 +7,13 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseUrl,
+
   prepareHeaders: prepareHeader,
 });
 
 export const contactApi = createApi({
   baseQuery,
+  keepUnusedDataFor: 30,
   reducerPath: "contactApi",
   tagTypes: ["Individual", "Organizational", "Detail"],
   endpoints: (build) => ({
@@ -26,6 +28,7 @@ export const contactApi = createApi({
     individualContactList: build.query<any, string>({
       query: () => endpoints.contact.individual.all,
       providesTags: ["Individual"],
+      keepUnusedDataFor: 5,
     }),
     updateIndividualContact: build.mutation<any, any>({
       query: (toUpdateContactData: any) => ({
@@ -33,15 +36,17 @@ export const contactApi = createApi({
         method: "POST",
         body: toUpdateContactData,
       }),
-      invalidatesTags: ["Individual"],
+      invalidatesTags: ["Individual", "Detail"],
     }),
     organizationalContactList: build.query<any, string>({
       query: () => endpoints.contact.organizational.all,
       providesTags: ["Organizational"],
+      keepUnusedDataFor: 5,
     }),
     getContactbyId: build.query<any, any>({
       query: (id: string | number) => endpoints.contact.getById(id),
       providesTags: ["Detail"],
+      keepUnusedDataFor: 5,
     }),
     addOrganizationalContact: build.mutation<any, any>({
       query: (contactData) => ({
@@ -57,7 +62,7 @@ export const contactApi = createApi({
         method: "PUT",
         body: toUpdateContactData,
       }),
-      invalidatesTags: ["Organizational"],
+      invalidatesTags: ["Organizational", "Detail"],
     }),
   }),
 });

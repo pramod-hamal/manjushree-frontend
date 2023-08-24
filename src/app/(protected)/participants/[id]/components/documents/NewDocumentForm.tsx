@@ -63,7 +63,6 @@ export default function NewDocumentForm() {
     formFields,
   });
 
-  console.log(formik.values);
   return (
     <form className="p-5 gap-5 flex flex-col" onSubmit={formik.handleSubmit}>
       <h3 className="text-2xl font-semibold m-0">Documents</h3>

@@ -34,7 +34,7 @@ export const endpoints={
     individual:{
       all : "/contact/individual",
       add:"/contact/individual",
-      update:(id:number|string)=>"/contact/individual/"+id,
+      update:(id:number|string)=>"/contact/individual"
     },
     organizational:{
       all:"/contact/organization",

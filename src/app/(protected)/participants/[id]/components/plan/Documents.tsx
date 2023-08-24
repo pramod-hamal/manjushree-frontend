@@ -5,7 +5,7 @@ export default function Documents() {
   return (
     <div className="bg-white rounded p-5 flex flex-col gap-5 ">
       <span className="text-lg font-semibold">Documents</span>
-      <FileUpload />
+      <FileUpload onChange={() => {}} value={null} />
     </div>
   );
 }

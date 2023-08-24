@@ -62,6 +62,10 @@ export default function ParticipantForm() {
     initialValues,
     onSubmit,
     validationSchema,
+    validateOnMount: false,
+    validateOnChange: false,
+    validateOnBlur: false,
+    enableReinitialize: true,
   });
 
   return (

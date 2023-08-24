@@ -5,6 +5,9 @@ export const endpoints={
     signIn:"/auth/sign-in",
     geMe:"/auth/me"
   },
+  dropdowns:{
+    organizationalContact:"/dropdown/contact/organization",
+  },
   projects:{
     add :"",
     all :"",

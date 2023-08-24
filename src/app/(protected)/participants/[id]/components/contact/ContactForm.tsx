@@ -16,6 +16,8 @@ import {
 import { participantDetailState } from "@/store/features/participants/detail/participantDetailSliceleanq_support_coordinator";
 import { toogleModal } from "@/store/features/participants/contact/contactDetailSliceleanq_support_coordinator";
 import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
+import { useOrganizationContactQuery } from "@/store/features/dropdown/apiSliceleanq_support_coordinator";
+import { Dropdown } from "@/store/features/dropdown/dropdownSliceleanq_support_coordinator";
 
 export interface ParticipantContactDTO {
   relation: string;
@@ -26,6 +28,8 @@ export interface ParticipantContactDTO {
 export default function ContactForm() {
   const [addContact] = useAddMutation();
   const { participantDetail } = useAppSelector(participantDetailState);
+  const { data, isLoading }: any = useOrganizationContactQuery("");
+
   const dispatch = useAppDispatch();
 
   const showToast = useToast();
@@ -67,7 +71,14 @@ export default function ContactForm() {
       <div className="flex flex-col gap-5">
         <div className="flex gap-5">
           <div className="w-[366px]">
-            <SearchInput />
+            <CusSelect
+              placeHolder="Relationship"
+              onChange={(selectedData: any) => {
+                formik.setFieldValue("contactId", selectedData);
+              }}
+              options={data?.data ?? []}
+              value={formik.values.contactId}
+            />
           </div>
           <FlatButton
             icon={<PlusOutlined />}

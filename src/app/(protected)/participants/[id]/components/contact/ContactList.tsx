@@ -33,7 +33,9 @@ export default function ContactList() {
         <FlatButton
           icon={<PlusOutlined />}
           title="Add Contact"
-          onClick={() => dispatch(toogleModal(true))}
+          onClick={() => {
+            dispatch(toogleModal(true));
+          }}
         />
       </div>
       <div>
@@ -46,7 +48,9 @@ export default function ContactList() {
       <CusModal
         width={625}
         show={showModal}
-        onClose={() => dispatch(toogleModal(false))}
+        onClose={() => {
+          dispatch(toogleModal(false));
+        }}
       >
         <ContactForm />
       </CusModal>

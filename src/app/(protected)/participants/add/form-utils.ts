@@ -12,7 +12,7 @@ export const initialValues: ParticipantAddDTO = {
   preferredLanguage: "",
   pronouns: "",
   ndisNumber: 0,
-  referenceNo: [],
+  references: [],
 };
 
 export const validationSchema = yup.object().shape({
@@ -21,7 +21,7 @@ export const validationSchema = yup.object().shape({
   phone: yup.number().required("Required"),
   email: yup.string().required("Required"),
   gender: yup.string().required("Required"),
-  dateOfBirth: yup.number().required("Required"),
+  dateOfBirth: yup.date().required("Required"),
   preferredLanguage: yup.string().required("Required"),
   pronouns: yup.string().required("Required"),
   ndisNumber: yup.number().required("Required"),

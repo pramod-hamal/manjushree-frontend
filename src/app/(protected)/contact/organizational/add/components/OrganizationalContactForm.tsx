@@ -2,7 +2,11 @@
 
 import React, { useEffect } from "react";
 
+import { useRouter } from "next/navigation";
+import { FormikHelpers } from "formik";
+
 import useFormBuilder from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
+import useCurrentLocation from "@/hooks/currentLocation/useCurrentLocationleanq_support_coordinator";
 
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 import MapComponent, {
@@ -13,47 +17,46 @@ import FlatButton, {
   CancelButton,
 } from "@/components/buttons/Buttonleanq_support_coordinator";
 import FileUpload from "@/components/form/FileUploadleanq_support_coordinator";
-import { FormField } from "@/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
-import useCurrentLocation from "@/hooks/currentLocation/useCurrentLocationleanq_support_coordinator";
+
 import { Address } from "../../../individual/interface/contact.interface";
+
 import {
   useAddOrganizationalContactMutation,
   useUpdateOrganizationalContactMutation,
 } from "@/store/features/contact/apiSliceleanq_support_coordinator";
+import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
+
 import { multiFormData } from "@/lib/append-form-dataleanq_support_coordinator";
 import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
-import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
-import { FormikHelpers } from "formik";
-import { useRouter } from "next/navigation";
+
 import { routes } from "@/constants/routesleanq_support_coordinator";
-
-interface OrganizationContactFormProps {
-  editMode: boolean;
-  value?: any;
-}
-
-interface OrganizationContactDTO {
-  name: string;
-  email: string;
-  occupationService: string;
-  preferredContactMethod: string;
-  isOrganization?: boolean;
-  phone: string;
-  note: string;
-  url: string;
-  address: Address;
-  logo?: null;
-}
+import {
+  OrganizationContactDTO,
+  OrganizationContactFormProps,
+} from "../interface/add-organization.interface";
+import { initialValues, validationSchema, formFields } from "../form-utils";
 
 export default function OrganizationalContactForm({
   editMode,
   value,
 }: OrganizationContactFormProps) {
   const router = useRouter();
-  const showToast = useToast();
+
   const { location, error } = useCurrentLocation();
+  const showToast = useToast();
+
   const [add] = useAddOrganizationalContactMutation();
   const [update] = useUpdateOrganizationalContactMutation();
+
+  const handleGeoLocation = async (position: LatLng) => {
+    const place = await getNameByLatLang(position);
+    const address: Address = {
+      latitude: position.lat,
+      longitude: position.lng,
+      name: place,
+    };
+    formik.setFieldValue("address", address);
+  };
 
   const handleAdd = async (
     values: OrganizationContactDTO,
@@ -63,17 +66,11 @@ export default function OrganizationalContactForm({
       const formData = multiFormData(values);
       const { data, error }: any = await add(formData);
       if (data) {
-        showToast({
-          title: "Organization Added",
-          type: "success",
-        });
+        showToast({ title: "Organization Added", type: "success" });
         router.replace(routes.organizationalContact);
       } else {
         const errorData: APIBaseResponse<any, null> = error.data;
-        showToast({
-          title: errorData.message,
-          type: "error",
-        });
+        showToast({ title: errorData.message, type: "error" });
       }
     } catch (error) {
       console.log(error);
@@ -89,18 +86,11 @@ export default function OrganizationalContactForm({
     try {
       const { data, error }: any = await update(values);
       if (data) {
-        console.log(data);
-        showToast({
-          title: "Update Successfully",
-          type: "success",
-        });
+        showToast({ title: "Update Successfully", type: "success" });
         router.replace(routes.organizationalContact);
       } else {
         const errorData: APIBaseResponse<any, null> = error.data;
-        showToast({
-          title: errorData.message,
-          type: "error",
-        });
+        showToast({ title: errorData.message, type: "error" });
       }
     } catch (error) {
       console.log(error);
@@ -109,21 +99,9 @@ export default function OrganizationalContactForm({
     }
   };
 
-  const initialValues: OrganizationContactDTO = {
-    name: "",
-    email: "",
-    occupationService: "",
-    preferredContactMethod: "",
-    isOrganization: true,
-    phone: "",
-    note: "Test Note",
-    url: "",
-    address: { name: "" },
-    logo: null,
-  };
-
   const { formik, renderFormFields } = useFormBuilder({
     initialValues,
+    validationSchema,
     formFields,
     onSubmit: editMode === true ? handleEdit : handleAdd,
   });
@@ -178,59 +156,18 @@ export default function OrganizationalContactForm({
               <span className="text-primary-danger text-sm">*</span>
               <span>Address</span>
             </div>
-            <MapComponent
-              center={location}
-              getLocation={async (position: LatLng) => {
-                const place = await getNameByLatLang(position);
-                const address: Address = {
-                  latitude: position.lat,
-                  longitude: position.lng,
-                  name: place,
-                };
-                formik.setFieldValue("address", address);
-              }}
-            />
+            <MapComponent center={location} getLocation={handleGeoLocation} />
           </div>
         </div>
         <div className="flex gap-10 items-center">
-          <FlatButton title={editMode ? "Edit" : "Submit"} type="submit" />
+          <FlatButton
+            title={editMode ? "Edit" : "Submit"}
+            type="submit"
+            loading={formik.isSubmitting}
+          />
           <CancelButton />
         </div>
       </form>
     </div>
   );
 }
-
-const formFields: FormField[] = [
-  {
-    name: "name",
-    label: "Name",
-    type: "text",
-    placeHolder: "Name",
-    required: true,
-  },
-  {
-    name: "phone",
-    label: "Phone Number",
-    placeHolder: "Phone Number",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "preferredContactMethod",
-    label: "Prefered Contact",
-    placeHolder: "Select contact method",
-    type: "select",
-    options: [
-      { label: "Email", value: "Email" },
-      { label: "Phone", value: "Phone" },
-    ],
-  },
-  {
-    name: "email",
-    label: "Email",
-    placeHolder: "Email",
-    type: "email",
-    required: true,
-  },
-];

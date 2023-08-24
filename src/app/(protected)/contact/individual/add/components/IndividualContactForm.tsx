@@ -14,7 +14,6 @@ import MapComponent, {
 import FlatButton, {
   CancelButton,
 } from "@/components/buttons/Buttonleanq_support_coordinator";
-import { FormField } from "@/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
 import {
   AddIndividualContactDTO,
   Address,
@@ -28,20 +27,8 @@ import { FormikHelpers } from "formik";
 import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
 import { useRouter } from "next/navigation";
 import { routes } from "@/constants/routesleanq_support_coordinator";
-
-const initialValues: AddIndividualContactDTO = {
-  name: "",
-  email: "",
-  isOrganization: false,
-  note: "",
-  occupationService: "",
-  preferredContactMethod: "",
-};
-
-export interface IndividualContactFormProps {
-  editMode?: boolean;
-  values?: any;
-}
+import { IndividualContactFormProps } from "../interface/add-individual.interface";
+import { initialValues, formFields, validationSchema } from "../form-utils";
 
 export default function IndividualContactForm({
   editMode,
@@ -96,6 +83,7 @@ export default function IndividualContactForm({
 
   const { formik, renderFormFields } = useFormBuilder({
     initialValues,
+    validationSchema,
     formFields,
     onSubmit: editMode === true ? handleEditContact : handleAddContact,
   });
@@ -126,6 +114,7 @@ export default function IndividualContactForm({
               onChange={(selectedValue: any) =>
                 formik.setFieldValue("preferredContactMethod", selectedValue)
               }
+              errors={formik.errors?.preferredContactMethod}
               required={true}
               label="Prefered Contact"
               placeHolder="Select Prefered Contact"
@@ -175,34 +164,3 @@ export default function IndividualContactForm({
     </div>
   );
 }
-
-const formFields: FormField[] = [
-  {
-    name: "name",
-    label: "Name",
-    type: "text",
-    placeHolder: "Name",
-    required: true,
-  },
-  {
-    name: "phone",
-    label: "Phone Number",
-    placeHolder: "Phone Number",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "email",
-    label: "Email",
-    placeHolder: "Email",
-    type: "email",
-    required: true,
-  },
-  {
-    name: "occupationService",
-    label: "Occupation",
-    placeHolder: "Occupation",
-    type: "text",
-    required: true,
-  },
-];

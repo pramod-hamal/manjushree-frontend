@@ -32,6 +32,7 @@ import {
   AddIndividualContactDTO,
   Address,
 } from "../../interface/contact.interface";
+import { useOrganizationContactQuery } from "@/store/features/dropdown/apiSliceleanq_support_coordinator";
 
 export default function IndividualContactForm({
   editMode,
@@ -42,6 +43,7 @@ export default function IndividualContactForm({
   const { location, error } = useCurrentLocation();
   const [addContact] = useAddIndividualContactMutation();
   const [updateContact] = useUpdateIndividualContactMutation();
+  const { data, isLoading }: any = useOrganizationContactQuery("");
 
   const handleAddContact = async (
     values: AddIndividualContactDTO,
@@ -107,11 +109,14 @@ export default function IndividualContactForm({
         <div className="grid grid-cols-2 gap-5 gap-x-10">
           <div className="flex gap-5 flex-col">
             <CusSelect
-              onChange={() => {}}
+              onChange={(selectedData: any) => {
+                formik.setFieldValue("organizationId", selectedData);
+              }}
+              name="organizationId"
               label="Select Organization"
               placeHolder="Select Organization"
-              options={[]}
-              value={""}
+              options={data?.data ?? []}
+              value={formik.values?.organizationId}
             />
             <CusSelect
               onChange={(selectedValue: any) =>

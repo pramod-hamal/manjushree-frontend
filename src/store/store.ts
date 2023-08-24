@@ -21,12 +21,17 @@ import { contactDetailReducer } from "./features/participants/contact/contactDet
 import { participantDetailContactApi } from "./features/participants/contact/apiSlice";
 import { participantDocumentApi } from "./features/participants/documents/apiSlice";
 import { participantDocumentReducer } from "./features/participants/documents/participantDocumentSlice";
+import { dropdownSlice } from "./features/dropdown/dropdownSlice";
+import { dropdownApi } from "./features/dropdown/apiSlice";
 
 export const stores = configureStore({
     // Root Reducers
     reducer: {
         //appstate
         app: appReducer,
+        // dropdown
+        dropdown:dropdownSlice.reducer,
+        [dropdownApi.reducerPath]:dropdownApi.reducer,
         // auth
         auth:authSlice.reducer,
         [authApi.reducerPath]:authApi.reducer,
@@ -54,6 +59,7 @@ export const stores = configureStore({
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({})
         .concat(
             authApi.middleware,
+            dropdownApi.middleware,
             projectsApi.middleware,
             contactApi.middleware,
             participantsApi.middleware,

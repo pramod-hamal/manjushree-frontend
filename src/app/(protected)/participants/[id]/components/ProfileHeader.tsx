@@ -14,6 +14,7 @@ export default function ProfileHeader() {
   const { participantDetail }: ParticipantDetailSlice = useAppSelector(
     participantDetailState
   );
+
   return (
     <div className="flex items center justify-between">
       <div className="flex gap-10 items-center">

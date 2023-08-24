@@ -8,8 +8,8 @@ export default function ReferenceNumbers({ formik, disabled, editMode }: any) {
   const dispatch = useAppDispatch();
 
   const addNewreferenceElement = () =>
-    formik.setFieldValue("referenceNo", [
-      ...formik.values.referenceNo,
+    formik.setFieldValue("references", [
+      ...formik.values.references,
       {
         value: 0,
         title: "",
@@ -21,16 +21,16 @@ export default function ReferenceNumbers({ formik, disabled, editMode }: any) {
   };
 
   const handleElementDelete = (index: number) => {
-    let newReferenceNumbers = formik.values.referenceNo;
+    let newReferenceNumbers = formik.values.references;
     newReferenceNumbers.splice(index, 1);
-    formik.setFieldValue("referenceNo", newReferenceNumbers);
+    formik.setFieldValue("references", newReferenceNumbers);
   };
 
   return (
     <div className="flex flex-col gap-5">
       <span className="text-2xl font-semibold ">Reference Numbers</span>
       <div className="w-full flex gap-5 gap-x-8 flex-col">
-        {formik.values.referenceNo?.map((references: any, index: number) => {
+        {formik.values.references?.map((references: any, index: number) => {
           return (
             <div className="grid grid-cols-2 gap-8" key={index}>
               <FormInput
@@ -42,7 +42,7 @@ export default function ReferenceNumbers({ formik, disabled, editMode }: any) {
                 errors={null}
                 onChange={(e: any) =>
                   handleElementChange(
-                    `referenceNo[${index}].title`,
+                    `references[${index}].title`,
                     e.target.value
                   )
                 }
@@ -61,7 +61,7 @@ export default function ReferenceNumbers({ formik, disabled, editMode }: any) {
                     errors={null}
                     onChange={(e: any) => {
                       handleElementChange(
-                        `referenceNo[${index}].value`,
+                        `references[${index}].value`,
                         e.target.value
                       );
                     }}

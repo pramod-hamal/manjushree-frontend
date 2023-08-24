@@ -18,6 +18,7 @@ const baseQuery = fetchBaseQuery({
 export const participantDetailApi = createApi({
   baseQuery,
   reducerPath: "participantDetailApi",
+  tagTypes: ["Participant", "Detail"],
   endpoints: (build) => ({
     /**
      * Get participant detail by id
@@ -26,6 +27,7 @@ export const participantDetailApi = createApi({
      */
     getUserById: build.query<any, any>({
       query: (id) => endpoints.participants.getById(id),
+      providesTags: ["Detail"],
     }),
     deleteReference: build.mutation<any, any>({
       query: (id) => ({
@@ -39,6 +41,7 @@ export const participantDetailApi = createApi({
         method: "PUT",
         body: updateData,
       }),
+      invalidatesTags: ["Detail"],
     }),
   }),
 });

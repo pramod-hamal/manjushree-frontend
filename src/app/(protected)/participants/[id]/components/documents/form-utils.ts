@@ -3,7 +3,6 @@ import { FormField } from "@/hooks/formBuilder/interface/formBuilder.interfacele
 
 export const validationSchema = yup.object().shape({
   name: yup.string().required("Required"),
-  file: yup.object().required("Required"),
 });
 
 export const formFields: FormField[] = [

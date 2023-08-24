@@ -18,6 +18,7 @@ import {
 } from "@/store/hooksleanq_support_coordinator";
 import { EditFilled } from "@ant-design/icons";
 import { useFormik } from "formik";
+import { defaultDateFormat } from "@/lib/date.utilsleanq_support_coordinator";
 
 export default function EditProfile() {
   const showToast = useToast();
@@ -29,7 +30,12 @@ export default function EditProfile() {
 
   const handleEdit = async (values: any, { setSubmitting }: any) => {
     try {
-      const { data, error }: any = await update(values);
+      const participantData = {
+        ...values,
+        phone: values.phone.toString(),
+        dateOfBirth: defaultDateFormat(new Date(values.dateOfBirth)),
+      };
+      const { data, error }: any = await update(participantData);
       if (data) {
         const responseData: APIBaseResponse<any, any> = data;
         showToast({

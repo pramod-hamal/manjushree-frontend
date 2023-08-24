@@ -20,6 +20,7 @@ const baseQuery = fetchBaseQuery({
 export const participantsApi = createApi({
   baseQuery,
   reducerPath: "participantsApi",
+  tagTypes: ["Participant", "List"],
   endpoints: (build) => ({
     /**
      * Get All Participants
@@ -28,6 +29,7 @@ export const participantsApi = createApi({
      */
     allParticipants: build.query<any, string>({
       query: () => endpoints.participants.all,
+      providesTags: ["List"],
     }),
     /**
      * Add new Participant
@@ -40,6 +42,7 @@ export const participantsApi = createApi({
         method: "POST",
         body: participantData,
       }),
+      invalidatesTags: ["List"],
     }),
     /**
      * Update Participant
@@ -52,6 +55,7 @@ export const participantsApi = createApi({
         method: "PUT",
         body: toUpdateParticipantData,
       }),
+      invalidatesTags: ["List"],
     }),
   }),
 });

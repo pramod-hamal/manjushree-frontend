@@ -13,7 +13,7 @@ export interface ParticipantAddDTO {
   preferredLanguage: string;
   ndisNumber: number|string;
   primaryCoordinator?: null;
-  referenceNo: ReferenceNo[];
+  references: ReferenceNo[];
 }
 
 export interface ReferenceNo {

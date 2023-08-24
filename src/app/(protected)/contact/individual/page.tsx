@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 
-import IndividualContactList from "./compnents/IndividualContactList";
+import IndividualContactList from "./components/IndividualContactList";
 import PageHeader from "@/components/headers/PageHeaderleanq_support_coordinator";
 
 export const metadata: Metadata = {

@@ -7,7 +7,7 @@ export default function AddOrganizationalContact() {
     <div className="w-full flex flex-col gap-5">
       <PageHeader title="Add Organizational Contact" />
       <div className="bg-white p-5 shadow">
-        <OrganizationalContactForm />
+        <OrganizationalContactForm editMode={false} />
       </div>
     </div>
   );

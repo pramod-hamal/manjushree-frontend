@@ -20,6 +20,7 @@ export const routes = {
       // contacts
       individualContact: "/contact/individual",
       editIndividualContact:(id:string|number)=>"/contact/individual/"+id,
+      editOrganizationalContact:(id:string|number)=>"/contact/organizational/"+id,
       addIndividualContact: "/contact/individual/add",
       organizationalContact: "/contact/organizational",
       addOrganizationalContact: "/contact/organizational/add",

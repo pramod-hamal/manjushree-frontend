@@ -14,6 +14,7 @@ const baseQuery = fetchBaseQuery({
 export const participantHealthApi = createApi({
   baseQuery,
   reducerPath: "participantHealthApi",
+  keepUnusedDataFor: 0,
   tagTypes: ["Participant", "Health"],
   endpoints: (build) => ({
     getParticipantHealthList: build.query<any, any>({

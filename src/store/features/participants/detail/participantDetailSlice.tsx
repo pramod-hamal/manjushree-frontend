@@ -39,6 +39,9 @@ export const participantDetailSlice = createSlice({
     toogleEdit(state, action) {
       state.disabled = action.payload;
     },
+    setParticipant(state, action) {
+      state.participantDetail = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder.addMatcher(
@@ -56,7 +59,7 @@ export const participantDetailSlice = createSlice({
 
 export const participantDetailReducer = participantDetailSlice.reducer;
 
-export const { toogleEdit } = participantDetailSlice.actions;
+export const { toogleEdit,setParticipant } = participantDetailSlice.actions;
 
 export const participantDetailState = (state: RootState) =>
   state.participantDetail;

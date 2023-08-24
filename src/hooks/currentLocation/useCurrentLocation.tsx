@@ -11,22 +11,19 @@ const useCurrentLocation = () => {
   const [error, setError] = useState<any | null>(null);
 
   /**
-   * Gets users current Location
-   * @returns {void}
+   * Retrieves the user's current location using the geolocation API.
+   * If successful, updates the `location` state with the retrieved coordinates.
+   * If there is an error, updates the `error` state with the error message.
    */
   const getCurrentLocation = (): void => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position: GeolocationPosition) => {
-          const { latitude } = position.coords;
-          const { longitude } = position.coords;
-          setLocation({
-            lat: latitude,
-            lng: longitude,
-          });
+          const { latitude, longitude } = position.coords;
+          setLocation({ lat: latitude, lng: longitude });
         },
-        (err: any) => {
-          setError(err);
+        (error: GeolocationPositionError) => {
+          setError(error);
         }
       );
     } else {
@@ -38,10 +35,7 @@ const useCurrentLocation = () => {
     getCurrentLocation();
   }, []);
 
-  return {
-    location,
-    error,
-  };
+  return { location, error };
 };
 
 export default useCurrentLocation;

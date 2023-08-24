@@ -14,11 +14,12 @@ const ParticipantEnrolledChart = dynamic(
   () => import("./components/ParticipantEnrolledChart"),
   {
     ssr: false,
-    loading: () => <>loading</>,
+    loading: () => <><Skeleton /></>,
   }
 );
 
 import dynamic from "next/dynamic";
+import { Skeleton } from "antd";
 
 export const metadata: Metadata = {
   title: "Dashboard",

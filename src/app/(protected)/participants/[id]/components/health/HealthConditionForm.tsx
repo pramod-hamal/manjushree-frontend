@@ -17,6 +17,7 @@ import { HealthConditionInitialState } from "@/store/features/participants/healt
 import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
 import { FormikHelpers } from "formik";
 import { toogleModal } from "@/store/features/participants/health/participantHealthSliceleanq_support_coordinator";
+import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
 
 const validationSchema = yup.object().shape({
   title: yup.string().required("Required"),
@@ -25,6 +26,7 @@ const validationSchema = yup.object().shape({
 
 export default function HealthConditionForm() {
   const dispatch = useAppDispatch();
+  const showToast = useToast();
   const { participantDetail } = useAppSelector(participantDetailState);
 
   const [addHealthCondition] = useAddHealthConditionMutation();
@@ -44,10 +46,11 @@ export default function HealthConditionForm() {
       const { data, error }: any = await addHealthCondition(values);
       if (data) {
         formik.resetForm();
+        showToast({ title: "Health Condition Added", type: "success" })
         dispatch(toogleModal(false));
       } else {
         const errorData: APIBaseResponse<any, null> = error.data;
-        console.log(errorData);
+        showToast({ title: errorData.message, type: "error" })
       }
     } catch (error) {
       console.log(error);

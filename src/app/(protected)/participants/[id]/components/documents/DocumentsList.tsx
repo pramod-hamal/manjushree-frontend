@@ -24,6 +24,7 @@ import {
   toogleModal,
 } from "@/store/features/participants/documents/participantDocumentSliceleanq_support_coordinator";
 import { useGetAllDocumentsQuery } from "@/store/features/participants/documents/apiSliceleanq_support_coordinator";
+import { Skeleton } from "antd";
 
 export default function DocumentsList() {
   const dispatch = useAppDispatch();
@@ -48,11 +49,11 @@ export default function DocumentsList() {
         />
       </div>
       <div>
-        <CusTable
+        {isLoading ? <Skeleton /> : <CusTable
           columns={columns}
           dataSource={documentList}
           loading={isLoading}
-        />
+        />}
       </div>
       <CusModal
         show={showModal}

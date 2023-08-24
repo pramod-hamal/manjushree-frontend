@@ -112,7 +112,6 @@ export default function IndividualContactForm({
               onChange={(selectedData: any) => {
                 formik.setFieldValue("organizationId", selectedData);
               }}
-              name="organizationId"
               label="Select Organization"
               placeHolder="Select Organization"
               options={data?.data ?? []}

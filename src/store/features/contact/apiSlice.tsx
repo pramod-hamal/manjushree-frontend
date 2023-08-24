@@ -49,6 +49,7 @@ export const contactApi = createApi({
         method: "POST",
         body: contactData,
       }),
+      invalidatesTags: ["Organizational"],
     }),
     updateOrganizationalContact: build.mutation<any, any>({
       query: (toUpdateContactData: any) => ({
@@ -56,6 +57,7 @@ export const contactApi = createApi({
         method: "PUT",
         body: toUpdateContactData,
       }),
+      invalidatesTags: ["Organizational"],
     }),
   }),
 });

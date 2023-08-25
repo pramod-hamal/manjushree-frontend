@@ -24,8 +24,15 @@ export const participantDocumentApi = createApi({
         method: "POST",
       }),
       invalidatesTags: ["Document"],
+    }),
+    deleteDocument:build.mutation<any,any>({
+      query:(id)=>({
+        url:endpoints.participants.documents.delete(id),
+        method:"DELETE",
+      }),
+      invalidatesTags:["Document"]
     })
   })
 })
 
-export const {useGetAllDocumentsQuery,useAddNewDocumentMutation} = participantDocumentApi;
+export const {useGetAllDocumentsQuery,useAddNewDocumentMutation,useDeleteDocumentMutation} = participantDocumentApi;

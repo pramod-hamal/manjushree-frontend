@@ -25,7 +25,8 @@ export const endpoints = {
     },
     documents: {
       add: "/participant/document",
-      getAll: (id: number | string) => "/participant/document?participant=" + id
+      getAll: (id: number | string) => "/participant/document?participant=" + id,
+      delete:(id:number|string)=>"/participant/document/"+id 
     },
     contact: {
       add: "/participant/contact",

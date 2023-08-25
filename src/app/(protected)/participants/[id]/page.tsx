@@ -47,7 +47,6 @@ const items: any[] = [
     icon: <ContactsOutlined />,
   },
   { label: "Plan", key: "5", children: <Plan />, icon: <BarChartOutlined /> },
-  // { label: "Memo", key: "6", children: <NotesList />, icon: <FileOutlined /> },
 ];
 
 export default function ParticipantDetail({
@@ -55,7 +54,12 @@ export default function ParticipantDetail({
 }: {
   params: { id: string };
 }) {
-  const { isLoading }: any = useGetUserByIdQuery(params.id);
+  const { isLoading, error }: any = useGetUserByIdQuery(params.id);
+  console.log(error);
+
+  if (error?.data?.error?.subdomain) {
+    throw new Error(error.data?.error?.subdomain);
+  }
 
   return (
     <div className="relative">

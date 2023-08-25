@@ -54,7 +54,7 @@ export default function LoginForm() {
         const errorData: APIBaseResponse<any, null> = error.data;
         showToast({
           title: errorData.message,
-          description: errorData.error?.message,
+          description: errorData.error?.subdomain,
           type: "error",
         });
       }

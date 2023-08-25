@@ -17,7 +17,7 @@ import NavigateButton from "@/components/buttons/Navigateleanq_support_coordinat
 
 export default function ParticipantList() {
   const router = useRouter();
-  const { isLoading }: any = useAllParticipantsQuery("");
+  const { isLoading, error }: any = useAllParticipantsQuery("");
   const { participants, paginationMeta }: ParticipanSliceState =
     useAppSelector(participantState);
 

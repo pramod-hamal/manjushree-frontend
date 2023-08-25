@@ -6,6 +6,7 @@ export const endpoints = {
     geMe: "/auth/me"
   },
   dropdowns: {
+    contact: "/dropdown/contact",
     organizationalContact: "/dropdown/contact/organization",
   },
   projects: {

@@ -2,13 +2,15 @@ import {
   baseUrl,
   endpoints,
 } from "@/constants/endpointsleanq_support_coordinator";
-import { prepareHeader } from "@/lib/getHeadersleanq_support_coordinator";
+import {
+  prepareAuthHeader,
+} from "@/lib/getHeadersleanq_support_coordinator";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { HealthConditionInitialState } from "./interface/health-condition.interface";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseUrl,
-  prepareHeaders: prepareHeader,
+  prepareHeaders: prepareAuthHeader
 });
 
 export const participantHealthApi = createApi({
@@ -25,7 +27,7 @@ export const participantHealthApi = createApi({
       query: (healthCondition) => ({
         url: endpoints.participants.health.add,
         body: healthCondition,
-        method: "POST",
+        method: "POST"
       }),
       invalidatesTags: ["Health"],
     }),

@@ -1,11 +1,11 @@
 import { baseUrl, endpoints } from "@/constants/endpointsleanq_support_coordinator";
-import { prepareHeader } from "@/lib/getHeadersleanq_support_coordinator";
+import { prepareAuthHeader } from "@/lib/getHeadersleanq_support_coordinator";
 import { createApi,fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { Dropdown } from "./dropdownSlice";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseUrl,
-  prepareHeaders: prepareHeader,
+  prepareHeaders: prepareAuthHeader,
 });
 
 export const dropdownApi = createApi({
@@ -13,7 +13,7 @@ export const dropdownApi = createApi({
   reducerPath:"dropdownApi",
   endpoints:(build)=>({
     organizationContact:build.query<Dropdown[],any>({
-      query:()=>endpoints.dropdowns.organizationalContact
+      query:()=>endpoints.dropdowns.organizationalContact,
     })
   })
 })

@@ -1,6 +1,9 @@
 export const baseUrl: string = process.env.baseUrl ?? "";
 
 export const endpoints = {
+  admin:{
+    validate:"/admin/tenants/validate"
+  },
   auth: {
     signIn: "/auth/sign-in",
     geMe: "/auth/me"

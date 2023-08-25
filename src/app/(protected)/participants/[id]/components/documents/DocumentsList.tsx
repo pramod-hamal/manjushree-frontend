@@ -57,9 +57,10 @@ export default function DocumentsList() {
       if (data) {
         toogleDeleteModal();
         showToast({ title: "Document Deleted", type: "success" });
+        setToDeleteId(null);
       } else {
         const errorData: APIBaseResponse<any, null> = error.data;
-        showToast({ title: error.message, type: "error" });
+        showToast({ title: errorData.message, type: "error" });
       }
     } catch (error) {
       console.log(error);

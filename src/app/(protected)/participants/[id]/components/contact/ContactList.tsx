@@ -1,5 +1,10 @@
-import React from "react";
-import { PlusOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  EyeOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
 
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
 import CusTable from "@/components/tables/Tableleanq_support_coordinator";
@@ -7,7 +12,10 @@ import CusModal from "@/components/modals/Modalleanq_support_coordinator";
 import { SearchInput } from "@/components/form/FormInputleanq_support_coordinator";
 
 import ContactForm from "./ContactForm";
-import { useGetAllQuery } from "@/store/features/participants/contact/apiSliceleanq_support_coordinator";
+import {
+  useDeleteContactMutation,
+  useGetAllQuery,
+} from "@/store/features/participants/contact/apiSliceleanq_support_coordinator";
 import {
   useAppDispatch,
   useAppSelector,
@@ -17,12 +25,66 @@ import {
   contactDetailState,
   toogleModal,
 } from "@/store/features/participants/contact/contactDetailSliceleanq_support_coordinator";
+import DeleteModal from "../notes/DeleteModal";
+import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
+import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
 
 export default function ContactList() {
+  const [toDeleteId, setToDeleteId] = useState<number | null>(null);
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
+
+  const toogleDeleteModal = () => setDeleteModal(!deleteModal);
+
+  const showToast = useToast();
   const dispatch = useAppDispatch();
   const { participantDetail } = useAppSelector(participantDetailState);
   const { isLoading } = useGetAllQuery(participantDetail?.id);
   const { contactList, showModal } = useAppSelector(contactDetailState);
+
+  const [deleteContact, { isLoading: deleteContactLoading }] =
+    useDeleteContactMutation();
+
+  const handleContactDelete = async () => {
+    try {
+      const { data, error }: any = await deleteContact(toDeleteId);
+      if (data) {
+        toogleDeleteModal();
+        showToast({ title: "Contact Deleted", type: "success" });
+        setToDeleteId(null);
+      } else {
+        const errorData: APIBaseResponse<any, null> = error.data;
+        showToast({ title: errorData.message, type: "error" });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    dispatch(toogleModal(false));
+  }, [dispatch]);
+
+  const actionColumns = [
+    ...columns,
+    {
+      title: "Actions",
+      width: 200,
+      render: (data: any) => {
+        return (
+          <div className="flex gap-5 items-center">
+            <EyeOutlined className="text-primary-grey" />
+            <DeleteOutlined
+              className="text-primary-danger"
+              onClick={() => {
+                toogleDeleteModal();
+                setToDeleteId(data.id);
+              }}
+            />
+          </div>
+        );
+      },
+    },
+  ];
 
   return (
     <div className="flex flex-col bg-white gap-5 p-5">
@@ -40,7 +102,7 @@ export default function ContactList() {
       </div>
       <div>
         <CusTable
-          columns={columns}
+          columns={actionColumns}
           dataSource={contactList}
           loading={isLoading}
         />
@@ -54,6 +116,12 @@ export default function ContactList() {
       >
         <ContactForm />
       </CusModal>
+      <DeleteModal
+        show={deleteModal}
+        onClose={toogleDeleteModal}
+        onDelete={() => handleContactDelete()}
+        loading={deleteContactLoading}
+      />
     </div>
   );
 }

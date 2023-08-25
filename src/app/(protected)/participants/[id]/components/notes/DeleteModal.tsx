@@ -1,12 +1,20 @@
-import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
-import CusModal, {
-  CusModalProps,
-} from "@/components/modals/Modalleanq_support_coordinator";
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
 
-export default function DeleteModal(props: CusModalProps) {
-  const { show, onClose } = props;
+import CusModal from "@/components/modals/Modalleanq_support_coordinator";
+import FlatButton, {
+  CancelButton,
+} from "@/components/buttons/Buttonleanq_support_coordinator";
+
+export interface DeleteModalProps {
+  show: boolean;
+  onClose: any;
+  onDelete: any;
+  loading?: boolean;
+}
+
+export default function DeleteModal(props: DeleteModalProps) {
+  const { show, onClose, onDelete, loading } = props;
   return (
     <CusModal show={show} onClose={onClose}>
       <div className="flex flex-col gap-5 items-center justify-center p-5">
@@ -21,15 +29,12 @@ export default function DeleteModal(props: CusModalProps) {
           Are you sure you want to delete?
         </span>
         <div className="flex gap-5 items-center">
+          <CancelButton onClick={onClose} />
           <FlatButton
-            title="Cancel"
-            onClick={() => {}}
-            color="text-black bg-white shadow border"
-          />
-          <FlatButton
+            loading={loading}
             title="Delete"
             color="bg-primary-danger text-white border-0"
-            onClick={() => {}}
+            onClick={onDelete}
           />
         </div>
       </div>

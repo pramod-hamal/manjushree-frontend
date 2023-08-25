@@ -29,8 +29,8 @@ import {
 } from "@/store/features/participants/documents/apiSliceleanq_support_coordinator";
 import { Skeleton } from "antd";
 import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
-import DeleteModal from "../notes/DeleteModal";
 import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
+import DeleteModal from "@/components/modals/DeleteModalleanq_support_coordinator";
 
 export default function DocumentsList() {
   const [toDeleteId, setToDeleteId] = useState<number | null>(null);

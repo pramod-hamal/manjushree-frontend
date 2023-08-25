@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  EyeOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined, EyeOutlined, PlusOutlined } from "@ant-design/icons";
 
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
 import CusTable from "@/components/tables/Tableleanq_support_coordinator";
 import CusModal from "@/components/modals/Modalleanq_support_coordinator";
 import { SearchInput } from "@/components/form/FormInputleanq_support_coordinator";
 
-import ContactForm from "./ContactForm";
 import {
   useDeleteContactMutation,
   useGetAllQuery,
@@ -25,9 +19,12 @@ import {
   contactDetailState,
   toogleModal,
 } from "@/store/features/participants/contact/contactDetailSliceleanq_support_coordinator";
-import DeleteModal from "../notes/DeleteModal";
 import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
+
 import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
+
+import ContactForm from "./ContactForm";
+import DeleteModal from "@/components/modals/DeleteModalleanq_support_coordinator";
 
 export default function ContactList() {
   const [toDeleteId, setToDeleteId] = useState<number | null>(null);
@@ -60,10 +57,6 @@ export default function ContactList() {
     }
   };
 
-  useEffect(() => {
-    dispatch(toogleModal(false));
-  }, [dispatch]);
-
   const actionColumns = [
     ...columns,
     {
@@ -85,6 +78,10 @@ export default function ContactList() {
       },
     },
   ];
+
+  useEffect(() => {
+    dispatch(toogleModal(false));
+  }, [dispatch]);
 
   return (
     <div className="flex flex-col bg-white gap-5 p-5">

@@ -1,10 +1,8 @@
 import React from "react";
 import Image from "next/image";
 
-import CusModal from "@/components/modals/Modalleanq_support_coordinator";
-import FlatButton, {
-  CancelButton,
-} from "@/components/buttons/Buttonleanq_support_coordinator";
+import FlatButton, { CancelButton } from "../buttons/Button";
+import CusModal from "./Modal";
 
 export interface DeleteModalProps {
   show: boolean;

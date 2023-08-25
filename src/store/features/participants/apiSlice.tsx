@@ -5,16 +5,11 @@ import {
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { ParticipantAddDTO } from "./interface/addPrticipantDTO";
 import { ParticipantDetail } from "./detail/participantDetailSlice";
+import { prepareAuthHeader } from "@/lib/getHeadersleanq_support_coordinator";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseUrl,
-  prepareHeaders: (headers, api) => {
-    const token: string | null = localStorage.getItem("token");
-    if (token) {
-      headers.set("Authorization", "Bearer " + token);
-    }
-    return;
-  },
+  prepareHeaders: prepareAuthHeader,
 });
 
 export const participantsApi = createApi({

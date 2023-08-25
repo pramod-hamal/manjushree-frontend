@@ -1,11 +1,10 @@
 import { baseUrl, endpoints } from "@/constants/endpointsleanq_support_coordinator";
-import { prepareHeader } from "@/lib/getHeadersleanq_support_coordinator";
+import { prepareAuthHeader } from "@/lib/getHeadersleanq_support_coordinator";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-
 const baseQuery = fetchBaseQuery({
-  baseUrl: baseUrl,
-  prepareHeaders: prepareHeader,
+  baseUrl: baseUrl, 
+  prepareHeaders: prepareAuthHeader
 });
 
 export const participantDocumentApi = createApi({

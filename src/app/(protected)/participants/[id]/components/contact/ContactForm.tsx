@@ -5,8 +5,8 @@ import { PlusOutlined } from "@ant-design/icons";
 import FlatButton, {
   CancelButton,
 } from "@/components/buttons/Buttonleanq_support_coordinator";
-import { SearchInput } from "@/components/form/FormInputleanq_support_coordinator";
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
+
 import { useAddMutation } from "@/store/features/participants/contact/apiSliceleanq_support_coordinator";
 import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
 import {
@@ -15,14 +15,14 @@ import {
 } from "@/store/hooksleanq_support_coordinator";
 import { participantDetailState } from "@/store/features/participants/detail/participantDetailSliceleanq_support_coordinator";
 import { toogleModal } from "@/store/features/participants/contact/contactDetailSliceleanq_support_coordinator";
-import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
 import { useOrganizationContactQuery } from "@/store/features/dropdown/apiSliceleanq_support_coordinator";
-import { Dropdown } from "@/store/features/dropdown/dropdownSliceleanq_support_coordinator";
+
+import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
 
 export interface ParticipantContactDTO {
   relation: string;
   participantId?: number;
-  contactId: number;
+  contactId: number | null;
 }
 
 export default function ContactForm() {
@@ -37,7 +37,7 @@ export default function ContactForm() {
   const initialValues: ParticipantContactDTO = {
     relation: "",
     participantId: participantDetail?.id,
-    contactId: 0,
+    contactId: null,
   };
 
   const handleSubmit = async (
@@ -72,7 +72,7 @@ export default function ContactForm() {
         <div className="flex gap-5">
           <div className="w-[366px]">
             <CusSelect
-              placeHolder="Relationship"
+              placeHolder="Select Contact"
               onChange={(selectedData: any) => {
                 formik.setFieldValue("contactId", selectedData);
               }}
@@ -90,7 +90,7 @@ export default function ContactForm() {
         </div>
         <div className="w-[366px]">
           <CusSelect
-            placeHolder="Relationship"
+            placeHolder="Select Relationship"
             onChange={(selectedData: any) => {
               formik.setFieldValue("relation", selectedData);
             }}

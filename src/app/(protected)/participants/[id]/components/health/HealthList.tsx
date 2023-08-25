@@ -24,8 +24,9 @@ export default function HealthList() {
   const { healthList, paginationMeta, showModal }: PartticipantHealthSlice =
     useAppSelector(participantHealthState);
 
-  const { isLoading } = useGetParticipantHealthListQuery(participantDetail?.id);
-
+  const { isLoading, error } = useGetParticipantHealthListQuery(
+    participantDetail?.id
+  );
   return (
     <div className="flex flex-col bg-white gap-5 p-5">
       <div className="flex flex-row-reverse">

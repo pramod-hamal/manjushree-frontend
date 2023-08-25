@@ -30,7 +30,8 @@ export const endpoints = {
     },
     contact: {
       add: "/participant/contact",
-      getAll: (id: string | number) => "/participant/contact?participant=" + id
+      getAll: (id: string | number) => "/participant/contact?participant=" + id,
+      delete:(id:number|string)=>"/participant/contact/"+id 
     }
   },
   contact: {

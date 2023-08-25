@@ -27,7 +27,15 @@ export const participantDetailContactApi = createApi({
       }),
       invalidatesTags: ["Contact"],
     }),
+    deleteContact: build.mutation<any, any>({
+      query: (id) => ({
+        url: endpoints.participants.contact.delete(id),
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Contact"],
+    }),
   }),
 });
 
-export const { useGetAllQuery, useAddMutation } = participantDetailContactApi;
+export const { useGetAllQuery, useAddMutation, useDeleteContactMutation } =
+  participantDetailContactApi;

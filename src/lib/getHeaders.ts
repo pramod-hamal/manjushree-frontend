@@ -5,7 +5,7 @@ export const getSubDomainFromBaseUrl=()=>{
   const parsedUrl = new URL(url);
   const parts = parsedUrl.hostname.split('.');
   const subdomain = parts.slice(0, parts.length - 2).join('.');
-  return "leanq";
+  return subdomain;
 }
 
 export const prepareAuthHeader=(headers:Headers) => {
@@ -21,4 +21,16 @@ export const prepareAuthHeader=(headers:Headers) => {
     const subdomain :string = getSubDomainFromBaseUrl()
     headers.set("x-subdomain",subdomain);
     return;
+  }
+
+  export const getSubDomain=(url:string)=>{
+    const parsedUrl = new URL(url);
+    const parts = parsedUrl.hostname.split('.');
+    const subdomain = parts.slice(0, parts.length - 2).join('.');
+    return subdomain;
+  }
+
+  export const prepareValidateDomainHeader=(url:string)=>{
+    const subDomain:string = getSubDomain(url);
+    return {headers:{"x-subdomain":subDomain}}
   }

@@ -1,25 +1,12 @@
-import {
-  baseUrl,
-  endpoints,
-} from "@/constants/endpointsleanq_support_coordinator";
-import { prepareAuthHeader } from "@/lib/getHeadersleanq_support_coordinator";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-const baseQuery = fetchBaseQuery({
-  baseUrl: baseUrl,
-  prepareHeaders: prepareAuthHeader,
-});
+import { endpoints } from "@/constants/endpointsleanq_support_coordinator";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { protectedBaseQuery } from "@/store/baseQuery/protected.baseQueryleanq_support_coordinator";
 
 export const participantDetailApi = createApi({
-  baseQuery,
+  baseQuery: protectedBaseQuery,
   reducerPath: "participantDetailApi",
   tagTypes: ["Participant", "Detail"],
   endpoints: (build) => ({
-    /**
-     * Get participant detail by id
-     * @param {any} {query:(id
-     * @returns {any}
-     */
     getUserById: build.query<any, any>({
       query: (id) => endpoints.participants.getById(id),
       providesTags: ["Detail"],

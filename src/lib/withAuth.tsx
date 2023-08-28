@@ -40,7 +40,6 @@ const withAuth = (WrappedComponent: React.ComponentType<any>) => {
       if (token === null) {
         router.replace(routes.login);
       } else {
-        // Redirect to the appropriate path based on the current path
         router.push(unauthorizedPath ? routes.dashboard : path);
       }
     }, [path, router, showToast, unauthorizedPath]);

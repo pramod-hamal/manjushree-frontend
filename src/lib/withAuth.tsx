@@ -4,9 +4,10 @@ import { routes } from "@/constants/routesleanq_support_coordinator";
 import { setCredentials } from "@/store/features/auth/authSliceleanq_support_coordinator";
 import { stores } from "@/store/storeleanq_support_coordinator";
 import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { validateDomain } from "./validate-domain/validate.api";
 import { useToast } from "./toast/useToast";
+import InvalidSubdomainError from "@/components/error/InvalidSubDomainErrorleanq_support_coordinator";
 
 /**
  * @param WrappedComponent - The component to be wrapped with authentication.
@@ -14,6 +15,7 @@ import { useToast } from "./toast/useToast";
  */
 const withAuth = (WrappedComponent: React.ComponentType<any>) => {
   const AuthWrapper: React.FC<any> = (props) => {
+    const [error, setError] = useState<string | null>(null);
     const router = useRouter();
     const showToast = useToast();
     const path = usePathname();
@@ -25,7 +27,7 @@ const withAuth = (WrappedComponent: React.ComponentType<any>) => {
       const valid = await validateDomain(host);
       if (!valid) {
         showToast({ title: "Invalid SubDomain", type: "error" });
-        window.location.href = "https://leancx.io";
+        setError("Invalid Subdomain");
       } else {
         const token = localStorage.getItem("token");
         stores.dispatch(setCredentials({ token }));
@@ -42,7 +44,11 @@ const withAuth = (WrappedComponent: React.ComponentType<any>) => {
       if (typeof window !== "undefined") {
         checkDomain();
       }
-    }, [checkDomain]);
+    }, []);
+
+    if (error) {
+      return <InvalidSubdomainError error={error} />;
+    }
 
     return <WrappedComponent {...props} />;
   };

@@ -36,6 +36,10 @@ export const endpoints = {
       add: "/participant/contact",
       getAll: (id: string | number) => "/participant/contact?participant=" + id,
       delete:(id:number|string)=>"/participant/contact/"+id 
+    },
+    plan:{
+      getPlan:(id:number|string)=> '/participant/plan?participant='+id,
+      create:"/participant/plan"
     }
   },
   contact: {

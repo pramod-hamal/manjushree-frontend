@@ -1,32 +1,14 @@
-import {
-  baseUrl,
-  endpoints,
-} from "@/constants/endpointsleanq_support_coordinator";
-import { prepareAuthHeader } from "@/lib/getHeadersleanq_support_coordinator";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-const baseQuery = fetchBaseQuery({
-  baseUrl: baseUrl,
-  prepareHeaders: prepareAuthHeader,
-});
+import { endpoints } from "@/constants/endpointsleanq_support_coordinator";
+import { protectedBaseQuery } from "@/store/baseQuery/protected.baseQueryleanq_support_coordinator";
+import { createApi } from "@reduxjs/toolkit/query/react";
 
 export const projectsApi = createApi({
-  baseQuery,
+  baseQuery: protectedBaseQuery,
   reducerPath: "projectsApi",
   endpoints: (build) => ({
-    /**
-     * Get items list
-     * @param {any} {query:(
-     * @returns {any}
-     */
     projectList: build.query<any, string>({
       query: () => endpoints.projects.all,
     }),
-    /**
-     * Add New Project
-     * @param {any} {query:(projectData
-     * @returns {any}
-     */
     addProject: build.mutation<any, any>({
       query: (projectData) => ({
         url: endpoints.projects.add,
@@ -34,11 +16,6 @@ export const projectsApi = createApi({
         body: projectData,
       }),
     }),
-    /**
-     * Update Project
-     * @param {any} {query:(toUpdateProjectData
-     * @returns {any}
-     */
     updateProject: build.mutation<any, any>({
       query: (toUpdateProjectData) => ({
         url: endpoints.projects.update,

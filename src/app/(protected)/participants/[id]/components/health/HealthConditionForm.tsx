@@ -42,21 +42,20 @@ export default function HealthConditionForm() {
     values: HealthConditionInitialState,
     { setSubmitting }: FormikHelpers<HealthConditionInitialState>
   ) => {
-    try {
-      const { data, error }: any = await addHealthCondition(values);
-      if (data) {
+    await addHealthCondition(values)
+      .unwrap()
+      .then((_) => {
         formik.resetForm();
-        showToast({ title: "Health Condition Added", type: "success" })
+        showToast({ title: "Health Condition Added", type: "success" });
         dispatch(toogleModal(false));
-      } else {
+      })
+      .catch((error) => {
         const errorData: APIBaseResponse<any, null> = error.data;
-        showToast({ title: errorData.message, type: "error" })
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setSubmitting(false);
-    }
+        showToast({ title: errorData.message, type: "error" });
+      })
+      .finally(() => {
+        setSubmitting(false);
+      });
   };
 
   const { formik, renderFormFields } = useFormBuilder({

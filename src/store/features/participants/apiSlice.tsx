@@ -1,19 +1,11 @@
-import {
-  baseUrl,
-  endpoints,
-} from "@/constants/endpointsleanq_support_coordinator";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { endpoints } from "@/constants/endpointsleanq_support_coordinator";
+import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { ParticipantAddDTO } from "./interface/addPrticipantDTO";
 import { ParticipantDetail } from "./detail/participantDetailSlice";
-import { prepareAuthHeader } from "@/lib/getHeadersleanq_support_coordinator";
-
-const baseQuery = fetchBaseQuery({
-  baseUrl: baseUrl,
-  prepareHeaders: prepareAuthHeader,
-});
+import { protectedBaseQuery } from "@/store/baseQuery/protected.baseQueryleanq_support_coordinator";
 
 export const participantsApi = createApi({
-  baseQuery,
+  baseQuery: protectedBaseQuery,
   reducerPath: "participantsApi",
   tagTypes: ["Participant", "List"],
   endpoints: (build) => ({

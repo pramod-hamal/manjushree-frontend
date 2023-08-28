@@ -24,8 +24,8 @@ import {
 import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
 
 const initialValues: LoginFormDTO = {
-  email: "leanq@digital.com",
-  password: "Pa$$w0rd",
+  email: "",
+  password: "",
 };
 
 const validationSchema = yup.object().shape({
@@ -38,32 +38,22 @@ export default function LoginForm() {
   const router = useRouter();
   const [login] = useSignInMutation();
 
-  const handleLogin = async (
+  const handleLogin = (
     values: LoginFormDTO,
     { setSubmitting }: FormikHelpers<LoginFormDTO>
-  ) => {
-    try {
-      const { data, error }: any = await login(values);
-      if (data) {
-        const responseData: APIBaseResponse<LoginResponseData | any, null> =
-          data;
-        localStorage.setItem("token", responseData.data.accessToken);
-        showToast({ title: "Login Successfull", type: "success" });
+  ) =>
+    login(values)
+      .unwrap()
+      .then((data: APIBaseResponse<LoginResponseData | any, null>) => {
         router.push("/dashboard");
-      } else {
+        localStorage.setItem("token", data.data.accessToken);
+        showToast({ title: "Login Successfull", type: "success" });
+      })
+      .catch((error) => {
         const errorData: APIBaseResponse<any, null> = error.data;
-        showToast({
-          title: errorData.message,
-          description: errorData.error?.subdomain,
-          type: "error",
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setSubmitting(false);
-    }
-  };
+        showToast({ title: errorData.message, type: "error" });
+        setSubmitting(false);
+      });
 
   const formik = useFormik({
     initialValues,

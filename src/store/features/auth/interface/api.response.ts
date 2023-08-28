@@ -1,10 +1,10 @@
-export interface APIBaseResponse<t,m>{
+export interface APIBaseResponse<t>{
   statusCode:number;
   timeStamp?:string;
   message:string;
   error?:any;
   data:t,
-  meta?:m
+  meta?:PaginationMetaDTO
 }
 
 export interface AuthMEResponseData{

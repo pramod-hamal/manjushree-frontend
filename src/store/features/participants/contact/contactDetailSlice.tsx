@@ -38,8 +38,7 @@ export const contactDetailSlice = createSlice({
     builder.addMatcher(
       participantDetailContactApi.endpoints.getAll.matchFulfilled,
       (state, action) => {
-        const response: APIBaseResponse<any, PaginationMetaDTO> =
-          action.payload;
+        const response: APIBaseResponse<any> = action.payload;
         if (response.statusCode === 200) {
           state.contactList = response.data;
           state.paginationMeta = response.meta ?? state.paginationMeta;

@@ -30,8 +30,7 @@ export const authSlice = createSlice({
     builder.addMatcher(
       authApi.endpoints.signIn.matchFulfilled,
       (state, action) => {
-        const response: APIBaseResponse<LoginResponseData | any, null> =
-          action.payload;
+        const response: APIBaseResponse<LoginResponseData> = action.payload;
         if (response.statusCode === 200) {
           state.token = response.data?.accessToken;
         }

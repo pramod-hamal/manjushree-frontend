@@ -37,7 +37,7 @@ export default function NewDocumentForm() {
         dispatch(toogleModal(false));
         showToast({ title: "Document Added", type: "success" });
       } else {
-        const errorData: APIBaseResponse<any, null> = error.data;
+        const errorData: APIBaseResponse<any> = error.data;
         showToast({ title: errorData.message, type: "error" });
       }
     } catch (error) {

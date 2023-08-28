@@ -37,14 +37,14 @@ export default function EditProfile() {
       };
       const { data, error }: any = await update(participantData);
       if (data) {
-        const responseData: APIBaseResponse<any, any> = data;
+        const responseData: APIBaseResponse<any> = data;
         showToast({
           title: responseData.message,
           description: "Profile edited successfull",
           type: "success",
         });
       } else {
-        const errorData: APIBaseResponse<any, null> = error.data;
+        const errorData: APIBaseResponse<any> = error.data;
         showToast({
           title: errorData.message,
           description: errorData.error?.message,

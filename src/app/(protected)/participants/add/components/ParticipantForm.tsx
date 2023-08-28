@@ -40,12 +40,12 @@ export default function ParticipantForm() {
       };
       const { data, error }: any = await add(participantData);
       if (data) {
-        const responseData: APIBaseResponse<Participant, null> = data;
+        const responseData: APIBaseResponse<Participant> = data;
         setShowModal(true);
         addParticipantsFormik.resetForm();
         router.back();
       } else {
-        const errorData: APIBaseResponse<any, null> = error.data;
+        const errorData: APIBaseResponse<any> = error.data;
         showToast({
           title: errorData.message,
           description: errorData.error?.message,

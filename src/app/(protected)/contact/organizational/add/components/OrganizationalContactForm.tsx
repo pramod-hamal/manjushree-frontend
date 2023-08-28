@@ -69,7 +69,7 @@ export default function OrganizationalContactForm({
         showToast({ title: "Organization Added", type: "success" });
         router.replace(routes.organizationalContact);
       } else {
-        const errorData: APIBaseResponse<any, null> = error.data;
+        const errorData: APIBaseResponse<any> = error.data;
         showToast({ title: errorData.message, type: "error" });
       }
     } catch (error) {
@@ -89,7 +89,7 @@ export default function OrganizationalContactForm({
         showToast({ title: "Update Successfully", type: "success" });
         router.replace(routes.organizationalContact);
       } else {
-        const errorData: APIBaseResponse<any, null> = error.data;
+        const errorData: APIBaseResponse<any> = error.data;
         showToast({ title: errorData.message, type: "error" });
       }
     } catch (error) {

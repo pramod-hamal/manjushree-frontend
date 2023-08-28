@@ -39,8 +39,7 @@ export const contactSlice = createSlice({
     builder.addMatcher(
       contactApi.endpoints.individualContactList.matchFulfilled,
       (state, action) => {
-        const response: APIBaseResponse<any, PaginationMetaDTO> =
-          action.payload;
+        const response: APIBaseResponse<any> = action.payload;
         if (response.statusCode === 200) {
           state.individialContactList = response.data;
           state.individialContactListPagination = response.data?.meta;
@@ -51,8 +50,7 @@ export const contactSlice = createSlice({
     builder.addMatcher(
       contactApi.endpoints.organizationalContactList.matchFulfilled,
       (state, action) => {
-        const response: APIBaseResponse<any, PaginationMetaDTO> =
-          action.payload;
+        const response: APIBaseResponse<any> = action.payload;
         if (response.statusCode === 200) {
           state.organizationalContactList = response.data;
           state.organizationalContactListPagination = response.data?.meta;

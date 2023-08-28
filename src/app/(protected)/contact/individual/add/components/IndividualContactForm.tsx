@@ -56,7 +56,7 @@ export default function IndividualContactForm({
         showToast({ title: "Contact Created Successfully", type: "success" });
         router.replace(routes.individualContact);
       } else {
-        const errorData: APIBaseResponse<any, null> = error.data;
+        const errorData: APIBaseResponse<any> = error.data;
         showToast({ title: errorData.data?.message, type: "error" });
       }
     } catch (error) {
@@ -76,7 +76,7 @@ export default function IndividualContactForm({
         showToast({ title: "Contact Updated Successfully", type: "success" });
         router.replace(routes.individualContact);
       } else {
-        const errorData: APIBaseResponse<any, null> = error.data;
+        const errorData: APIBaseResponse<any> = error.data;
         showToast({ title: errorData.data?.message, type: "error" });
       }
     } catch (error) {

@@ -5,23 +5,26 @@ import { protectedBaseQuery } from "@/store/baseQuery/protected.baseQueryleanq_s
 import { endpoints } from "@/constants/endpointsleanq_support_coordinator";
 
 import { APIBaseResponse } from "../../auth/interface/api.response";
-import { PlanInterface, PlanResponse } from "./interface/plan.response";
+import { PlanInterface, PlanResponse } from "./interface/plan.interface";
 
 export const participantPlanApi =createApi({
   baseQuery:protectedBaseQuery,
   reducerPath:"participantPlanApi",
+  tagTypes:["Participant","Plan"],
   endpoints:(build)=>({
-    participantPlan: build.query<APIBaseResponse<PlanResponse, null>, any>({
+    participantPlan: build.query<APIBaseResponse<PlanResponse>, any>({
       query: (id: string | number) => endpoints.participants.plan.getPlan(id),
+      providesTags:["Plan"],
     }),
-    createPlan:build.mutation<APIBaseResponse<any,null>,any>({
+    createPlan:build.mutation<APIBaseResponse<any>,any>({
       query:(planData:PlanInterface)=>({
-        url:"",
+        url:endpoints.participants.plan.create,
         body:planData,
         method:"POST"
-      })
+      }),
+      invalidatesTags:["Plan"]
     })
   })
 })
 
-export const {useParticipantPlanQuery,useCreatePlanMutation} = participantPlanApi
+export const {useParticipantPlanQuery,useCreatePlanMutation} = participantPlanApi;

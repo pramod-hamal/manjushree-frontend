@@ -5,13 +5,18 @@
     headers.set("x-subdomain",subdomain!);
   }
 
-  export const getSubDomain=(url:string)=>{
-    const hostParts = url.split('.');
-    if (hostParts.length >= 2) {
-        return hostParts[0];
+  export const getSubDomain=(url:string):string|null=>{
+   if(url.includes("localhost")){
+      return "leanq"
     }
-    return null;
-  }
+    else{
+      const hostParts = url.split('.');
+      if (hostParts.length >= 2) {
+          return hostParts[0];
+      }
+      return null;
+    }
+    }
 
   export const prepareValidateDomainHeader=(url:string)=>{
     const subDomain: string | null = getSubDomain(url);

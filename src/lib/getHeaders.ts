@@ -18,8 +18,7 @@
     }
     }
 
-  export const prepareValidateDomainHeader=(url:string)=>{
-    const subDomain: string | null = getSubDomain(url);
+  export const prepareValidateDomainHeader=(subDomain:string)=>{
     return {headers:{"x-subdomain":subDomain}}
   }
 

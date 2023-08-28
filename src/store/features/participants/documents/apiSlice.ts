@@ -1,7 +1,6 @@
-import { baseUrl, endpoints } from "@/constants/endpointsleanq_support_coordinator";
-import { prepareAuthHeader } from "@/lib/getHeadersleanq_support_coordinator";
+import { endpoints } from "@/constants/endpointsleanq_support_coordinator";
 import { protectedBaseQuery } from "@/store/baseQuery/protected.baseQueryleanq_support_coordinator";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 
 export const participantDocumentApi = createApi({
   baseQuery:protectedBaseQuery,

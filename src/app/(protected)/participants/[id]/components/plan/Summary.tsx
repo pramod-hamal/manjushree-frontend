@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Skeleton } from "antd";
 import { EyeOutlined, PlusOutlined } from "@ant-design/icons";
 
@@ -8,17 +8,20 @@ import {
   participantDetailState,
 } from "@/store/features/participants/detail/participantDetailSliceleanq_support_coordinator";
 import {
-  PlanInterface,
-  PlanResponse,
-} from "@/store/features/participants/plan/interface/plan.responseleanq_support_coordinator";
-import {
   daysDifference,
   defaultDateFormat,
 } from "@/lib/date.utilsleanq_support_coordinator";
 import { useParticipantPlanQuery } from "@/store/features/participants/plan/apiSliceleanq_support_coordinator";
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
+import CusModal from "@/components/modals/Modalleanq_support_coordinator";
+import CreatePlan from "./CreatePlanForm";
+import {
+  PlanInterface,
+  PlanResponse,
+} from "@/store/features/participants/plan/interface/plan.interfaceleanq_support_coordinator";
 
 export default function Summary() {
+  const [showModal, setShowModal] = useState<boolean>(false);
   const { participantDetail }: ParticipantDetailSlice = useAppSelector(
     participantDetailState
   );
@@ -76,12 +79,15 @@ export default function Summary() {
           <div>
             <FlatButton
               title="Create Plan"
-              onClick={() => {}}
+              onClick={() => setShowModal(true)}
               icon={<PlusOutlined />}
             />
           </div>
         )}
       </div>
+      <CusModal show={showModal} onClose={() => setShowModal(false)}>
+        <CreatePlan onClose={() => setShowModal(false)} />
+      </CusModal>
     </div>
   );
 }

@@ -39,8 +39,7 @@ export const participantHealthSlice = createSlice({
     builder.addMatcher(
       participantHealthApi.endpoints.getParticipantHealthList.matchFulfilled,
       (state, action) => {
-        const response: APIBaseResponse<any, PaginationMetaDTO> =
-          action.payload;
+        const response: APIBaseResponse<any> = action.payload;
         if (response.statusCode === 200) {
           console.log(response.data);
           state.healthList = response.data;

@@ -16,7 +16,7 @@ import { defaultDateFormat } from "@/lib/date.utilsleanq_support_coordinator";
 import {
   PlanInterface,
   PlanResponse,
-} from "@/store/features/participants/plan/interface/plan.responseleanq_support_coordinator";
+} from "@/store/features/participants/plan/interface/plan.interfaceleanq_support_coordinator";
 
 export default function ProfileHeader() {
   const { participantDetail }: ParticipantDetailSlice = useAppSelector(

@@ -50,7 +50,7 @@ export default function ContactForm() {
         dispatch(toogleModal(false));
         showToast({ title: "Contact Added", type: "success" });
       } else {
-        const errorData: APIBaseResponse<any, null> = error;
+        const errorData: APIBaseResponse<any> = error;
         showToast({ title: errorData?.data?.message, type: "error" });
       }
     } catch (error: any) {

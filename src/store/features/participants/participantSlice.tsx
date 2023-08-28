@@ -31,8 +31,7 @@ export const participantSlice = createSlice({
     builder.addMatcher(
       participantsApi.endpoints.allParticipants.matchFulfilled,
       (state, action) => {
-        const response: APIBaseResponse<Participant[], PaginationMetaDTO> =
-          action.payload;
+        const response: APIBaseResponse<Participant[]> = action.payload;
         if (response.statusCode === 200) {
           state.participants = response.data;
           state.paginationMeta = response.meta ?? state.paginationMeta;

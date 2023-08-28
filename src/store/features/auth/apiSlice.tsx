@@ -8,9 +8,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseUrl,
-  prepareHeaders: (headers: Headers) => {
-    prepareSubDomainHeader(headers);
-  },
+  prepareHeaders: prepareSubDomainHeader,
 });
 
 export const authApi = createApi({
@@ -22,11 +20,6 @@ export const authApi = createApi({
         url: endpoints.auth.signIn,
         method: "POST",
         body: loginData,
-      }),
-    }),
-    getMe: build.query({
-      query: () => ({
-        url: endpoints.auth.geMe,
       }),
     }),
   }),

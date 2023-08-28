@@ -1,5 +1,6 @@
 import React from "react";
 import * as yup from "yup";
+import { FormikHelpers } from "formik";
 
 import useFormBuilder from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
 
@@ -11,13 +12,13 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "@/store/hooksleanq_support_coordinator";
-import { FormField } from "@/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
 import { useAddHealthConditionMutation } from "@/store/features/participants/health/apiSliceleanq_support_coordinator";
 import { HealthConditionInitialState } from "@/store/features/participants/health/interface/health-condition.interfaceleanq_support_coordinator";
 import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
-import { FormikHelpers } from "formik";
 import { toogleModal } from "@/store/features/participants/health/participantHealthSliceleanq_support_coordinator";
+
 import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
+import { FormField } from "@/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
 
 const validationSchema = yup.object().shape({
   title: yup.string().required("Required"),
@@ -50,7 +51,7 @@ export default function HealthConditionForm() {
         dispatch(toogleModal(false));
       })
       .catch((error) => {
-        const errorData: APIBaseResponse<any, null> = error.data;
+        const errorData: APIBaseResponse<any> = error.data;
         showToast({ title: errorData.message, type: "error" });
       })
       .finally(() => {

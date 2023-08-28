@@ -44,13 +44,13 @@ export default function LoginForm() {
   ) =>
     login(values)
       .unwrap()
-      .then((data: APIBaseResponse<LoginResponseData | any, null>) => {
+      .then((data: APIBaseResponse<LoginResponseData>) => {
         router.push("/dashboard");
         localStorage.setItem("token", data.data.accessToken);
         showToast({ title: "Login Successfull", type: "success" });
       })
       .catch((error) => {
-        const errorData: APIBaseResponse<any, null> = error.data;
+        const errorData: APIBaseResponse<any> = error.data;
         showToast({ title: errorData.message, type: "error" });
         setSubmitting(false);
       });

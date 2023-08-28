@@ -59,7 +59,7 @@ export default function DocumentsList() {
         showToast({ title: "Document Deleted", type: "success" });
         setToDeleteId(null);
       } else {
-        const errorData: APIBaseResponse<any, null> = error.data;
+        const errorData: APIBaseResponse<any> = error.data;
         showToast({ title: errorData.message, type: "error" });
       }
     } catch (error) {

@@ -40,15 +40,14 @@ export const participantDetailSlice = createSlice({
       state.disabled = action.payload;
     },
     setParticipant(state, action) {
-      state.participantDetail = action.payload
-    }
+      state.participantDetail = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addMatcher(
       participantDetailApi.endpoints.getUserById.matchFulfilled,
       (state, action) => {
-        const response: APIBaseResponse<ParticipantDetail, null> =
-          action.payload;
+        const response: APIBaseResponse<ParticipantDetail> = action.payload;
         if (response.statusCode === 200) {
           state.participantDetail = response.data;
         }
@@ -59,7 +58,7 @@ export const participantDetailSlice = createSlice({
 
 export const participantDetailReducer = participantDetailSlice.reducer;
 
-export const { toogleEdit,setParticipant } = participantDetailSlice.actions;
+export const { toogleEdit, setParticipant } = participantDetailSlice.actions;
 
 export const participantDetailState = (state: RootState) =>
   state.participantDetail;

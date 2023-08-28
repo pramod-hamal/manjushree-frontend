@@ -9,27 +9,41 @@ import FlatButton, {
   CancelButton,
 } from "@/components/buttons/Buttonleanq_support_coordinator";
 import SuccessModal from "./SuccessModal";
+import { useAddMutation } from "@/store/features/users/apiSliceleanq_support_coordinator";
+import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
+import { useRouter } from "next/navigation";
 
 export default function AddUserForm() {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const showToast = useToast();
+  const router = useRouter();
+  const [addUser] = useAddMutation();
 
   const initialValues = {
     firstName: "",
     middleName: "",
     lastName: "",
     email: "",
-    phoneNo: "",
+    phone: "",
     role: "",
-    rate: "",
-    relation: "",
-    contact: "",
+  };
+
+  const handleAddUser = async (values: any, { setSubmitting }: any) => {
+    await addUser(values)
+      .unwrap()
+      .then(() => {
+        showToast({ title: "User Added", type: "success" });
+        router.back();
+      })
+      .catch((error) => {
+        console.log(error);
+        showToast({ title: error.message, type: "error" });
+      });
   };
 
   const formik = useFormik({
     initialValues,
-    onSubmit: (values: any, { setSubmitting }: any) => {
-      console.log(values);
-    },
+    onSubmit: handleAddUser,
     validateOnMount: false,
     validateOnChange: false,
     validateOnBlur: false,
@@ -79,13 +93,13 @@ export default function AddUserForm() {
           />
           <FormInput
             type="number"
-            value={formik.values.phoneNo}
-            name="phoneNo"
+            value={formik.values.phone}
+            name="phone"
             label="Phone Number"
             required={true}
             placeHolder="Text Here"
             onChange={formik.handleChange}
-            errors={formik.errors.phoneNo}
+            errors={formik.errors.phone}
           />
           <CusSelect
             options={[]}
@@ -96,48 +110,13 @@ export default function AddUserForm() {
             value={formik.values.role}
             errors={formik.errors.role}
           />
-          <CusSelect
-            options={[{ label: "One", value: "One" }]}
-            placeHolder="Select Rate"
-            label="Rate"
-            onChange={(value: any) => formik.setFieldValue("rate", value)}
-            required={true}
-            value={formik.values.rate}
-            errors={formik.errors.rate}
-          />
-        </div>
-        <span className="text-2xl font-semibold pt-4">Contacts</span>
-        <div className="grid grid-cols-2 gap-5 gap-x-10">
-          <CusSelect
-            options={[]}
-            placeHolder="Choose Contact"
-            label="Choose Contact"
-            onChange={() => {}}
-            required={true}
-            value={formik.values.contact}
-            errors={formik.errors.contact}
-          />
-          <FormInput
-            value={formik.values.relation}
-            name="relation"
-            label="Relation"
-            required={true}
-            placeHolder="Type Relation"
-            onChange={formik.handleChange}
-            errors={formik.errors.email}
-          />
-          <CusSelect
-            options={[]}
-            placeHolder="Type"
-            label="Type"
-            onChange={() => {}}
-            required={true}
-            value={formik.values.rate}
-            errors={formik.errors.rate}
-          />
         </div>
         <div className="flex gap-10 items-center">
-          <FlatButton title="Submit" type="submit" />
+          <FlatButton
+            title="Submit"
+            type="submit"
+            loading={formik.isSubmitting}
+          />
           <CancelButton />
         </div>
       </form>

@@ -43,7 +43,8 @@ export const endpoints = {
     }
   },
   users:{
-    getAll:"/users"
+    getAll:"/users",
+    add:"/users"
   },
   contact: {
     getById: (id: number | string) => "/contact/" + id,

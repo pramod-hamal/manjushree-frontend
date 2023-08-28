@@ -8,35 +8,12 @@ import CusTable from "@/components/tables/Tableleanq_support_coordinator";
 import { SearchInput } from "@/components/form/FormInputleanq_support_coordinator";
 
 import { routes } from "@/constants/routesleanq_support_coordinator";
-import { users } from "@/constants/data/usersleanq_support_coordinator";
 import NavigateButton from "@/components/buttons/Navigateleanq_support_coordinator";
+import { useGetAllQuery } from "@/store/features/users/apiSliceleanq_support_coordinator";
 
 export default function UsersList() {
+  const { isLoading, data } = useGetAllQuery("");
   const router = useRouter();
-
-  const columns: any = [
-    {
-      title: "Full Name",
-      dataIndex: "fullName",
-    },
-    { title: "Email", dataIndex: "email" },
-    { title: "Phone No", dataIndex: "phoneNo" },
-    { title: "Role", dataIndex: "role" },
-    {
-      title: "Status",
-      dataIndex: "status",
-      render: (status: string) => (
-        <div
-          className={`px-4 text-center py-1  text-white ${getStatusBackground(
-            status.toLowerCase()
-          )}`}
-        >
-          {status}
-        </div>
-      ),
-      width: 150,
-    },
-  ];
 
   return (
     <div className="flex flex-col">
@@ -55,12 +32,27 @@ export default function UsersList() {
           router.push(routes.userProfile(rowData.id.$oid))
         }
         columns={columns}
-        dataSource={users}
-        loading={false}
+        dataSource={data?.data}
+        loading={isLoading}
       />
     </div>
   );
 }
+
+const columns: any = [
+  {
+    title: "Full Name",
+    render: (data: any) => {
+      return (
+        <div>
+          {data.firstName} {""} {data.middleName} {""} {data.lastName}
+        </div>
+      );
+    },
+  },
+  { title: "Email", dataIndex: "email" },
+  { title: "Phone No", dataIndex: "phone" },
+];
 
 /**
  * Get Status Background Color using user status

@@ -42,6 +42,9 @@ export const endpoints = {
       create:"/participant/plan"
     }
   },
+  users:{
+    getAll:"/users"
+  },
   contact: {
     getById: (id: number | string) => "/contact/" + id,
     individual: {

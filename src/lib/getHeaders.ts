@@ -1,37 +1,28 @@
-import { baseUrl } from "@/constants/endpointsleanq_support_coordinator";
 
-export const getSubDomainFromBaseUrl=()=>{
-  const url = baseUrl;
-  const parsedUrl = new URL(url);
-  const parts = parsedUrl.hostname.split('.');
-  const subdomain = parts.slice(0, parts.length - 2).join('.');
-  return subdomain;
-}
+  export const prepareSubDomainHeader=(headers:Headers) => {
+    const url = window.location.host;
+    const subdomain :string|null = getSubDomain(url)
+    headers.set("x-subdomain",subdomain!);
+  }
 
-export const prepareAuthHeader=(headers:Headers) => {
-   prepareSubDomainHeader(headers)
+  export const getSubDomain=(url:string)=>{
+    const hostParts = url.split('.');
+    if (hostParts.length >= 2) {
+        return hostParts[0];
+    }
+    return null;
+  }
+
+  export const prepareValidateDomainHeader=(url:string)=>{
+    const subDomain: string | null = getSubDomain(url);
+    return {headers:{"x-subdomain":subDomain}}
+  }
+
+  export const prepareAuthHeader=(headers:Headers) => {
+    prepareSubDomainHeader(headers)
     const token: string | null = localStorage.getItem("token");
     if (token) {
       headers.set("Authorization", "Bearer " + token);
     }
     return;
-  }
-
-  export const prepareSubDomainHeader=(headers:Headers) => {
-    const subdomain :string = getSubDomainFromBaseUrl()
-    headers.set("x-subdomain",subdomain);
-    return;
-  }
-
-  export const getSubDomain=(url:string)=>{
-    const hostParts = url.split('.');
-    // If there are more than 2 parts in the hostname, the first part is the subdomain
-    if (hostParts.length >= 2) {
-        return hostParts[0];
-    }
-    return null; // No subdomain found
-  }
-
-  export const prepareValidateDomainHeader=(subDomain:string)=>{
-    return {headers:{"x-subdomain":subDomain}}
   }

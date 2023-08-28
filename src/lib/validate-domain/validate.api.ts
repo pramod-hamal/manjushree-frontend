@@ -7,8 +7,9 @@ export const validateDomain =async(host:string):Promise<boolean>=>{
   const response = await axios.get(baseUrl+endpoints.admin.validate,prepareValidateDomainHeader(host));
   if(response.status === 200){
     return true;
-  }
+  }else{
   return false;
+  }
   } catch (error) {
   return false;
  }

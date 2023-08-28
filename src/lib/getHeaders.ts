@@ -24,13 +24,19 @@ export const prepareAuthHeader=(headers:Headers) => {
   }
 
   export const getSubDomain=(url:string)=>{
-    const parsedUrl = new URL(url);
-    const parts = parsedUrl.hostname.split('.');
-    const subdomain = parts.slice(0, parts.length - 2).join('.');
-    return subdomain;
+       const urlObj = new URL(url);
+    const hostParts = urlObj.hostname.split('.');
+    console.log(hostParts,"getSubDomain")
+    
+    // If there are more than 2 parts in the hostname, the first part is the subdomain
+    if (hostParts.length >= 2) {
+        return hostParts[0];
+    }
+    
+    return null; // No subdomain found
+
   }
 
-  export const prepareValidateDomainHeader=(url:string)=>{
-    const subDomain:string = getSubDomain(url);
+  export const prepareValidateDomainHeader=(subDomain:string)=>{
     return {headers:{"x-subdomain":subDomain}}
   }

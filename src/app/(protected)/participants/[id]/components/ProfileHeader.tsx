@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import { EditOutlined, EyeOutlined } from "@ant-design/icons";
@@ -9,11 +11,23 @@ import {
   ParticipantDetailSlice,
   participantDetailState,
 } from "@/store/features/participants/detail/participantDetailSliceleanq_support_coordinator";
+import { useParticipantPlanQuery } from "@/store/features/participants/plan/apiSliceleanq_support_coordinator";
+import { defaultDateFormat } from "@/lib/date.utilsleanq_support_coordinator";
+import {
+  PlanInterface,
+  PlanResponse,
+} from "@/store/features/participants/plan/interface/plan.responseleanq_support_coordinator";
 
 export default function ProfileHeader() {
   const { participantDetail }: ParticipantDetailSlice = useAppSelector(
     participantDetailState
   );
+
+  const { data } = useParticipantPlanQuery(participantDetail?.id!);
+
+  const planData: undefined | PlanResponse = data?.data;
+  const plan: PlanInterface | null =
+    planData && planData.length > 0 ? planData[0] : null;
 
   return (
     <div className="flex items center justify-between">
@@ -49,7 +63,10 @@ export default function ProfileHeader() {
             <span className="">Current Plan</span>
           </div>
           <div className="flex items-center gap-5">
-            <span>02/06/2023 - 01/06/2025 </span>
+            <span className="">
+              {plan && defaultDateFormat(plan?.startDate)} -
+              {plan && defaultDateFormat(plan?.endDate)}
+            </span>
             <span>
               <EyeOutlined className="text-primary-title mr-5" />
             </span>{" "}

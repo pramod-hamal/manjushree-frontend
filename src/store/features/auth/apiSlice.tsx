@@ -17,11 +17,6 @@ export const authApi = createApi({
   baseQuery,
   reducerPath: "authApi",
   endpoints: (build) => ({
-    /**
-     * User Sign in
-     * @param {any} {query:(loginData:LoginFormDTO
-     * @returns {any}
-     */
     signIn: build.mutation<any, any>({
       query: (loginData: LoginFormDTO) => ({
         url: endpoints.auth.signIn,
@@ -29,11 +24,6 @@ export const authApi = createApi({
         body: loginData,
       }),
     }),
-    /**
-     * Get Current User Profile
-     * @param {any} {query:(
-     * @returns {any}
-     */
     getMe: build.query({
       query: () => ({
         url: endpoints.auth.geMe,

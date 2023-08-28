@@ -64,3 +64,14 @@ export const ageCalculator = (fullBirthDate:Date):number => {
   const age:number = currYear - birthYear
   return age
 }
+
+export const daysDifference=(date1: string, date2: string): number=> {
+    const date1Obj: Date = new Date(date1);
+    const date2Obj: Date = new Date(date2);
+    
+    const differenceInMilliseconds: number = Math.abs(date2Obj.getTime() - date1Obj.getTime());
+    const millisecondsPerDay: number = 1000 * 60 * 60 * 24;
+    
+    const differenceInDays: number = Math.floor(differenceInMilliseconds / millisecondsPerDay);
+    return differenceInDays;
+}

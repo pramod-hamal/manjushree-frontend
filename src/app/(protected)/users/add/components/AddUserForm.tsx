@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useFormik } from "formik";
+import { FormikHelpers, useFormik } from "formik";
 import * as yup from "yup";
 
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
@@ -13,6 +13,7 @@ import SuccessModal from "./SuccessModal";
 import { useAddMutation } from "@/store/features/users/apiSliceleanq_support_coordinator";
 import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
 import { useRouter } from "next/navigation";
+import { CreateUserDTO } from "@/store/features/users/interface/user.interfaceleanq_support_coordinator";
 
 const validationSchema = yup.object().shape({
   firstName: yup.string().required("Required"),
@@ -27,16 +28,19 @@ export default function AddUserForm() {
   const router = useRouter();
   const [addUser] = useAddMutation();
 
-  const initialValues = {
+  const initialValues: CreateUserDTO = {
     firstName: "",
     middleName: "",
     lastName: "",
     email: "",
     phone: "",
-    role: "",
+    role: null,
   };
 
-  const handleAddUser = async (values: any, { setSubmitting }: any) => {
+  const handleAddUser = async (
+    values: CreateUserDTO,
+    { setSubmitting }: FormikHelpers<CreateUserDTO>
+  ) => {
     await addUser({ ...values, phone: values.phone.toString() })
       .unwrap()
       .then(() => {

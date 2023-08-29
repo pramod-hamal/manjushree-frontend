@@ -22,6 +22,7 @@ import { participantDocumentReducer } from "./features/participants/documents/pa
 import { dropdownSlice } from "./features/dropdown/dropdownSlice";
 import { dropdownApi } from "./features/dropdown/apiSlice";
 import { participantPlanApi } from "./features/participants/plan/apiSlice";
+import { userReducer } from "./features/users/userSlice";
 
 export const stores = configureStore({
     // Root Reducers
@@ -53,7 +54,8 @@ export const stores = configureStore({
         [participantDetailContactApi.reducerPath]:participantDetailContactApi.reducer,
         [participantPlanApi.reducerPath]:participantPlanApi.reducer,
         // Users
-        [usersApi.reducerPath]: usersApi.reducer
+        [usersApi.reducerPath]: usersApi.reducer,
+        users:userReducer
     },
     // Initializing create api middlewares
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({})

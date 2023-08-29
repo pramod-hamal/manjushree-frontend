@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useFormik } from "formik";
+import * as yup from "yup";
 
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
@@ -12,6 +13,13 @@ import SuccessModal from "./SuccessModal";
 import { useAddMutation } from "@/store/features/users/apiSliceleanq_support_coordinator";
 import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
 import { useRouter } from "next/navigation";
+
+const validationSchema = yup.object().shape({
+  firstName: yup.string().required("Required"),
+  lastName: yup.string().required("Required"),
+  email: yup.string().required("Required"),
+  phone: yup.string().required("Required"),
+});
 
 export default function AddUserForm() {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -29,21 +37,27 @@ export default function AddUserForm() {
   };
 
   const handleAddUser = async (values: any, { setSubmitting }: any) => {
-    await addUser(values)
+    await addUser({ ...values, phone: values.phone.toString() })
       .unwrap()
       .then(() => {
+        setShowModal(true);
         showToast({ title: "User Added", type: "success" });
         router.back();
       })
-      .catch((error) => {
-        console.log(error);
-        showToast({ title: error.message, type: "error" });
+      .catch((error: any) => {
+        const err = error.data?.error;
+        const errorKeys = Object.getOwnPropertyNames(err);
+        showToast({ title: error.data.message, type: "error" });
+        errorKeys.map((er: string) => {
+          return showToast({ title: err[er], type: "error" });
+        });
       });
   };
 
   const formik = useFormik({
     initialValues,
     onSubmit: handleAddUser,
+    validationSchema,
     validateOnMount: false,
     validateOnChange: false,
     validateOnBlur: false,
@@ -62,16 +76,15 @@ export default function AddUserForm() {
             required={true}
             placeHolder="Text Here"
             onChange={formik.handleChange}
-            errors={formik.errors.firstName}
+            errors={formik.errors?.firstName}
           />
           <FormInput
             value={formik.values.middleName}
             name="middleName"
             label="Middle Name"
-            required={true}
             placeHolder="Text Here"
             onChange={formik.handleChange}
-            errors={formik.errors.middleName}
+            errors={formik.errors?.middleName}
           />
           <FormInput
             value={formik.values.lastName}
@@ -80,7 +93,7 @@ export default function AddUserForm() {
             required={true}
             placeHolder="Text Here"
             onChange={formik.handleChange}
-            errors={formik.errors.lastName}
+            errors={formik.errors?.lastName}
           />
           <FormInput
             value={formik.values.email}
@@ -89,7 +102,7 @@ export default function AddUserForm() {
             required={true}
             placeHolder="Text Here"
             onChange={formik.handleChange}
-            errors={formik.errors.email}
+            errors={formik.errors?.email}
           />
           <FormInput
             type="number"

@@ -9,6 +9,7 @@ import { validateDomain } from "./validate-domain/validate.api";
 import { useToast } from "./toast/useToast";
 import InvalidSubdomainError from "@/components/error/InvalidSubDomainErrorleanq_support_coordinator";
 import { getSubDomain } from "./getHeaders";
+import PageLoader from "@/components/loaders/PageLoaderleanq_support_coordinator";
 
 /**
  * @param WrappedComponent - The component to be wrapped with authentication.
@@ -17,38 +18,57 @@ import { getSubDomain } from "./getHeaders";
 const withAuth = (WrappedComponent: React.ComponentType<any>) => {
   const AuthWrapper: React.FC<any> = (props) => {
     const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+
     const router = useRouter();
-    const showToast = useToast();
     const path = usePathname();
 
-    const unauthorizedPath = path === routes.login || path === "/";
+    const showToast = useToast();
+
+    const isLoginPage = path === routes.login;
+    const isRootPath = path === "/";
+    const unauthorizedPath = isLoginPage || isRootPath;
+
+    const checkSession = () => {
+      const token = localStorage.getItem("token");
+      stores.dispatch(setCredentials({ token }));
+      if (token === null) {
+        router.replace(routes.login);
+        setLoading(false);
+      } else {
+        if (unauthorizedPath) {
+          router.push(routes.dashboard);
+        } else {
+          router.push(path);
+        }
+        setLoading(false);
+      }
+    };
 
     const checkDomain = useCallback(async () => {
       const host = window.location.host;
-
       if (!host.includes("localhost")) {
         const subDomain: string | null = getSubDomain(host);
         const valid = await validateDomain(subDomain!);
         if (!valid) {
           showToast({ title: "Invalid SubDomain", type: "error" });
           setError("Invalid Subdomain");
+          setLoading(false)
           return;
         }
       }
-      const token = localStorage.getItem("token");
-      stores.dispatch(setCredentials({ token }));
-      if (token === null) {
-        router.replace(routes.login);
-      } else {
-        router.push(unauthorizedPath ? routes.dashboard : path);
-      }
-    }, [path, router, showToast, unauthorizedPath]);
+      checkSession()
+    }, [path, router]);
 
     useEffect(() => {
       if (typeof window !== "undefined") {
         checkDomain();
       }
     }, []);
+
+    if (loading) {
+      return <PageLoader />
+    }
 
     if (error !== null) {
       return <InvalidSubdomainError error={error} />;

@@ -1,6 +1,6 @@
 import React from "react";
-import { notification } from "antd";
 import { ContextValue, OpenNotification } from "./interface/toastProvider.interface";
+import useNotification from "antd/es/notification/useNotification";
 
 
 export const ToastContext = React.createContext({ openNotification: () => { } });
@@ -14,7 +14,7 @@ export const ToastContextComponent = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [api, contextHolder] = notification.useNotification();
+  const [api, contextHolder] = useNotification();
 
   /**
    * Displays a toast notification based on the input parameters.

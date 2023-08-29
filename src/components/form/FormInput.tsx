@@ -1,10 +1,8 @@
 import React from "react";
-import { Input, InputNumber, InputRef } from "antd";
+import { Input, InputNumber } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import ErrorMessage from "./ErrorMessage";
 import { FormInputProps, NumberInputProps } from "./interface/form.interface";
-
-
 
 /**
  * FormInput Component
@@ -31,8 +29,8 @@ export default function FormInput(inputProps: FormInputProps): any {
   return (
     <div className="flex flex-col gap-3 text-sm" key={key}>
       {label && (
-        <div className="flex gap-2 items-center">
-          {required && <span className="text-primary-danger text-sm">*</span>}
+        <div className="flex items-center gap-2">
+          {required && <span className="text-sm text-primary-danger">*</span>}
           <span>{label}</span>
         </div>
       )}
@@ -87,9 +85,9 @@ export const TextAreaInput = (inputProps: FormInputProps): React.ReactNode => {
   return (
     <div className="flex flex-col gap-3 text-sm">
       {inputProps.label && (
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           {inputProps.required && (
-            <span className="text-primary-danger text-sm">*</span>
+            <span className="text-sm text-primary-danger">*</span>
           )}
           <span>{inputProps.label}</span>
         </div>
@@ -120,9 +118,9 @@ export const NumberInput = (
       className={`flex flex-col gap-3 text-sm w-full ${numberInputProps.class}`}
     >
       {numberInputProps.label && (
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           {numberInputProps.required && (
-            <span className="text-primary-danger text-sm">*</span>
+            <span className="text-sm text-primary-danger">*</span>
           )}
           <span>{numberInputProps.label}</span>
         </div>

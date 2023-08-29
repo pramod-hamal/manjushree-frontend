@@ -1,6 +1,6 @@
 import React from "react";
-import { Checkbox } from "antd";
 import { CusCheckBoxProps } from "./interface/form.interface";
+import Checkbox from "antd/es/checkbox/Checkbox";
 
 export default function CusCheckbox(checkBoxProps: CusCheckBoxProps) {
   const {
@@ -15,9 +15,9 @@ export default function CusCheckbox(checkBoxProps: CusCheckBoxProps) {
   return (
     <div className="flex flex-col gap-3 text-sm">
       {checkBoxProps.label && (
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           {checkBoxProps.required && (
-            <span className="text-primary-danger text-sm">*</span>
+            <span className="text-sm text-primary-danger">*</span>
           )}
           <span>{checkBoxProps.label}</span>
         </div>

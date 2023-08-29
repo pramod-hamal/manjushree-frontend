@@ -8,11 +8,12 @@ import {
   GetUserByIDDTO,
   UserList,
 } from "./interface/user.interface";
+import { UserContactResponse } from "./interface/user.contact.interface";
 
 export const usersApi = createApi({
   baseQuery: protectedBaseQuery,
   reducerPath: "usersApi",
-  tagTypes: ["Users", "List", "Detail"],
+  tagTypes: ["Users", "List", "Detail", "Contactlist"],
   endpoints: (build) => ({
     getAll: build.query<APIBaseResponse<UserList>, any>({
       query: () => endpoints.users.getAll,
@@ -38,6 +39,10 @@ export const usersApi = createApi({
       }),
       invalidatesTags: ["List", "Detail"],
     }),
+    allContacts: build.query<APIBaseResponse<UserContactResponse>, any>({
+      query: (id: string | number) => endpoints.users.contact.getAll(id),
+      providesTags: ["Contactlist"],
+    }),
   }),
 });
 
@@ -46,4 +51,5 @@ export const {
   useAddMutation,
   useGetByIdQuery,
   useUpdateMutation,
+  useAllContactsQuery,
 } = usersApi;

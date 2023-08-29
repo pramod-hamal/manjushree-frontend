@@ -18,7 +18,10 @@ import {
 } from "@/store/hooksleanq_support_coordinator";
 import { EditFilled } from "@ant-design/icons";
 import { useFormik } from "formik";
-import { defaultDateFormat } from "@/lib/date.utilsleanq_support_coordinator";
+import {
+  defaultDateFormat,
+  formatDateToYYYYMMDD,
+} from "@/lib/date.utilsleanq_support_coordinator";
 
 export default function EditProfile() {
   const showToast = useToast();
@@ -67,6 +70,7 @@ export default function EditProfile() {
       let participantDetailData = {
         ...participantDetail,
         referenceNo: participantDetail?.referenceNo ?? [],
+        dateOfBirth: formatDateToYYYYMMDD(participantDetail.dateOfBirth),
       };
       formik.setValues(participantDetailData);
     }

@@ -48,7 +48,9 @@ export const endpoints = {
     getById:(id:string|number)=>"/users/"+id,
     update:(id:string|number)=>"/users/"+id,
     contact:{
-      getAll:(id:string|number)=>"/user/contact?user="+id
+      getAll:(id:string|number)=>"/user/contact?user="+id,
+      add:"/user/contact",
+      delete:(id:string|number)=>"/user/contact/"+id
     }
   },
   contact: {

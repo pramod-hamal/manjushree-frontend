@@ -75,3 +75,11 @@ export const daysDifference=(date1: string, date2: string): number=> {
     const differenceInDays: number = Math.floor(differenceInMilliseconds / millisecondsPerDay);
     return differenceInDays;
 }
+
+export const  formatDateToYYYYMMDD=(inputDate: string): string=> {
+  const parts = inputDate.split('/');
+  const year = parts[2];
+  const month = parts[0].padStart(2, '0');
+  const day = parts[1].padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}

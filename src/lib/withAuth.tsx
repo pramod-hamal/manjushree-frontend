@@ -53,11 +53,11 @@ const withAuth = (WrappedComponent: React.ComponentType<any>) => {
         if (!valid) {
           showToast({ title: "Invalid SubDomain", type: "error" });
           setError("Invalid Subdomain");
-          setLoading(false)
+          setLoading(false);
           return;
         }
       }
-      checkSession()
+      checkSession();
     }, [path, router]);
 
     useEffect(() => {
@@ -67,7 +67,7 @@ const withAuth = (WrappedComponent: React.ComponentType<any>) => {
     }, []);
 
     if (loading) {
-      return <PageLoader />
+      return <PageLoader />;
     }
 
     if (error !== null) {

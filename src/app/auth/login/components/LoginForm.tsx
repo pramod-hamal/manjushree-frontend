@@ -59,6 +59,10 @@ export default function LoginForm() {
     initialValues,
     onSubmit: handleLogin,
     validationSchema,
+    validateOnMount: false,
+    validateOnChange: false,
+    validateOnBlur: false,
+    enableReinitialize: true,
   });
 
   return (

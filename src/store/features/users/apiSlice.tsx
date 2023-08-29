@@ -44,6 +44,21 @@ export const usersApi = createApi({
       query: (id: string | number) => endpoints.users.contact.getAll(id),
       providesTags: ["Contactlist"],
     }),
+    addContact: build.mutation<APIBaseResponse<CreateUserResponse>, any>({
+      query: (userData: CreateUserDTO) => ({
+        url: endpoints.users.contact.add,
+        body: userData,
+        method: "POST",
+      }),
+      invalidatesTags: ["Contactlist"],
+    }),
+    deleteContact: build.mutation<any, any>({
+      query: (id) => ({
+        url: endpoints.users.contact.delete(id),
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Contactlist"],
+    }),
   }),
 });
 
@@ -53,4 +68,6 @@ export const {
   useGetByIdQuery,
   useUpdateMutation,
   useAllContactsQuery,
+  useAddContactMutation,
+  useDeleteContactMutation,
 } = usersApi;

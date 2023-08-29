@@ -14,3 +14,9 @@ export interface Contact {
     isOrganization:         boolean;
     note?:                   string;
 }
+
+export interface UserContactDTO{
+    relation: string,
+    userId: number,
+    contactId:number|null
+}

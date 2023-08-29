@@ -55,11 +55,6 @@ export default function ParticipantDetail({
   params: { id: string };
 }) {
   const { isLoading, error }: any = useGetUserByIdQuery(params.id);
-  console.log(error);
-
-  if (error?.data?.error?.subdomain) {
-    throw new Error(error.data?.error?.subdomain);
-  }
 
   return (
     <div className="relative">

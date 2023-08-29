@@ -29,38 +29,32 @@ export default function EditProfile() {
   const dispatch = useAppDispatch();
 
   const handleEdit = async (values: any, { setSubmitting }: any) => {
-    try {
-      const participantData = {
-        ...values,
-        phone: values.phone.toString(),
-        dateOfBirth: defaultDateFormat(new Date(values.dateOfBirth)),
-      };
-      const { data, error }: any = await update(participantData);
-      if (data) {
-        const responseData: APIBaseResponse<any> = data;
+    const participantData = {
+      ...values,
+      phone: values.phone.toString(),
+      dateOfBirth: defaultDateFormat(new Date(values.dateOfBirth)),
+    };
+    await update(participantData)
+      .unwrap()
+      .then((data: APIBaseResponse<any>) => {
         showToast({
-          title: responseData.message,
+          title: data.message,
           description: "Profile edited successfull",
           type: "success",
         });
-      } else {
+        dispatch(toogleEdit(!disabled));
+      })
+      .catch((error) => {
         const errorData: APIBaseResponse<any> = error.data;
         showToast({
           title: errorData.message,
           description: errorData.error?.message,
           type: "error",
         });
-      }
-      dispatch(toogleEdit(!disabled));
-    } catch (error: any) {
-      showToast({
-        title: "Something Went Wrong",
-        description: error?.message,
-        type: "error",
+      })
+      .finally(() => {
+        setSubmitting(false);
       });
-    } finally {
-      setSubmitting(false);
-    }
   };
 
   const formik = useFormik({

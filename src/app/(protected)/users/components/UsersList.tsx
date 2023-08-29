@@ -29,7 +29,7 @@ export default function UsersList() {
       </div>
       <CusTable
         onRowClick={(rowData: any) =>
-          router.push(routes.userProfile(rowData.id.$oid))
+          router.push(routes.userProfile(rowData.id))
         }
         columns={columns}
         dataSource={data?.data}

@@ -69,7 +69,7 @@ export default function ProfileHeader() {
             </span>
             <span>
               <EyeOutlined className="text-primary-title mr-5" />
-            </span>{" "}
+            </span>
           </div>
         </div>
       </div>

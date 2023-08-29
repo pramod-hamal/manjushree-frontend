@@ -2,11 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import { FormikHelpers, useFormik } from "formik";
+import { EditFilled } from "@ant-design/icons";
+import * as yup from "yup";
 
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 import FlatButton, {
   CancelButton,
 } from "@/components/buttons/Buttonleanq_support_coordinator";
+
 import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
 import {
   UserSliceState,
@@ -14,11 +17,21 @@ import {
 } from "@/store/features/users/userSliceleanq_support_coordinator";
 import { EditUserDTO } from "@/store/features/users/interface/user.interfaceleanq_support_coordinator";
 import { useUpdateMutation } from "@/store/features/users/apiSliceleanq_support_coordinator";
-import { EditFilled } from "@ant-design/icons";
+
+import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
+
+const validationSchema = yup.object().shape({
+  email: yup.string().required("Required"),
+  phone: yup.string().required("Required"),
+  firstName: yup.string().required("Required"),
+  lastName: yup.string().required("Required"),
+});
 
 export default function EdituserForm() {
   const { userDetail }: UserSliceState = useAppSelector(userState);
   const [disabled, setDisabled] = useState<boolean>(true);
+
+  const showToast = useToast();
 
   const [updateUser] = useUpdateMutation();
 
@@ -39,8 +52,12 @@ export default function EdituserForm() {
       .unwrap()
       .then((data) => {
         setDisabled(true);
+        showToast({ title: "User Updated", type: "success" });
       })
-      .catch((error) => {})
+      .catch((error) => {
+        console.log(error);
+        showToast({ title: error.message, type: "error" });
+      })
       .finally(() => {
         setSubmitting(false);
       });
@@ -48,6 +65,7 @@ export default function EdituserForm() {
   const formik = useFormik({
     initialValues,
     onSubmit: handleEditUser,
+    validationSchema,
     validateOnMount: false,
     validateOnChange: false,
     validateOnBlur: false,
@@ -128,7 +146,11 @@ export default function EdituserForm() {
         </div>
         {!disabled && (
           <div className="flex gap-10 items-center">
-            <FlatButton title="Edit" type="submit" />
+            <FlatButton
+              title="Edit"
+              type="submit"
+              loading={formik.isSubmitting}
+            />
             <CancelButton />
           </div>
         )}

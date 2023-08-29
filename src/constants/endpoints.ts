@@ -46,6 +46,7 @@ export const endpoints = {
     getAll:"/users",
     add:"/users",
     getById:(id:string|number)=>"/users/"+id,
+    update:(id:string|number)=>"/users/"+id,
     contact:{
       getAll:(id:string|number)=>"/user/contact?user="+id
     }

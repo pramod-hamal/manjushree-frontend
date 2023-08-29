@@ -22,8 +22,8 @@ export interface CreateUserResponse {
     lastName:   string;
     email:      string;
     phone:      string;
-    deletedAt?:  null;
-    middleName: null;
+    deletedAt?:  String | Date;
+    middleName?: String;
 }
 
 export interface User{

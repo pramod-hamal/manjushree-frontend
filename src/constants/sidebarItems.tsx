@@ -37,11 +37,11 @@ export const sidebarItems: SidebarItem[] = [
     title: "Projects",
     icon: <UnorderedListOutlined style={{ fontSize: 14 }} />,
   },
-  {
-    link: routes.roles,
-    title: "Role and Permission",
-    icon: <UnlockOutlined style={{ fontSize: 14 }} />,
-  },
+  // {
+  //   link: routes.roles,
+  //   title: "Role and Permission",
+  //   icon: <UnlockOutlined style={{ fontSize: 14 }} />,
+  // },
   {
     link: "#",
     title: "Contact",

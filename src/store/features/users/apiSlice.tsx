@@ -5,6 +5,7 @@ import { APIBaseResponse } from "../auth/interface/api.response";
 import {
   CreateUserDTO,
   CreateUserResponse,
+  EditUserDTO,
   GetUserByIDDTO,
   UserList,
 } from "./interface/user.interface";
@@ -32,10 +33,10 @@ export const usersApi = createApi({
       providesTags: ["Detail"],
     }),
     update: build.mutation<any, any>({
-      query: (toUpdateUserData) => ({
-        url: endpoints.users.add,
+      query: (toUpdateUserData: EditUserDTO) => ({
+        url: endpoints.users.update(toUpdateUserData.id),
         body: toUpdateUserData,
-        method: "POST",
+        method: "PUT",
       }),
       invalidatesTags: ["List", "Detail"],
     }),

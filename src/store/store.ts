@@ -9,10 +9,8 @@ import { usersApi } from "./features/users/apiSlice";
 import { appReducer } from "./features/appSlice";
 import { authApi } from "./features/auth/apiSlice";
 import { authSlice } from "./features/auth/authSlice";
-import { participantReducer } from "./features/participants/participantSlice";
 import { participantDetailReducer } from "./features/participants/detail/participantDetailSlice";
 import { participantDetailApi } from "./features/participants/detail/apiSlice";
-import { contactReducer } from "./features/contact/contactSlice";
 import { participantHealthApi } from "./features/participants/health/apiSlice";
 import { participantHealthReducer } from "./features/participants/health/participantHealthSlice";
 import { contactDetailReducer } from "./features/participants/contact/contactDetailSlice";
@@ -40,9 +38,7 @@ export const stores = configureStore({
         [projectsApi.reducerPath]: projectsApi.reducer,
         // contact
         [contactApi.reducerPath]: contactApi.reducer,
-        contact:contactReducer,
         // participant
-        participant:participantReducer,
         participantDetail:participantDetailReducer,
         participantHealth:participantHealthReducer,
         participantDocument:participantDocumentReducer,

@@ -7,7 +7,7 @@ import {
   PlusOutlined,
 } from "@ant-design/icons";
 
-import { defaultDateFormat } from "@/lib/date.utilsleanq_support_coordinator";
+import { defaultDateFormat } from "@/core/lib/date.utilsleanq_support_coordinator";
 
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
 import CusModal from "@/components/modals/Modalleanq_support_coordinator";
@@ -28,8 +28,8 @@ import {
   useGetAllDocumentsQuery,
 } from "@/store/features/participants/documents/apiSliceleanq_support_coordinator";
 import { Skeleton } from "antd";
-import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
-import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
+import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
+import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
 import DeleteModal from "@/components/modals/DeleteModalleanq_support_coordinator";
 
 export default function DocumentsList() {

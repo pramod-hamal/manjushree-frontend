@@ -1,10 +1,8 @@
 import { RootState } from "@/store/storeleanq_support_coordinator";
 import { createSlice } from "@reduxjs/toolkit";
 import { participantDetailContactApi } from "./apiSlice";
-import {
-  APIBaseResponse,
-  PaginationMetaDTO,
-} from "../../auth/interface/api.response";
+import { PaginationMetaDTO } from "@/core/interface/pagination.metaleanq_support_coordinator";
+import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
 
 export interface ContactDetailSlice {
   showModal: boolean;

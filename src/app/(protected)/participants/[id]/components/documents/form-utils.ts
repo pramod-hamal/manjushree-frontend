@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { FormField } from "@/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
+import { FormField } from "@/core/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
 
 export const validationSchema = yup.object().shape({
   name: yup.string().required("Required"),

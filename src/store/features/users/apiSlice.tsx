@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { protectedBaseQuery } from "@/store/baseQuery/protected.baseQueryleanq_support_coordinator";
 import { endpoints } from "@/constants/endpointsleanq_support_coordinator";
-import { APIBaseResponse } from "../auth/interface/api.response";
+import { APIBaseResponse } from "../../../core/interface/api.response";
 import {
   CreateUserDTO,
   CreateUserResponse,

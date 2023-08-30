@@ -12,7 +12,7 @@ import {
   participantDetailState,
 } from "@/store/features/participants/detail/participantDetailSliceleanq_support_coordinator";
 import { useParticipantPlanQuery } from "@/store/features/participants/plan/apiSliceleanq_support_coordinator";
-import { defaultDateFormat } from "@/lib/date.utilsleanq_support_coordinator";
+import { defaultDateFormat } from "@/core/lib/date.utilsleanq_support_coordinator";
 import {
   PlanInterface,
   PlanResponse,

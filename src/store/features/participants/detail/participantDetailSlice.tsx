@@ -1,7 +1,7 @@
 import { RootState } from "@/store/storeleanq_support_coordinator";
 import { createSlice } from "@reduxjs/toolkit";
 import { participantDetailApi } from "./apiSlice";
-import { APIBaseResponse } from "../../auth/interface/api.response";
+import { APIBaseResponse } from "../../../../core/interface/api.response";
 import { ReferenceNo } from "../interface/addPrticipantDTO";
 
 export interface ParticipantDetailSlice {

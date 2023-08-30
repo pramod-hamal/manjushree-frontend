@@ -5,8 +5,8 @@ import React, { useEffect } from "react";
 import PersonalDetail from "@/app/(protected)/participants/add/components/PersonalDetailleanq_support_coordinator";
 import ReferenceNumbers from "@/app/(protected)/participants/add/components/ReferenceNumbersleanq_support_coordinator";
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
-import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
-import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
+import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
+import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
 import { useUpdateProfileMutation } from "@/store/features/participants/detail/apiSliceleanq_support_coordinator";
 import {
   participantDetailState,
@@ -21,7 +21,7 @@ import { useFormik } from "formik";
 import {
   defaultDateFormat,
   formatDateToYYYYMMDD,
-} from "@/lib/date.utilsleanq_support_coordinator";
+} from "@/core/lib/date.utilsleanq_support_coordinator";
 
 export default function EditProfile() {
   const showToast = useToast();

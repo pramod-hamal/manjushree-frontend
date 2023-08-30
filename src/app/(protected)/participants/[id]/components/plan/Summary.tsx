@@ -10,7 +10,7 @@ import {
 import {
   daysDifference,
   defaultDateFormat,
-} from "@/lib/date.utilsleanq_support_coordinator";
+} from "@/core/lib/date.utilsleanq_support_coordinator";
 import { useParticipantPlanQuery } from "@/store/features/participants/plan/apiSliceleanq_support_coordinator";
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
 import CusModal from "@/components/modals/Modalleanq_support_coordinator";

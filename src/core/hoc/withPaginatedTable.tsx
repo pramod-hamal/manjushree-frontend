@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { PaginationMetaDTO } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
-import { Pagination } from "antd";
+import Pagination from "antd/es/pagination";
+import { PaginationMetaDTO } from "../interface/pagination.meta";
 
 export const withPaginatedTable = (WrappedTableCompnent: any) => {
   const PaginatedTableWrapper = (props: any) => {
     const [paginationMeta, setPaginationMeta] = useState<PaginationMetaDTO>({
-      limit: 1,
+      limit: 5,
       page_total: 0,
       total: 0,
       total_pages: 0,
@@ -26,9 +26,8 @@ export const withPaginatedTable = (WrappedTableCompnent: any) => {
         <WrappedTableCompnent {...props} value={paginatedTableValue} />;
         <Pagination
           defaultCurrent={1}
-          total={paginationMeta.total}
+          total={paginationMeta.total ?? 1}
           current={paginationMeta.page!}
-          pageSizeOptions={[5, 10, 15, 25, 50, 100]}
           pageSize={paginationMeta.page_total}
           onChange={(page: number) => {
             setPaginationMeta({ ...paginationMeta, page });

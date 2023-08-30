@@ -7,8 +7,8 @@ import { AppProgressBar } from "next-nprogress-bar";
 
 import { stores } from "./store";
 
-import withAuth from "@/lib/withAuthleanq_support_coordinator";
-import { ToastContextComponent } from "@/lib/toast/ToastProviderleanq_support_coordinator";
+import withAuth from "@/core/hoc/withAuthleanq_support_coordinator";
+import { ToastContextComponent } from "@/core/lib/toast/ToastProviderleanq_support_coordinator";
 
 function StoreProvider({ children }: { children: React.ReactNode }) {
   const [queryClient] = React.useState(() => new QueryClient());

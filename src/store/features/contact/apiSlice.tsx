@@ -16,10 +16,25 @@ export const contactApi = createApi({
       }),
       invalidatesTags: ["Individual"],
     }),
-    individualContactList: build.query<any, string>({
-      query: () => endpoints.contact.individual.all,
+    individualContactList: build.query<any, { limit: number; page: number }>({
+      query: (args) => {
+        const { limit, page } = args;
+        return {
+          url: endpoints.contact.individual.all,
+          params: { limit, page },
+        }
+      },
       providesTags: ["Individual"],
-      keepUnusedDataFor: 5,
+    }),
+    organizationalContactList: build.query<any, { limit: number; page: number }>({
+      query: (args) => {
+        const { limit, page } = args;
+        return {
+          url: endpoints.contact.organizational.all,
+          params: { limit, page },
+        }
+      },
+      providesTags: ["Organizational"],
     }),
     updateIndividualContact: build.mutation<any, any>({
       query: (toUpdateContactData: any) => ({
@@ -29,11 +44,7 @@ export const contactApi = createApi({
       }),
       invalidatesTags: ["Individual", "Detail"],
     }),
-    organizationalContactList: build.query<any, string>({
-      query: () => endpoints.contact.organizational.all,
-      providesTags: ["Organizational"],
-      keepUnusedDataFor: 5,
-    }),
+
     getContactbyId: build.query<any, any>({
       query: (id: string | number) => endpoints.contact.getById(id),
       providesTags: ["Detail"],

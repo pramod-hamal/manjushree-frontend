@@ -1,7 +1,7 @@
 import React from "react";
-import useFormBuilder from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
+import useFormBuilder from "@/core/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
-import { FormField } from "@/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
+import { FormField } from "@/core/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
 
 export default function AlertForm() {
   const initialValues = {

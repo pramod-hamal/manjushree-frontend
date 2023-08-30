@@ -5,10 +5,10 @@ import { setCredentials } from "@/store/features/auth/authSliceleanq_support_coo
 import { stores } from "@/store/storeleanq_support_coordinator";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { validateDomain } from "./validate-domain/validate.api";
-import { useToast } from "./toast/useToast";
+import { validateDomain } from "../lib/validateDomain/validate.api";
+import { useToast } from "../lib/toast/useToast";
 import InvalidSubdomainError from "@/components/error/InvalidSubDomainErrorleanq_support_coordinator";
-import { getSubDomain } from "./getHeaders";
+import { getSubDomain } from "../lib/getHeaders";
 import PageLoader from "@/components/loaders/PageLoaderleanq_support_coordinator";
 
 /**

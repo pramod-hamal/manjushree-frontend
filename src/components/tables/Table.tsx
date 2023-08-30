@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import type { TablePaginationConfig } from "antd/es/table";
 import dynamic from "next/dynamic";
 import SkeletonTable from "../loaders/TableSkeleton";
-import { PaginationMetaDTO } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
+import { PaginationMetaDTO } from "@/core/interface/pagination.metaleanq_support_coordinator";
 
 const ClientTableComponent = dynamic(() => import("antd/es/table"), {
   ssr: false,
@@ -30,7 +30,6 @@ export default function CusTable(tableProps: CusTableProps) {
     bordered = false,
     sticky = true,
     selectionType,
-    pagination,
     paginationMeta,
     onRowClick,
     renderFooter,
@@ -40,20 +39,14 @@ export default function CusTable(tableProps: CusTableProps) {
 
   const getSelectionType = selectionType
     ? {
-        type: selectionType ?? undefined,
-      }
+      type: selectionType ?? undefined,
+    }
     : undefined;
 
-  /**
-   * Handle Row Click Events
-   * @param {any} record:any
-   * @param {any} _:any
-   * @returns {any}
-   */
   const onRow = (record: any, _: any): any => {
     return {
       onClick: (_: any) => {
-        onRowClick ? onRowClick(record) : () => {};
+        onRowClick ? onRowClick(record) : () => { };
       },
     };
   };
@@ -64,7 +57,6 @@ export default function CusTable(tableProps: CusTableProps) {
     }
   }, [paginationMeta]);
 
-  console.log(paginationMeta);
   return (
     <ClientTableComponent
       showSorterTooltip={true}
@@ -73,16 +65,9 @@ export default function CusTable(tableProps: CusTableProps) {
       rowSelection={getSelectionType}
       dataSource={dataSource}
       bordered={bordered}
+      pagination={false}
       rowClassName={onRowClick ? "cursor-pointer" : ""}
       sticky={sticky}
-      pagination={{
-        total: meta?.total,
-        current: meta?.page!,
-        pageSizeOptions: [5, 10, 25, 50, 100],
-        onChange(page, pageSize) {
-          console.log(page, pageSize);
-        },
-      }}
       loading={loading}
       onRow={onRow}
     />

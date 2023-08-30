@@ -14,7 +14,7 @@ import { CreatePlanDTO } from "@/store/features/participants/plan/interface/plan
 import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
 import { participantDetailState } from "@/store/features/participants/detail/participantDetailSliceleanq_support_coordinator";
 
-import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
+import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
 
 const dateFormat = "DD/MM/YYYY";
 

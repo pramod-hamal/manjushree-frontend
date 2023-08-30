@@ -13,20 +13,24 @@ import {
 const initialState: ParticipanSliceState = {
   participants: [],
   paginationMeta: {
-    limit: 10,
+    limit: 3,
     page_total: 0,
     total: 0,
     total_pages: 0,
     next: null,
     previous: null,
-    page: 0,
+    page: 1,
   },
 };
 
 export const participantSlice = createSlice({
   name: "participant Slice",
   initialState,
-  reducers: {},
+  reducers: {
+    changePage(state, action) {
+      state.paginationMeta.page = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addMatcher(
       participantsApi.endpoints.allParticipants.matchFulfilled,
@@ -41,6 +45,6 @@ export const participantSlice = createSlice({
   },
 });
 
-export const {} = participantSlice.actions;
+export const { changePage } = participantSlice.actions;
 export const participantReducer = participantSlice.reducer;
 export const participantState = (state: RootState) => state.participant;

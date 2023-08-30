@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import type { TablePaginationConfig } from "antd/es/table";
 import dynamic from "next/dynamic";
 import SkeletonTable from "../loaders/TableSkeleton";
@@ -36,6 +36,8 @@ export default function CusTable(tableProps: CusTableProps) {
     renderFooter,
   }: CusTableProps = tableProps;
 
+  const [meta, setMeta] = useState<PaginationMetaDTO | null>(null);
+
   const getSelectionType = selectionType
     ? {
         type: selectionType ?? undefined,
@@ -55,6 +57,14 @@ export default function CusTable(tableProps: CusTableProps) {
       },
     };
   };
+
+  useEffect(() => {
+    if (paginationMeta !== null) {
+      setMeta(paginationMeta!);
+    }
+  }, [paginationMeta]);
+
+  console.log(paginationMeta);
   return (
     <ClientTableComponent
       showSorterTooltip={true}
@@ -65,18 +75,14 @@ export default function CusTable(tableProps: CusTableProps) {
       bordered={bordered}
       rowClassName={onRowClick ? "cursor-pointer" : ""}
       sticky={sticky}
-      pagination={
-        paginationMeta
-          ? {
-              pageSize: paginationMeta.page_total,
-              pageSizeOptions: [5, 10, 20, 30, 50, 100],
-              total: paginationMeta.total_pages,
-              onChange(page, pageSize) {
-                console.log(page, pageSize);
-              },
-            }
-          : pagination
-      }
+      pagination={{
+        total: meta?.total,
+        current: meta?.page!,
+        pageSizeOptions: [5, 10, 25, 50, 100],
+        onChange(page, pageSize) {
+          console.log(page, pageSize);
+        },
+      }}
       loading={loading}
       onRow={onRow}
     />

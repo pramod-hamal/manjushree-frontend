@@ -39,7 +39,11 @@ export const endpoints = {
     },
     plan:{
       getPlan:(id:number|string)=> '/participant/plan?participant='+id,
-      create:"/participant/plan"
+      create:"/participant/plan",
+      document:{
+        getAll:(planId:number|string)=> '/participant/plan-document?plan='+planId,
+        create:"/participant/plan-document"
+      }
     }
   },
   users:{

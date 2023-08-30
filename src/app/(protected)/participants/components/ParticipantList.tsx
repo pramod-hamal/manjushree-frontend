@@ -1,25 +1,40 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { PlusOutlined } from "@ant-design/icons";
 
 import { routes } from "@/constants/routesleanq_support_coordinator";
 
 import { useAllParticipantsQuery } from "@/store/features/participants/apiSliceleanq_support_coordinator";
-import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
-import { participantState } from "@/store/features/participants/participantSliceleanq_support_coordinator";
-import { ParticipanSliceState } from "@/store/features/participants/interface/participantStateleanq_support_coordinator";
 
 import CusTable from "@/components/tables/Tableleanq_support_coordinator";
 import { SearchInput } from "@/components/form/FormInputleanq_support_coordinator";
 import NavigateButton from "@/components/buttons/Navigateleanq_support_coordinator";
+import { Skeleton } from "antd";
+import { withPaginatedTable } from "@/core/hoc/withPaginatedTableleanq_support_coordinator";
 
-export default function ParticipantList() {
+function ParticipantList({ value }: any) {
   const router = useRouter();
-  const { isLoading, error }: any = useAllParticipantsQuery("");
-  const { participants, paginationMeta }: ParticipanSliceState =
-    useAppSelector(participantState);
+  const { paginationMeta, setPaginationMeta } = value;
+
+  const { isLoading, isFetching, error, data }: any = useAllParticipantsQuery({
+    limit: paginationMeta.limit,
+    page: paginationMeta.page ?? 1,
+  });
+
+  useEffect(() => {
+    let organizationData = data;
+    if (organizationData) {
+      if (data?.meta) {
+        setPaginationMeta(organizationData?.meta);
+      }
+    }
+  }, [data, setPaginationMeta]);
+
+  if (isLoading === true) {
+    return <Skeleton />;
+  }
 
   return (
     <div className="flex flex-col">
@@ -38,14 +53,14 @@ export default function ParticipantList() {
           const id = data.id;
           router.push(routes.participantDetails(id));
         }}
-        paginationMeta={paginationMeta}
         columns={columns}
-        dataSource={participants}
-        loading={isLoading}
+        dataSource={data?.data ?? []}
+        loading={isFetching}
       />
     </div>
   );
 }
+export default withPaginatedTable(ParticipantList);
 
 const columns: any = [
   { title: "First Name", dataIndex: "firstName" },

@@ -2,8 +2,8 @@ import React from "react";
 import Summary from "./Summary";
 import Documents from "./Documents";
 import ServiceList from "./services/ServiceList";
-import Budget from "./budget/Budget";
-import Implementations from "./ImplementationChart";
+// import Budget from "./budget/Budget";
+// import Implementations from "./ImplementationChart";
 
 export default function Plan() {
   return (
@@ -17,10 +17,10 @@ export default function Plan() {
         </div>
       </div>
       <ServiceList />
-      <div className="grid grid-cols-2 gap-8">
+      {/* <div className="grid grid-cols-2 gap-8">
         <Budget />
         <Implementations />
-      </div>
+      </div> */}
     </div>
   );
 }

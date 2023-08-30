@@ -19,9 +19,9 @@ import {
   contactDetailState,
   toogleModal,
 } from "@/store/features/participants/contact/contactDetailSliceleanq_support_coordinator";
-import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
+import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
 
-import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
+import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
 
 import ContactForm from "./ContactForm";
 import DeleteModal from "@/components/modals/DeleteModalleanq_support_coordinator";

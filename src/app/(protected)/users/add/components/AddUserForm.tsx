@@ -11,7 +11,7 @@ import FlatButton, {
 } from "@/components/buttons/Buttonleanq_support_coordinator";
 import SuccessModal from "./SuccessModal";
 import { useAddMutation } from "@/store/features/users/apiSliceleanq_support_coordinator";
-import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
+import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
 import { useRouter } from "next/navigation";
 import { CreateUserDTO } from "@/store/features/users/interface/user.interfaceleanq_support_coordinator";
 

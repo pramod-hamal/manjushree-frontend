@@ -5,8 +5,8 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FormikHelpers } from "formik";
 
-import useFormBuilder from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
-import useCurrentLocation from "@/hooks/currentLocation/useCurrentLocationleanq_support_coordinator";
+import useFormBuilder from "@/core/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
+import useCurrentLocation from "@/core/hooks/currentLocation/useCurrentLocationleanq_support_coordinator";
 
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 import MapComponent, {
@@ -24,10 +24,10 @@ import {
   useAddOrganizationalContactMutation,
   useUpdateOrganizationalContactMutation,
 } from "@/store/features/contact/apiSliceleanq_support_coordinator";
-import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
+import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
 
-import { multiFormData } from "@/lib/append-form-dataleanq_support_coordinator";
-import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
+import { multiFormData } from "@/core/lib/append-form-dataleanq_support_coordinator";
+import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
 
 import { routes } from "@/constants/routesleanq_support_coordinator";
 import {
@@ -156,7 +156,8 @@ export default function OrganizationalContactForm({
               <span className="text-primary-danger text-sm">*</span>
               <span>Address</span>
             </div>
-            <MapComponent center={location} getLocation={handleGeoLocation} />
+            <MapComponent center={location}
+              getLocation={handleGeoLocation} />
           </div>
         </div>
         <div className="flex gap-10 items-center">

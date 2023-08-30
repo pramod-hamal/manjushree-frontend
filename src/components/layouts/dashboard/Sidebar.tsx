@@ -36,7 +36,9 @@ export default function Sidebar() {
 
   return (
     <div
-      className={`z-20 xs:hidden md:block transition-all bg-gradient-to-br from-violet-600 to-indigo-600 fixed h-[100vh] ${
+      className={`z-20 xs:hidden md:block transition-all 
+      bg-[#001529]
+      fixed h-[100vh] ${
         minimized ? "w-[55px]" : "w-[13%]"
       } md:block text-white flex flex-col gap-5`}
     >

@@ -14,8 +14,14 @@ export const participantsApi = createApi({
      * @param {any} {query:(
      * @returns {any}
      */
-    allParticipants: build.query<any, string>({
-      query: () => endpoints.participants.all,
+    allParticipants: build.query<any, { limit: number; page: number }>({
+      query: (args) => {
+        const { limit, page } = args;
+        return {
+          url: endpoints.participants.all,
+          params: { limit, page },
+        };
+      },
       providesTags: ["List"],
     }),
     /**

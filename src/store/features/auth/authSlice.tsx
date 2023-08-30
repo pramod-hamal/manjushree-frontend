@@ -3,9 +3,9 @@ import { authApi } from "./apiSlice";
 import {
   APIBaseResponse,
   AuthMEResponseData,
-  LoginResponseData,
-} from "./interface/api.response";
+} from "../../../core/interface/api.response";
 import { RootState } from "@/store/storeleanq_support_coordinator";
+import { LoginResponseData } from "./interface/auth.response";
 
 export interface AuthState {
   user: AuthMEResponseData | null;

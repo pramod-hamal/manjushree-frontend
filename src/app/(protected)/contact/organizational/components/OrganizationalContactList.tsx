@@ -1,7 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { PlusOutlined } from "@ant-design/icons";
+import { Skeleton } from "antd";
+
+import { withPaginatedTable } from "@/core/hoc/withPaginatedTableleanq_support_coordinator";
 
 import { SearchInput } from "@/components/form/FormInputleanq_support_coordinator";
 import CusTable from "@/components/tables/Tableleanq_support_coordinator";
@@ -10,17 +14,28 @@ import NavigateButton from "@/components/buttons/Navigateleanq_support_coordinat
 import { routes } from "@/constants/routesleanq_support_coordinator";
 
 import { useOrganizationalContactListQuery } from "@/store/features/contact/apiSliceleanq_support_coordinator";
-import { contactState } from "@/store/features/contact/contactSliceleanq_support_coordinator";
-import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
-import { useRouter } from "next/navigation";
 
-export default function OrganizationalContactList() {
+function OrganizationalContactList({ value }: any) {
   const router = useRouter();
-  const { isLoading } = useOrganizationalContactListQuery("");
+  const { paginationMeta, setPaginationMeta } = value;
 
-  const { organizationalContactList, organizationalContactListPagination } =
-    useAppSelector(contactState);
+  const { isLoading, isFetching, error, data }: any = useOrganizationalContactListQuery({
+    limit: paginationMeta.limit,
+    page: paginationMeta.page ?? 1,
+  });
 
+  useEffect(() => {
+    let organizationData = data;
+    if (organizationData) {
+      if (data?.meta) {
+        setPaginationMeta(organizationData?.meta);
+      }
+    }
+  }, [data, setPaginationMeta]);
+
+  if (isLoading === true) {
+    return <Skeleton />;
+  }
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between">
@@ -35,16 +50,17 @@ export default function OrganizationalContactList() {
       </div>
       <CusTable
         columns={columns}
-        paginationMeta={organizationalContactListPagination}
-        dataSource={organizationalContactList}
         onRowClick={(data: any) =>
           router.push(routes.editOrganizationalContact(data.id))
         }
-        loading={isLoading}
+        dataSource={data?.data ?? []}
+        loading={isFetching}
       />
     </div>
   );
 }
+
+export default withPaginatedTable(OrganizationalContactList);
 
 const columns: any = [
   {

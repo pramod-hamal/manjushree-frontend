@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { OrganizationContactDTO } from "./interface/add-organization.interface";
-import { FormField } from "@/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
+import { FormField } from "@/core/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
 
 export const initialValues: OrganizationContactDTO = {
   name: "",

@@ -19,9 +19,9 @@ import { useSignInMutation } from "@/store/features/auth/apiSliceleanq_support_c
 import { LoginFormDTO } from "../interface/loginFormDTO";
 import {
   APIBaseResponse,
-  LoginResponseData,
-} from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
-import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
+} from "@/core/interface/api.responseleanq_support_coordinator";
+import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
+import { LoginResponseData } from "@/store/features/auth/interface/auth.responseleanq_support_coordinator";
 
 const initialValues: LoginFormDTO = {
   email: "",

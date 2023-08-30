@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   APIBaseResponse,
-  PaginationMetaDTO,
-} from "../../auth/interface/api.response";
+} from "../../../../core/interface/api.response";
 import { RootState } from "@/store/storeleanq_support_coordinator";
 import { participantDocumentApi } from "./apiSlice";
+import { PaginationMetaDTO } from "@/core/interface/pagination.metaleanq_support_coordinator";
 
 export interface ParticipantDocumentSlice {
   documentList: [];

@@ -1,3 +1,5 @@
+import { PaginationMetaDTO } from "./pagination.meta";
+
 export interface APIBaseResponse<t>{
   statusCode:number;
   timeStamp?:string;
@@ -16,20 +18,4 @@ export interface AuthMEResponseData{
   lastName:string;
   email:string;
   phone?:any;
-}
-
-export interface PaginationMetaDTO{
-  limit:number;
-  total:number;
-  page_total:number;
-  total_pages:number;
-  next?:number|null,
-  previous?:number|null,
-  page?:number|null,
-  onPageChange?:()=>{} |null
-}
-
-
-export interface LoginResponseData{
-  accessToken:string
 }

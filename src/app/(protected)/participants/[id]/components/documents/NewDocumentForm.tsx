@@ -5,16 +5,16 @@ import FlatButton, {
 } from "@/components/buttons/Buttonleanq_support_coordinator";
 import FileUpload from "@/components/form/FileUploadleanq_support_coordinator";
 
-import useFormBuilder from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
+import useFormBuilder from "@/core/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
 
-import { appendFormData } from "@/lib/append-form-dataleanq_support_coordinator";
-import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
+import { appendFormData } from "@/core/lib/append-form-dataleanq_support_coordinator";
+import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
 
 import {
   useAppDispatch,
   useAppSelector,
 } from "@/store/hooksleanq_support_coordinator";
-import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
+import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
 import { participantDetailState } from "@/store/features/participants/detail/participantDetailSliceleanq_support_coordinator";
 import { useAddNewDocumentMutation } from "@/store/features/participants/documents/apiSliceleanq_support_coordinator";
 import { toogleModal } from "@/store/features/participants/documents/participantDocumentSliceleanq_support_coordinator";

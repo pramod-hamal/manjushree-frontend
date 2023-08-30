@@ -4,7 +4,7 @@ import { protectedBaseQuery } from "@/store/baseQuery/protected.baseQueryleanq_s
 
 import { endpoints } from "@/constants/endpointsleanq_support_coordinator";
 
-import { APIBaseResponse } from "../../auth/interface/api.response";
+import { APIBaseResponse } from "../../../../core/interface/api.response";
 import { PlanInterface, PlanResponse } from "./interface/plan.interface";
 
 export const participantPlanApi =createApi({

@@ -1,6 +1,6 @@
-import { FormField } from "@/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
-import { AddIndividualContactDTO } from "../interface/contact.interface";
 import * as yup from 'yup';
+import { FormField } from "@/core/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
+import { AddIndividualContactDTO } from "../interface/contact.interface";
 
 export const initialValues: AddIndividualContactDTO = {
   name: "",

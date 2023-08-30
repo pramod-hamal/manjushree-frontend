@@ -2,7 +2,7 @@ import React from "react";
 import * as yup from "yup";
 import { FormikHelpers } from "formik";
 
-import useFormBuilder from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
+import useFormBuilder from "@/core/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
 
 import FlatButton, {
   CancelButton,
@@ -14,11 +14,11 @@ import {
 } from "@/store/hooksleanq_support_coordinator";
 import { useAddHealthConditionMutation } from "@/store/features/participants/health/apiSliceleanq_support_coordinator";
 import { HealthConditionInitialState } from "@/store/features/participants/health/interface/health-condition.interfaceleanq_support_coordinator";
-import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
+import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
 import { toogleModal } from "@/store/features/participants/health/participantHealthSliceleanq_support_coordinator";
 
-import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
-import { FormField } from "@/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
+import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
+import { FormField } from "@/core/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
 
 const validationSchema = yup.object().shape({
   title: yup.string().required("Required"),

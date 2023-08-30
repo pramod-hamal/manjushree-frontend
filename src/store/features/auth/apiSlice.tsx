@@ -3,7 +3,7 @@ import {
   baseUrl,
   endpoints,
 } from "@/constants/endpointsleanq_support_coordinator";
-import { prepareSubDomainHeader } from "@/lib/getHeadersleanq_support_coordinator";
+import { prepareSubDomainHeader } from "@/core/lib/getHeadersleanq_support_coordinator";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({

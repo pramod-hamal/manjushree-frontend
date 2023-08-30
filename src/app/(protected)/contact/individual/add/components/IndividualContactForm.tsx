@@ -4,9 +4,9 @@ import React, { useEffect } from "react";
 import { FormikHelpers } from "formik";
 import { useRouter } from "next/navigation";
 
-import { useToast } from "@/lib/toast/useToastleanq_support_coordinator";
-import useFormBuilder from "@/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
-import useCurrentLocation from "@/hooks/currentLocation/useCurrentLocationleanq_support_coordinator";
+import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
+import useFormBuilder from "@/core/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
+import useCurrentLocation from "@/core/hooks/currentLocation/useCurrentLocationleanq_support_coordinator";
 
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
 import { TextAreaInput } from "@/components/form/FormInputleanq_support_coordinator";
@@ -22,7 +22,7 @@ import {
   useAddIndividualContactMutation,
   useUpdateIndividualContactMutation,
 } from "@/store/features/contact/apiSliceleanq_support_coordinator";
-import { APIBaseResponse } from "@/store/features/auth/interface/api.responseleanq_support_coordinator";
+import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
 
 import { routes } from "@/constants/routesleanq_support_coordinator";
 

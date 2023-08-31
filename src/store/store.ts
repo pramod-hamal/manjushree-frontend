@@ -17,7 +17,6 @@ import { contactDetailReducer } from "./features/participants/contact/contactDet
 import { participantDetailContactApi } from "./features/participants/contact/apiSlice";
 import { participantDocumentApi } from "./features/participants/documents/apiSlice";
 import { participantDocumentReducer } from "./features/participants/documents/participantDocumentSlice";
-import { dropdownSlice } from "./features/dropdown/dropdownSlice";
 import { dropdownApi } from "./features/dropdown/apiSlice";
 import { participantPlanApi } from "./features/participants/plan/apiSlice";
 import { userReducer } from "./features/users/userSlice";
@@ -28,7 +27,6 @@ export const stores = configureStore({
         //appstate
         app: appReducer,
         // dropdown
-        dropdown:dropdownSlice.reducer,
         [dropdownApi.reducerPath]:dropdownApi.reducer,
         // auth
         auth:authSlice.reducer,

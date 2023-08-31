@@ -8,8 +8,17 @@ import FormInput, {
   TextAreaInput,
 } from "@/components/form/FormInputleanq_support_coordinator";
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
+import {
+  useParticipantsQuery,
+  usePlanServicesQuery,
+  useServiceCoordinatorsQuery,
+} from "@/store/features/dropdown/apiSliceleanq_support_coordinator";
 
 export default function AddProjectForm() {
+  const { data: planServices } = usePlanServicesQuery("");
+  const { data: serviceCoordinators } = useServiceCoordinatorsQuery("");
+  const { data: participants } = useParticipantsQuery("");
+
   return (
     <div className="p-5 flex flex-col gap-5">
       <span className="text-2xl font-semibold">Project details</span>
@@ -24,7 +33,7 @@ export default function AddProjectForm() {
             value={""}
           />
           <CusSelect
-            options={[]}
+            options={planServices?.data ?? []}
             placeHolder="Select Service"
             label="Selecct Service"
             onChange={() => {}}
@@ -33,7 +42,7 @@ export default function AddProjectForm() {
             errors={""}
           />
           <CusSelect
-            options={[]}
+            options={participants?.data ?? []}
             placeHolder="Select Participants"
             label="Add Participant"
             onChange={() => {}}
@@ -52,9 +61,9 @@ export default function AddProjectForm() {
           />
           <div>
             <CusSelect
-              options={[]}
-              placeHolder="Select Participants"
-              label="Add Participant"
+              options={serviceCoordinators?.data ?? []}
+              placeHolder="Select Service Coordinators"
+              label="Service Coordinators"
               onChange={() => {}}
               required={true}
               value={""}

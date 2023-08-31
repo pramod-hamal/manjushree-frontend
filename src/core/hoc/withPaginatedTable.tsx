@@ -29,7 +29,7 @@ export const withPaginatedTable = (WrappedTableCompnent: any) => {
             defaultCurrent={1}
             total={paginationMeta.total ?? 1}
             current={paginationMeta.page!}
-            pageSize={paginationMeta.page_total}
+            pageSize={paginationMeta.limit}
             onChange={(page: number) => {
               setPaginationMeta({ ...paginationMeta, page });
             }}

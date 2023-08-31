@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { PlusOutlined } from "@ant-design/icons";
 
@@ -10,10 +10,26 @@ import { SearchInput } from "@/components/form/FormInputleanq_support_coordinato
 import { routes } from "@/constants/routesleanq_support_coordinator";
 import NavigateButton from "@/components/buttons/Navigateleanq_support_coordinator";
 import { useGetAllQuery } from "@/store/features/users/apiSliceleanq_support_coordinator";
+import { withPaginatedTable } from "@/core/hoc/withPaginatedTableleanq_support_coordinator";
 
-export default function UsersList() {
-  const { isLoading, data } = useGetAllQuery("");
+function UsersList({ value }: any) {
+  const { paginationMeta, setPaginationMeta } = value;
+
   const router = useRouter();
+
+  const { isLoading, isFetching, error, data }: any = useGetAllQuery({
+    limit: paginationMeta.limit,
+    page: paginationMeta.page ?? 1,
+  });
+
+  useEffect(() => {
+    let organizationData = data;
+    if (organizationData) {
+      if (data?.meta) {
+        setPaginationMeta(organizationData?.meta);
+      }
+    }
+  }, [data, setPaginationMeta]);
 
   return (
     <div className="flex flex-col">
@@ -32,12 +48,14 @@ export default function UsersList() {
           router.push(routes.userProfile(rowData.id))
         }
         columns={columns}
-        dataSource={data?.data}
-        loading={isLoading}
+        dataSource={data?.data ?? []}
+        loading={isFetching}
       />
     </div>
   );
 }
+
+export default withPaginatedTable(UsersList);
 
 const columns: any = [
   {

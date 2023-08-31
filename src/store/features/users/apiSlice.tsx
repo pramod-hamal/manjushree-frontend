@@ -16,8 +16,17 @@ export const usersApi = createApi({
   reducerPath: "usersApi",
   tagTypes: ["Users", "List", "Detail", "Contactlist"],
   endpoints: (build) => ({
-    getAll: build.query<APIBaseResponse<UserList>, any>({
-      query: () => endpoints.users.getAll,
+    getAll: build.query<
+      APIBaseResponse<UserList>,
+      { limit: number; page: number }
+    >({
+      query: (args) => {
+        const { limit, page } = args;
+        return {
+          url: endpoints.users.getAll,
+          params: { limit, page },
+        };
+      },
       providesTags: ["List"],
     }),
     add: build.mutation<APIBaseResponse<CreateUserResponse>, any>({

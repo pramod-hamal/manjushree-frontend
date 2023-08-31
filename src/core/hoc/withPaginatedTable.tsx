@@ -23,16 +23,18 @@ export const withPaginatedTable = (WrappedTableCompnent: any) => {
 
     return (
       <>
-        <WrappedTableCompnent {...props} value={paginatedTableValue} />;
-        <Pagination
-          defaultCurrent={1}
-          total={paginationMeta.total ?? 1}
-          current={paginationMeta.page!}
-          pageSize={paginationMeta.page_total}
-          onChange={(page: number) => {
-            setPaginationMeta({ ...paginationMeta, page });
-          }}
-        />
+        <WrappedTableCompnent {...props} value={paginatedTableValue} />
+        <div className="flex flex-row-reverse mt-4">
+          <Pagination
+            defaultCurrent={1}
+            total={paginationMeta.total ?? 1}
+            current={paginationMeta.page!}
+            pageSize={paginationMeta.page_total}
+            onChange={(page: number) => {
+              setPaginationMeta({ ...paginationMeta, page });
+            }}
+          />
+        </div>
       </>
     );
   };

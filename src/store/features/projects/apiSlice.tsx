@@ -5,9 +5,16 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 export const projectsApi = createApi({
   baseQuery: protectedBaseQuery,
   reducerPath: "projectsApi",
+  tagTypes: ["Project", "List"],
   endpoints: (build) => ({
-    projectList: build.query<any, string>({
-      query: () => endpoints.projects.all,
+    projectList: build.query<any, { limit: number; page: number }>({
+      query: (args) => {
+        const { limit, page } = args;
+        return {
+          url: endpoints.projects.getAll,
+          paramgs: { limit, page },
+        };
+      },
     }),
     addProject: build.mutation<any, any>({
       query: (projectData) => ({

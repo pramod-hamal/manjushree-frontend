@@ -1,8 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import Pagination from "antd/es/pagination";
 import { PaginationMetaDTO } from "../interface/pagination.meta";
+
+export interface PaginatedTableValue {
+  paginationMeta: PaginationMetaDTO;
+  setPaginationMeta: Dispatch<SetStateAction<PaginationMetaDTO>>;
+}
 
 export const withPaginatedTable = (WrappedTableCompnent: any) => {
   const PaginatedTableWrapper = (props: any) => {
@@ -16,7 +21,7 @@ export const withPaginatedTable = (WrappedTableCompnent: any) => {
       page: 1,
     });
 
-    const paginatedTableValue = {
+    const paginatedTableValue: PaginatedTableValue = {
       paginationMeta,
       setPaginationMeta,
     };

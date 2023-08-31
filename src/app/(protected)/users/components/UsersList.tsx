@@ -11,9 +11,12 @@ import { SearchInput } from "@/components/form/FormInputleanq_support_coordinato
 import { routes } from "@/constants/routesleanq_support_coordinator";
 import NavigateButton from "@/components/buttons/Navigateleanq_support_coordinator";
 import { useGetAllQuery } from "@/store/features/users/apiSliceleanq_support_coordinator";
-import { withPaginatedTable } from "@/core/hoc/withPaginatedTableleanq_support_coordinator";
+import {
+  PaginatedTableValue,
+  withPaginatedTable,
+} from "@/core/hoc/withPaginatedTableleanq_support_coordinator";
 
-function UsersList({ value }: any) {
+function UsersList({ value }: { value: PaginatedTableValue }) {
   const { paginationMeta, setPaginationMeta } = value;
 
   const router = useRouter();

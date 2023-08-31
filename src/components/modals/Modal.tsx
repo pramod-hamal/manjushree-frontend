@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Modal } from "antd";
+import Modal from "antd/es/modal/Modal";
 
 export interface CusModalProps {
   show: boolean;

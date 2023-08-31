@@ -11,9 +11,12 @@ export const endpoints = {
   dropdowns: {
     contact: "/dropdown/contact",
     organizationalContact: "/dropdown/contact/organization",
+    serviceCoordinators:"/dropdown/service-coordinators",
+    participants:"/dropdown/participants",
+    planServices:"/dropdown/plan-services"
   },
   projects: {
-    add: "",
+    add: "/project",
     getAll: "/project",
     update: ""
   },

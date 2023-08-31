@@ -23,8 +23,17 @@ export const participantPlanApi =createApi({
         method:"POST"
       }),
       invalidatesTags:["Plan"]
+    }),
+    getAllDocuments:build.query<any,{plan:number|string}>({
+      query:(args)=>{
+        const {plan} = args
+        return {
+          url:endpoints.participants.plan.document.getAll,
+          params:{plan}
+        }
+      }
     })
   })
 })
 
-export const {useParticipantPlanQuery,useCreatePlanMutation} = participantPlanApi;
+export const {useParticipantPlanQuery,useCreatePlanMutation,useGetAllDocumentsQuery} = participantPlanApi;

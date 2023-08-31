@@ -41,7 +41,7 @@ export const endpoints = {
       getPlan:(id:number|string)=> '/participant/plan?participant='+id,
       create:"/participant/plan",
       document:{
-        getAll:(planId:number|string)=> '/participant/plan-document?plan='+planId,
+        getAll:'/participant/plan-document',
         create:"/participant/plan-document"
       }
     }

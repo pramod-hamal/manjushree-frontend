@@ -1,9 +1,8 @@
 import React from "react";
 import Summary from "./Summary";
-import Documents from "./Documents";
+import Documents from "./document/Documents";
 import ServiceList from "./services/ServiceList";
-// import Budget from "./budget/Budget";
-// import Implementations from "./ImplementationChart";
+import DocumentsList from "./document/DocumentsList";
 
 export default function Plan() {
   return (
@@ -16,11 +15,8 @@ export default function Plan() {
           <Documents />
         </div>
       </div>
+      <DocumentsList />
       <ServiceList />
-      {/* <div className="grid grid-cols-2 gap-8">
-        <Budget />
-        <Implementations />
-      </div> */}
     </div>
   );
 }

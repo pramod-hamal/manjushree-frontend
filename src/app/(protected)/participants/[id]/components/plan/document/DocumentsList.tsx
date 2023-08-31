@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { Skeleton } from "antd";
 import { FileImageFilled, PlusOutlined } from "@ant-design/icons";
 
+import Documents from "./Documents";
 import {
   useGetAllDocumentsQuery,
   useParticipantPlanQuery,
 } from "@/store/features/participants/plan/apiSliceleanq_support_coordinator";
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
-import Documents from "./Documents";
 import CusModal from "@/components/modals/Modalleanq_support_coordinator";
 import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
 import { participantDetailState } from "@/store/features/participants/detail/participantDetailSliceleanq_support_coordinator";
@@ -15,6 +14,7 @@ import {
   PlanInterface,
   PlanResponse,
 } from "@/store/features/participants/plan/interface/plan.interfaceleanq_support_coordinator";
+import SkeletonTable from "@/components/loaders/TableSkeletonleanq_support_coordinator";
 
 export default function DocumentsList() {
   const { participantDetail } = useAppSelector(participantDetailState);
@@ -31,7 +31,7 @@ export default function DocumentsList() {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   if (isLoading) {
-    return <Skeleton />;
+    return <SkeletonTable />;
   }
 
   return (

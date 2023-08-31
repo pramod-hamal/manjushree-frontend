@@ -12,10 +12,9 @@ export default function Plan() {
           <Summary />
         </div>
         <div className="col-span-6">
-          <Documents />
+          <DocumentsList />
         </div>
       </div>
-      <DocumentsList />
       <ServiceList />
     </div>
   );

@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Skeleton } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
 import { routes } from "@/constants/routesleanq_support_coordinator";
@@ -11,7 +12,6 @@ import { useAllParticipantsQuery } from "@/store/features/participants/apiSlicel
 import CusTable from "@/components/tables/Tableleanq_support_coordinator";
 import { SearchInput } from "@/components/form/FormInputleanq_support_coordinator";
 import NavigateButton from "@/components/buttons/Navigateleanq_support_coordinator";
-import { Skeleton } from "antd";
 import { withPaginatedTable } from "@/core/hoc/withPaginatedTableleanq_support_coordinator";
 
 function ParticipantList({ value }: any) {
@@ -26,7 +26,7 @@ function ParticipantList({ value }: any) {
   useEffect(() => {
     let organizationData = data;
     if (organizationData) {
-      if (data?.meta) {
+      if (organizationData?.meta) {
         setPaginationMeta(organizationData?.meta);
       }
     }

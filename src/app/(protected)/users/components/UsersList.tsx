@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Skeleton } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
 import CusTable from "@/components/tables/Tableleanq_support_coordinator";
@@ -30,6 +31,10 @@ function UsersList({ value }: any) {
       }
     }
   }, [data, setPaginationMeta]);
+
+  if (isLoading === true) {
+    return <Skeleton />;
+  }
 
   return (
     <div className="flex flex-col">

@@ -15,6 +15,7 @@ export const projectsApi = createApi({
           paramgs: { limit, page },
         };
       },
+      providesTags: ["List"],
     }),
     addProject: build.mutation<any, any>({
       query: (projectData) => ({
@@ -22,6 +23,7 @@ export const projectsApi = createApi({
         method: "POST",
         body: projectData,
       }),
+      invalidatesTags: ["List"],
     }),
     updateProject: build.mutation<any, any>({
       query: (toUpdateProjectData) => ({

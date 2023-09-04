@@ -48,24 +48,24 @@ const withAuth = (WrappedComponent: React.ComponentType<any>) => {
 
     const checkDomain = useCallback(async () => {
       const host = window.location.host;
-      // if (!host.includes("localhost")) {
-      const subDomain: string | null = getSubDomain(host);
-      const valid: boolean | "active" | "blocked" = await validateDomain(
-        subDomain!
-      );
-      if (!valid) {
-        showToast({ title: "Invalid SubDomain", type: "error" });
-        setError("invalid");
-        setLoading(false);
-        return;
+      if (!host.includes("localhost")) {
+        const subDomain: string | null = getSubDomain(host);
+        const valid: boolean | "active" | "blocked" = await validateDomain(
+          subDomain!
+        );
+        if (!valid) {
+          showToast({ title: "Invalid SubDomain", type: "error" });
+          setError("invalid");
+          setLoading(false);
+          return;
+        }
+        if (valid === "blocked") {
+          setError("blocked");
+          showToast({ title: "Account Status Blocked", type: "error" });
+          setLoading(false);
+          return;
+        }
       }
-      if (valid === "blocked") {
-        setError("blocked");
-        showToast({ title: "Account Status Blocked", type: "error" });
-        setLoading(false);
-        return;
-      }
-      // }
       checkSession();
     }, [path, router]);
 

@@ -10,7 +10,7 @@ import { PlanInterface, PlanResponse } from "./interface/plan.interface";
 export const participantPlanApi =createApi({
   baseQuery:protectedBaseQuery,
   reducerPath:"participantPlanApi",
-  tagTypes:["Participant","Plan","PlanDocuments"],
+  tagTypes:["Participant","Plan","PlanDocuments","PlanServices"],
   endpoints:(build)=>({
     participantPlan: build.query<APIBaseResponse<PlanResponse>, any>({
       query: (id: string | number) => endpoints.participants.plan.getPlan(id),
@@ -41,9 +41,16 @@ export const participantPlanApi =createApi({
         method:"POST"
       }),
       invalidatesTags:["PlanDocuments"]
+    }),
+    getPlanServices:build.query<any,any>({
+      query:()=>endpoints.participants.plan.services.getAll,
+      providesTags:["PlanServices"]
     })
   })
 })
 
-export const {useParticipantPlanQuery,useCreatePlanMutation,
-  useGetAllDocumentsQuery,useAddPlanDocumentMutation} = participantPlanApi;
+export const {
+  useParticipantPlanQuery,useCreatePlanMutation,
+  useGetAllDocumentsQuery,useAddPlanDocumentMutation,
+  useGetPlanServicesQuery
+} = participantPlanApi;

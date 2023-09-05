@@ -27,11 +27,8 @@ function UsersList({ value }: { value: PaginatedTableValue }) {
   });
 
   useEffect(() => {
-    let organizationData = data;
-    if (organizationData) {
-      if (data?.meta) {
-        setPaginationMeta(organizationData?.meta);
-      }
+    if (data && data?.meta) {
+      setPaginationMeta(data?.meta);
     }
   }, [data, setPaginationMeta]);
 

@@ -1,21 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
+
+import {
+  PaginatedTableValue,
+  withPaginatedTable,
+} from "@/core/hoc/withPaginatedTableleanq_support_coordinator";
+
+import { useGetPlanServicesQuery } from "@/store/features/participants/plan/apiSliceleanq_support_coordinator";
 
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
 import CusTable from "@/components/tables/Tableleanq_support_coordinator";
-import ServiceForm from "./form/ServiceForm";
 import CusDrawer from "@/components/drawer/Drawerleanq_support_coordinator";
+import SkeletonTable from "@/components/loaders/TableSkeletonleanq_support_coordinator";
 
-export default function ServiceList() {
+import ServiceForm from "./form/ServiceForm";
+
+function ServiceList({ value }: { value: PaginatedTableValue }) {
   const [show, setShow] = useState<boolean>(false);
+  const { paginationMeta, setPaginationMeta } = value;
+
+  const { data, isLoading, isFetching, error } = useGetPlanServicesQuery("");
+
+  useEffect(() => {
+    if (data && data?.meta) {
+      setPaginationMeta(data?.meta);
+    }
+  }, [data, setPaginationMeta]);
+
+  if (isLoading) {
+    return <SkeletonTable />;
+  }
 
   const columns: any[] = [
     { title: "Service Name", dataIndex: "name" },
     { title: "Service Coordinator", dataIndex: "coordinator" },
     { title: "Category", dataIndex: "category" },
-    { title: "Amount", dataIndex: "amount" },
+    { title: "Budget", dataIndex: "budget" },
     { title: "Management Type", dataIndex: "managementType" },
   ];
+
+  const services = data?.data;
 
   return (
     <div className="flex flex-col bg-white gap-5 p-5">
@@ -28,16 +52,17 @@ export default function ServiceList() {
         />
       </div>
       <div>
-        <CusTable columns={columns} dataSource={[]} loading={false} />
+        <CusTable
+          columns={columns}
+          dataSource={services ?? []}
+          loading={isFetching}
+        />
       </div>
       <CusDrawer open={show} handleDrawerToogle={() => setShow(false)}>
         <ServiceForm />
       </CusDrawer>
-      {/* <CusModal
-        width={1000}
-        show={show}
-        onClose={() => setShow(false)}
-      ></CusModal> */}
     </div>
   );
 }
+
+export default withPaginatedTable(ServiceList);

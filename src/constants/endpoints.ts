@@ -46,6 +46,10 @@ export const endpoints = {
       document:{
         getAll:'/participant/plan-document',
         create:"/participant/plan-document"
+      },
+      services:{
+        getAll: "participant/plan-service",
+        add: "participant/plan-service",
       }
     }
   },

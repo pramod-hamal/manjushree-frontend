@@ -20,6 +20,8 @@ import { useAddProjectMutation } from "@/store/features/projects/apiSliceleanq_s
 import { useRouter } from "next/navigation";
 import { routes } from "@/constants/routesleanq_support_coordinator";
 import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
+import { Dropdown } from "@/core/interface/dropdown.interfaceleanq_support_coordinator";
+import { CloseCircleOutlined } from "@ant-design/icons";
 
 export interface CreateProjectDTO {
   title: string;
@@ -51,21 +53,38 @@ export default function AddProjectForm() {
       planServiceId: null,
     },
     onSubmit: async (values: any, { setSubmitting }: any) => {
-      await addProject(values)
+      const projectValues = {
+        ...values,
+        suppportCoordinatorIds: values.suppportCoordinatorIds.map(
+          (item: Dropdown) => {
+            return item.value;
+          }
+        ),
+      };
+      await addProject(projectValues)
         .unwrap()
         .then(() => {
           formik.resetForm();
           showToast({ title: "Project Created", type: "success" });
           router.push(routes.projects);
         })
-        .catch(() => {
-          console.log("error");
+        .catch((error) => {
+          showToast({
+            title: error?.data?.message ?? "Something went wrong",
+            type: "error",
+          });
         })
         .finally(() => {
           setSubmitting(false);
         });
     },
   });
+
+  const handleRemoveCoordinators = (index:number) => {
+     let newSupportCoordinators = formik.values.suppportCoordinatorIds;
+     newSupportCoordinators.splice(index, 1);
+     formik.setFieldValue("references", newSupportCoordinators);
+  };
 
   return (
     <div className="p-5 flex flex-col gap-5">
@@ -117,19 +136,33 @@ export default function AddProjectForm() {
               placeHolder="Select Service Coordinators"
               label="Service Coordinators"
               onChange={(selectedValue: any) => {
+                const getSelectedLabel: any = serviceCoordinators?.data.filter(
+                  (item: any) => item.value === selectedValue
+                );
                 formik.setFieldValue("suppportCoordinatorIds", [
                   ...formik.values.suppportCoordinatorIds,
-                  selectedValue,
+                  getSelectedLabel[0],
                 ]);
               }}
               required={true}
               value={""}
               errors={formik.errors?.suppportCoordinatorIds}
             />
-            <div className="flex gap-3">
+            <div className="flex gap-3 flex-wrap">
               {formik.values.suppportCoordinatorIds.map(
                 (item: any, index: number) => {
-                  return <div key={index}>{item}</div>;
+                  return (
+                    <div
+                      className="bg-gray-200 mt-3 p-2 text-black flex gap-1 items-center"
+                      key={index}
+                    >
+                      <span>{item.label}</span>
+                      <CloseCircleOutlined
+                        onClick={() => handleRemoveCoordinators(index)}
+                        className="text-primary-danger"
+                      />
+                    </div>
+                  );
                 }
               )}
             </div>

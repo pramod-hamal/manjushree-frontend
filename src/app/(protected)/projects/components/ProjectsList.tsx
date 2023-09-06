@@ -20,6 +20,7 @@ import {
   withPaginatedTable,
 } from "@/core/hoc/withPaginatedTableleanq_support_coordinator";
 import SkeletonTable from "@/components/loaders/TableSkeletonleanq_support_coordinator";
+import { defaultDateFormat } from "@/core/lib/date.utilsleanq_support_coordinator";
 
 function ProjectsList({ value }: { value: PaginatedTableValue }) {
   const { paginationMeta, setPaginationMeta } = value;
@@ -74,7 +75,13 @@ const columns: any = [
     title: "Name",
     dataIndex: "title",
   },
-  { title: "Date", dataIndex: "date" },
+  {
+    title: "Date",
+    dataIndex: "date",
+    render: (date: any) => {
+      return <span>{defaultDateFormat(date)}</span>;
+    },
+  },
   { title: "Description", dataIndex: "description" },
 ];
 

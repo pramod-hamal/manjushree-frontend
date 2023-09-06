@@ -1,19 +1,36 @@
+import React from "react";
 import CusTable from "@/components/tables/Tableleanq_support_coordinator";
 import { DeleteFilled } from "@ant-design/icons";
-import React from "react";
+import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 
-export default function SelectedChargeItemList() {
+export default function SelectedChargeItemList({ formik }: any) {
   const columns: any = [
-    { title: "Number", dataIndex: "number" },
+    { title: "Number", dataIndex: "supportItemNumber" },
     { title: "Reference", dataIndex: "reference" },
     { title: "Unit", dataIndex: "unit" },
-    { title: "Price", dataIndex: "unit" },
     {
-      title: "",
+      title: "Price",
+      render: (data: any) => {
+        const getIndexOfData = formik.values.chargeItems.indexOf(data);
+        return (
+          <FormInput
+            name={`chargeItems[${getIndexOfData}].rate`}
+            errors={null}
+            onChange={formik.handleChange}
+            value={data.rate}
+          />
+        );
+      },
+    },
+    {
+      title: "Action",
       dataIndex: "",
       render: () => (
         <div>
-          <DeleteFilled className="bg-primary-danger" />
+          <DeleteFilled
+            className="text-primary-danger cursor-pointer "
+            style={{ fontSize: 14 }}
+          />
         </div>
       ),
     },
@@ -23,7 +40,7 @@ export default function SelectedChargeItemList() {
       <CusTable
         pagination={false}
         columns={columns}
-        dataSource={[]}
+        dataSource={formik.values.chargeItems}
         loading={false}
       />
     </div>

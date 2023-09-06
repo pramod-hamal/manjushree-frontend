@@ -76,5 +76,8 @@ export const endpoints = {
       update: (id: number | string) => "/contact/organization/" + id,
       add: "/contact/organization",
     }
+  },
+  chargeItems:{
+    all:"/charge-items"
   }
 }

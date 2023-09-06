@@ -34,7 +34,6 @@ function ServiceList({ value }: { value: PaginatedTableValue }) {
   const columns: any[] = [
     { title: "Service Name", dataIndex: "name" },
     { title: "Service Coordinator", dataIndex: "coordinator" },
-    { title: "Category", dataIndex: "category" },
     { title: "Budget", dataIndex: "budget" },
     { title: "Management Type", dataIndex: "managementType" },
   ];

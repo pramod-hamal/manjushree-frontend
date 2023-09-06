@@ -35,7 +35,7 @@ export default function ProfileHeader() {
         <Image
           width={72}
           height={72}
-          src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
+          src="https://th.bing.com/th/id/OIP.UjVwVWru6osVUXBx27mCMAHaHa?pid=ImgDet&rs=1"
           alt="Profile"
         />
         <div className="flex flex-col">

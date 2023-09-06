@@ -10,7 +10,7 @@ import { PlanInterface, PlanResponse } from "./interface/plan.interface";
 export const participantPlanApi =createApi({
   baseQuery:protectedBaseQuery,
   reducerPath:"participantPlanApi",
-  tagTypes:["Participant","Plan","PlanDocuments","PlanServices"],
+  tagTypes:["Participant","Plan","PlanDocuments","PlanServices","ChargeItems"],
   endpoints:(build)=>({
     participantPlan: build.query<APIBaseResponse<PlanResponse>, any>({
       query: (id: string | number) => endpoints.participants.plan.getPlan(id),
@@ -44,7 +44,23 @@ export const participantPlanApi =createApi({
     }),
     getPlanServices:build.query<any,any>({
       query:()=>endpoints.participants.plan.services.getAll,
-      providesTags:["PlanServices"]
+      providesTags: ["PlanServices"]
+    }),
+    addPlanService:build.mutation<any,any>({
+      query:(planServiceData)=>({
+        url:endpoints.participants.plan.services.add,
+        body: planServiceData,
+        method:"POST"
+      }),
+      invalidatesTags: ["PlanServices"]
+    }),
+    getChargeItems: build.query<any, any>({
+      query: () => {
+        return {
+          url: endpoints.chargeItems.all,
+        };
+      },
+      providesTags: ["ChargeItems"]
     })
   })
 })
@@ -52,5 +68,6 @@ export const participantPlanApi =createApi({
 export const {
   useParticipantPlanQuery,useCreatePlanMutation,
   useGetAllDocumentsQuery,useAddPlanDocumentMutation,
-  useGetPlanServicesQuery
+  useGetPlanServicesQuery,useGetChargeItemsQuery,
+  useAddPlanServiceMutation
 } = participantPlanApi;

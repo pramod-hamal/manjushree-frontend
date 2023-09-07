@@ -26,7 +26,7 @@ import {
 } from "@/store/features/participants/plan/apiSliceleanq_support_coordinator";
 import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
 
-export default function ServiceForm() {
+export default function ServiceForm({ onClose }: { onClose: () => void }) {
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
   const showToast = useToast();
@@ -110,6 +110,7 @@ export default function ServiceForm() {
         .then((data) => {
           showToast({ title: "Service Added", type: "success" });
           formik.resetForm();
+          onClose();
         })
         .catch((err) => {
           showToast({ title: err.data?.message, type: "error" });
@@ -175,7 +176,7 @@ export default function ServiceForm() {
           onClick={() => formik.handleSubmit()}
           loading={formik.isSubmitting}
         />
-        <CancelButton />
+        <CancelButton onClick={() => onClose()} />
       </div>
     </div>
   );

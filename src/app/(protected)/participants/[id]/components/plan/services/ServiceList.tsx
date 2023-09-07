@@ -19,7 +19,10 @@ function ServiceList({ value }: { value: PaginatedTableValue }) {
   const [show, setShow] = useState<boolean>(false);
   const { paginationMeta, setPaginationMeta } = value;
 
-  const { data, isLoading, isFetching, error } = useGetPlanServicesQuery("");
+  const { data, isLoading, isFetching, error } = useGetPlanServicesQuery({
+    limit: paginationMeta.limit,
+    page: paginationMeta.page ?? 1,
+  });
 
   useEffect(() => {
     if (data && data?.meta) {
@@ -33,7 +36,21 @@ function ServiceList({ value }: { value: PaginatedTableValue }) {
 
   const columns: any[] = [
     { title: "Service Name", dataIndex: "name" },
-    { title: "Service Coordinator", dataIndex: "coordinator" },
+    {
+      title: "Service Coordinator",
+      dataIndex: "serviceCoordinator",
+      render: (serviceCoordinator: any) => {
+        return (
+          <span className="flex  gap-2">
+            <span> {serviceCoordinator?.firstName}</span>
+            {serviceCoordinator?.middleName && (
+              <span> {serviceCoordinator?.middleName}</span>
+            )}
+            <span> {serviceCoordinator?.lastName}</span>
+          </span>
+        );
+      },
+    },
     { title: "Budget", dataIndex: "budget" },
     { title: "Management Type", dataIndex: "managementType" },
   ];
@@ -58,7 +75,7 @@ function ServiceList({ value }: { value: PaginatedTableValue }) {
         />
       </div>
       <CusDrawer open={show} handleDrawerToogle={() => setShow(false)}>
-        <ServiceForm />
+        <ServiceForm onClose={() => setShow(false)} />
       </CusDrawer>
     </div>
   );

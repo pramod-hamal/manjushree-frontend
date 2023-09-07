@@ -42,8 +42,14 @@ export const participantPlanApi =createApi({
       }),
       invalidatesTags:["PlanDocuments"]
     }),
-    getPlanServices:build.query<any,any>({
-      query:()=>endpoints.participants.plan.services.getAll,
+    getPlanServices: build.query<any, { limit: number; page: number }>({
+   query: (args) => {
+        const { limit, page } = args;
+        return {
+          url: endpoints.participants.plan.services.getAll,
+          params: { limit, page },
+        };
+      },
       providesTags: ["PlanServices"]
     }),
     addPlanService:build.mutation<any,any>({

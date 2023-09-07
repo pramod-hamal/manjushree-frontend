@@ -12,7 +12,7 @@ export interface PaginatedTableValue {
 export const withPaginatedTable = (WrappedTableCompnent: any) => {
   const PaginatedTableWrapper = (props: any) => {
     const [paginationMeta, setPaginationMeta] = useState<PaginationMetaDTO>({
-      limit: 5,
+      limit: 10,
       page_total: 0,
       total: 0,
       total_pages: 0,

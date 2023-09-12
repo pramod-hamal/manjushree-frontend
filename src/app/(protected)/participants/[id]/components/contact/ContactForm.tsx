@@ -46,7 +46,7 @@ export default function ContactForm() {
     values: ParticipantContactDTO,
     { setSubmitting }: { setSubmitting: any }
   ) => {
-    await addContact(values).unwrap().then((data: APIBaseResponse<any>) => {
+    await addContact(values).unwrap().then((_: APIBaseResponse<any>) => {
       dispatch(toogleModal(false));
       showToast({ title: "Contact Added", type: "success" });
       formik.resetForm()

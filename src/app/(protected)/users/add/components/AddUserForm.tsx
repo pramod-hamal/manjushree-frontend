@@ -3,22 +3,26 @@
 import React, { useState } from "react";
 import { FormikHelpers, useFormik } from "formik";
 import * as yup from "yup";
+import { useRouter } from "next/navigation";
+
+import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
+
+import { useAddMutation } from "@/store/features/users/apiSliceleanq_support_coordinator";
+import { CreateUserDTO } from "@/store/features/users/interface/user.interfaceleanq_support_coordinator";
 
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
 import FlatButton, {
   CancelButton,
 } from "@/components/buttons/Buttonleanq_support_coordinator";
+
 import SuccessModal from "./SuccessModal";
-import { useAddMutation } from "@/store/features/users/apiSliceleanq_support_coordinator";
-import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
-import { useRouter } from "next/navigation";
-import { CreateUserDTO } from "@/store/features/users/interface/user.interfaceleanq_support_coordinator";
+import { emailRegex } from "@/core/lib/regexleanq_support_coordinator";
 
 const validationSchema = yup.object().shape({
   firstName: yup.string().required("Required"),
   lastName: yup.string().required("Required"),
-  email: yup.string().required("Required"),
+  email: yup.string().matches(emailRegex, "Invalid Email").required("Required"),
   phone: yup.string().required("Required"),
 });
 
@@ -49,12 +53,8 @@ export default function AddUserForm() {
         router.back();
       })
       .catch((error: any) => {
-        const err = error.data?.error;
-        const errorKeys = Object.getOwnPropertyNames(err);
+        formik.setErrors(error?.data?.error)
         showToast({ title: error.data.message, type: "error" });
-        errorKeys.map((er: string) => {
-          return showToast({ title: err[er], type: "error" });
-        });
       });
   };
 
@@ -122,7 +122,7 @@ export default function AddUserForm() {
             options={[]}
             placeHolder="Select Role"
             label="Role"
-            onChange={() => {}}
+            onChange={() => { }}
             required={true}
             value={formik.values.role}
             errors={formik.errors.role}
@@ -134,7 +134,7 @@ export default function AddUserForm() {
             type="submit"
             loading={formik.isSubmitting}
           />
-          <CancelButton />
+          <CancelButton onClick={()=>router.back()}/>
         </div>
       </form>
       <SuccessModal show={showModal} onClose={() => setShowModal(false)} />

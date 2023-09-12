@@ -47,7 +47,7 @@ export const usersApi = createApi({
         body: toUpdateUserData,
         method: "PUT",
       }),
-      invalidatesTags: ["List", "Detail"],
+      invalidatesTags: ["List", ],
     }),
     allContacts: build.query<APIBaseResponse<UserContactResponse>, any>({
       query: (id: string | number) => endpoints.users.contact.getAll(id),

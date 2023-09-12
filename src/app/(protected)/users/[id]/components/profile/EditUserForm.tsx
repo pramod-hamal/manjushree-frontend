@@ -19,9 +19,10 @@ import { EditUserDTO } from "@/store/features/users/interface/user.interfacelean
 import { useUpdateMutation } from "@/store/features/users/apiSliceleanq_support_coordinator";
 
 import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
+import { emailRegex } from "@/core/lib/regexleanq_support_coordinator";
 
 const validationSchema = yup.object().shape({
-  email: yup.string().required("Required"),
+  email: yup.string().matches(emailRegex,"Invalid Email").required("Required"),
   phone: yup.string().required("Required"),
   firstName: yup.string().required("Required"),
   lastName: yup.string().required("Required"),
@@ -55,8 +56,8 @@ export default function EdituserForm() {
         showToast({ title: "User Updated", type: "success" });
       })
       .catch((error) => {
-        console.log(error);
-        showToast({ title: error.message, type: "error" });
+        formik.setErrors(error?.data?.error)
+        showToast({ title: error?.data?.message, type: "error" });
       })
       .finally(() => {
         setSubmitting(false);

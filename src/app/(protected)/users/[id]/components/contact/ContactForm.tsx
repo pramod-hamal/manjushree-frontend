@@ -18,6 +18,8 @@ import {
 } from "@/store/features/users/userSliceleanq_support_coordinator";
 import { UserContactDTO } from "@/store/features/users/interface/user.contact.interfaceleanq_support_coordinator";
 import { useAddContactMutation } from "@/store/features/users/apiSliceleanq_support_coordinator";
+import FormInput from "@/components/form/FormInputleanq_support_coordinator";
+import ErrorMessage from "@/components/form/ErrorMessageleanq_support_coordinator";
 
 export default function ContactForm({ onClose }: { onClose: () => void }) {
   const { userDetail }: UserSliceState = useAppSelector(userState);
@@ -36,21 +38,17 @@ export default function ContactForm({ onClose }: { onClose: () => void }) {
     values: UserContactDTO,
     { setSubmitting }: { setSubmitting: any }
   ) => {
-    try {
-      const { data, error }: any = await addContact(values);
-      if (data) {
-        onClose();
-        formik.resetForm();
-        showToast({ title: "Contact Added", type: "success" });
-      } else {
-        const errorData: APIBaseResponse<any> = error;
-        showToast({ title: errorData?.data?.message, type: "error" });
-      }
-    } catch (error: any) {
-      showToast({ title: error.message, type: "error" });
-    } finally {
+    await addContact(values).unwrap().then((_: APIBaseResponse<any>) => {
+      onClose();
+      formik.resetForm();
+      showToast({ title: "Contact Added", type: "success" });
+    }).catch((error: any) => {
+      console.log(error)
+      formik.setErrors(error?.data?.error);
+      showToast({ title: error?.data?.message, type: "error" });
+    }).finally(() => {
       setSubmitting(false);
-    }
+    })
   };
 
   const formik = useFormik({
@@ -72,26 +70,24 @@ export default function ContactForm({ onClose }: { onClose: () => void }) {
               options={data?.data ?? []}
               value={formik.values.contactId}
             />
+            {formik.errors.contactId && <ErrorMessage message={formik.errors.contactId} />}
           </div>
-          <FlatButton
-            icon={<PlusOutlined />}
-            title="Create New"
-            type="button"
-            onClick={() => {}}
-            color="text-black bg-white border border-solid text-xs shadow  border-[#1890FF] text-primary-title"
-          />
+          <div>
+            <FlatButton
+              icon={<PlusOutlined />}
+              title="Create New"
+              type="button"
+              onClick={() => { }}
+              color="text-black bg-white border border-solid text-xs shadow  border-[#1890FF] text-primary-title"
+            />
+          </div>
         </div>
         <div className="w-[366px]">
-          <CusSelect
-            placeHolder="Select Relationship"
-            onChange={(selectedData: any) => {
-              formik.setFieldValue("relation", selectedData);
-            }}
-            options={[
-              { value: "Team Partner", label: "Team Partner" },
-              { value: "Co ordinator", label: "Co ordinator" },
-              { value: "Family Member", label: "Family Member" },
-            ]}
+          <FormInput
+            placeHolder="Relationship"
+            onChange={formik.handleChange}
+            name="relation"
+            errors={formik.errors?.relation}
             value={formik.values.relation}
           />
         </div>

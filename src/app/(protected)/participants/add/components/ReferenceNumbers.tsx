@@ -77,7 +77,7 @@ export default function ReferenceNumbers({ formik, disabled, editMode }: any) {
         })}
       </div>
       <div
-        className="flex text-primary-title gap-2 bg-white"
+        className="flex text-primary-title items-center cursor-pointer gap-2 bg-white"
         onClick={disabled ? () => {} : addNewreferenceElement}
       >
         <PlusOutlined />

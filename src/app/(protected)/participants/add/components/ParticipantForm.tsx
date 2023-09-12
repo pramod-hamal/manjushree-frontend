@@ -1,14 +1,15 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useFormik } from "formik";
+import { FormikHelpers, useFormik } from "formik";
+
+import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
+import { defaultDateFormat } from "@/core/lib/date.utilsleanq_support_coordinator";
+import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
 
 import { Participant } from "@/store/features/participants/interface/participantStateleanq_support_coordinator";
 import { ParticipantAddDTO } from "@/store/features/participants/interface/addPrticipantDTOleanq_support_coordinator";
 import { useAddParticipantMutation } from "@/store/features/participants/apiSliceleanq_support_coordinator";
-import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
-
-import { defaultDateFormat } from "@/core/lib/date.utilsleanq_support_coordinator";
 
 import FlatButton, {
   CancelButton,
@@ -17,7 +18,6 @@ import FlatButton, {
 import SuccessModal from "./SuccessModal";
 import PersonalDetail from "./PersonalDetail";
 import ReferenceNumbers from "./ReferenceNumbers";
-import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
 
 import { validationSchema, initialValues } from "../form-utils";
 
@@ -30,32 +30,27 @@ export default function ParticipantForm() {
 
   const onSubmit = async (
     values: ParticipantAddDTO,
-    { setSubmitting }: any
+    { setSubmitting }: FormikHelpers<ParticipantAddDTO>
   ) => {
-    try {
-      const participantData = {
-        ...values,
-        phone: values.phone.toString(),
-        dateOfBirth: defaultDateFormat(new Date(values.dateOfBirth)),
-      };
-      const { data, error }: any = await add(participantData);
-      if (data) {
-        const responseData: APIBaseResponse<Participant> = data;
-        setShowModal(true);
-        addParticipantsFormik.resetForm();
-        router.back();
-      } else {
-        const errorData: APIBaseResponse<any> = error.data;
-        showToast({
-          title: errorData.message,
-          description: errorData.error?.message,
-          type: "error",
-        });
-      }
-    } catch (error) {
-    } finally {
-      setSubmitting(false);
-    }
+    const participantData = {
+      ...values,
+      phone: values.phone.toString(),
+      dateOfBirth: defaultDateFormat(new Date(values.dateOfBirth)),
+    };
+    await add(participantData).unwrap().then((data: APIBaseResponse<Participant>) => {
+      setShowModal(true);
+      addParticipantsFormik.resetForm();
+      router.back();
+    }).catch((error: any) => {
+      const errorData: APIBaseResponse<any> = error.data;
+      console.log(errorData)
+      addParticipantsFormik.setErrors(errorData.error)
+      showToast({
+        title: errorData.message,
+        description: errorData.error?.message,
+        type: "error",
+      });
+    })
   };
 
   const addParticipantsFormik = useFormik({

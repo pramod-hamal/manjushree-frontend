@@ -11,14 +11,14 @@ export const initialValues: ParticipantAddDTO = {
   dateOfBirth: "",
   preferredLanguage: "",
   pronouns: "",
-  ndisNumber: 0,
+  ndisNumber: "",
   references: [],
 };
 
 export const validationSchema = yup.object().shape({
   firstName: yup.string().required("Required"),
   lastName: yup.string().required("Required"),
-  phone: yup.number().required("Required"),
+  phone: yup.string().min(10,"Phone number must be minimum 10 digit").required("Required"),
   email: yup.string().required("Required"),
   gender: yup.string().required("Required"),
   dateOfBirth: yup.date().required("Required"),

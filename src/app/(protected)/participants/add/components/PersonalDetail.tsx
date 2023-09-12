@@ -23,7 +23,6 @@ export default function PersonalDetail({ formik, disabled }: any) {
             errors={errors?.middleName}
             name="middleName"
             label="Middle Name"
-            required={true}
             onChange={handleChange}
             value={values.middleName}
             disabled={disabled}
@@ -85,17 +84,14 @@ export default function PersonalDetail({ formik, disabled }: any) {
             errors={errors?.preferredLanguage}
             name="preferredLanguage"
             label="Prefered Language"
-            required={true}
             onChange={handleChange}
             value={values.preferredLanguage}
             disabled={disabled}
           />
-
           <FormInput
             errors={errors?.pronouns}
             name="pronouns"
             label="Pronouns"
-            required={true}
             onChange={handleChange}
             value={values.pronouns}
             disabled={disabled}

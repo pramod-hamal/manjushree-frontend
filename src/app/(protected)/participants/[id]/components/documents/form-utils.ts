@@ -12,7 +12,6 @@ export const formFields: FormField[] = [
     label: "File Name",
     type: "text",
     required: true,
-    disabled: true,
   },
   {
     name: "category",

@@ -59,12 +59,11 @@ export default function Documents({ onClose }: { onClose: () => void }) {
       <form className="flex flex-col gap-5" onSubmit={formik.handleSubmit}>
         <FormInput
           errors={null}
-          onChange={() => {}}
+          onChange={formik.handleChange}
           name="name"
           label="File Name"
           placeHolder="File Name"
           value={formik.values.name}
-          disabled={true}
         />
         <FileUpload
           value={formik.values.file}

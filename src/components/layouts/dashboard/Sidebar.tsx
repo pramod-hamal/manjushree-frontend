@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   ArrowDownOutlined,
@@ -24,15 +24,25 @@ import {
   SidebarItem,
   sidebarItems,
 } from "@/constants/sidebarItemsleanq_support_coordinator";
+import { routes } from "@/constants/routesleanq_support_coordinator";
+import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
 
 export default function Sidebar() {
   const { layoutState }: AppState = useAppSelector(appState);
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const showToast= useToast();
 
   const { minimized }: LayoutState = layoutState;
   const handleToogle = () => {
     dispatch(toogleDrawer(!minimized));
   };
+
+  const handleLogout=()=>{
+    localStorage.removeItem("token");
+    router.replace(routes.login);
+    showToast({title:"User Logged Out",type:"success"})
+  }
 
   return (
     <div
@@ -51,7 +61,8 @@ export default function Sidebar() {
         </div>
         <div
           className={`py-5 px-5 flex gap-5 hover:text-white hover:bg-primary-danger opacity-75 cursor-pointer`}
-        >
+          onClick={handleLogout}
+          >
           <LogoutOutlined />
           <span className={`${minimized && "hidden"} text-[13px] `}>
             Logout

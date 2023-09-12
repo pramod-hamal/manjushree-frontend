@@ -18,6 +18,8 @@ import { toogleModal } from "@/store/features/participants/contact/contactDetail
 import { useOrganizationContactQuery } from "@/store/features/dropdown/apiSliceleanq_support_coordinator";
 
 import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
+import FormInput from "@/components/form/FormInputleanq_support_coordinator";
+import ErrorMessage from "@/components/form/ErrorMessageleanq_support_coordinator";
 
 export interface ParticipantContactDTO {
   relation: string;
@@ -28,7 +30,7 @@ export interface ParticipantContactDTO {
 export default function ContactForm() {
   const [addContact] = useAddMutation();
   const { participantDetail } = useAppSelector(participantDetailState);
-  const { data, isLoading }: any = useOrganizationContactQuery("");
+  const { data}: any = useOrganizationContactQuery("");
 
   const dispatch = useAppDispatch();
 
@@ -44,25 +46,26 @@ export default function ContactForm() {
     values: ParticipantContactDTO,
     { setSubmitting }: { setSubmitting: any }
   ) => {
-    try {
-      const { data, error }: any = await addContact(values);
-      if (data) {
-        dispatch(toogleModal(false));
-        showToast({ title: "Contact Added", type: "success" });
-      } else {
-        const errorData: APIBaseResponse<any> = error;
-        showToast({ title: errorData?.data?.message, type: "error" });
-      }
-    } catch (error: any) {
-      showToast({ title: error.message, type: "error" });
-    } finally {
+    await addContact(values).unwrap().then((data: APIBaseResponse<any>) => {
+      dispatch(toogleModal(false));
+      showToast({ title: "Contact Added", type: "success" });
+      formik.resetForm()
+    }).catch((error: any) => {
+      console.log(error)
+      formik.setErrors(error?.data?.error);
+      showToast({ title: error?.data?.message, type: "error" });
+    }).finally(() => {
       setSubmitting(false);
-    }
+    })
   };
 
   const formik = useFormik({
     initialValues,
     onSubmit: handleSubmit,
+    validateOnMount: false,
+    validateOnChange: false,
+    validateOnBlur: false,
+    enableReinitialize: true,
   });
 
   return (
@@ -79,26 +82,24 @@ export default function ContactForm() {
               options={data?.data ?? []}
               value={formik.values.contactId}
             />
+            {formik.errors.contactId && <ErrorMessage message={formik.errors.contactId}/>}
           </div>
-          <FlatButton
+         <div>
+         <FlatButton
             icon={<PlusOutlined />}
             title="Create New"
             type="button"
-            onClick={() => {}}
+            onClick={() => { }}
             color="text-black bg-white border border-solid text-xs shadow  border-[#1890FF] text-primary-title"
           />
+         </div>
         </div>
         <div className="w-[366px]">
-          <CusSelect
-            placeHolder="Select Relationship"
-            onChange={(selectedData: any) => {
-              formik.setFieldValue("relation", selectedData);
-            }}
-            options={[
-              { value: "Team Partner", label: "Team Partner" },
-              { value: "Co ordinator", label: "Co ordinator" },
-              { value: "Family Member", label: "Family Member" },
-            ]}
+          <FormInput
+            placeHolder="Relationship"
+            onChange={formik.handleChange}
+            name="relation"
+            errors={formik.errors.relation}
             value={formik.values.relation}
           />
         </div>

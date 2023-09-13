@@ -22,6 +22,7 @@ import { routes } from "@/constants/routesleanq_support_coordinator";
 import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
 import { Dropdown } from "@/core/interface/dropdown.interfaceleanq_support_coordinator";
 import { CloseCircleOutlined } from "@ant-design/icons";
+import CusDatePicker from "@/components/form/DatePickerleanq_support_coordinator";
 
 export interface CreateProjectDTO {
   title: string;
@@ -121,7 +122,16 @@ export default function AddProjectForm() {
             value={formik.values.participantId}
             errors={""}
           />
-          <FormInput
+           <CusDatePicker
+            label="Date"
+            required={true}
+            name="date"
+            onChange={(_: any, dateString: string) => {
+              formik.setFieldValue("date", dateString)
+            }}
+            errors={formik.errors?.date}
+            value={formik.values.date} />
+          {/* <FormInput
             name="date"
             type="date"
             label="Date"
@@ -129,7 +139,7 @@ export default function AddProjectForm() {
             onChange={formik.handleChange}
             errors={formik.errors?.date}
             value={formik.values.date}
-          />
+          /> */}
           <div>
             <CusSelect
               options={serviceCoordinators?.data ?? []}

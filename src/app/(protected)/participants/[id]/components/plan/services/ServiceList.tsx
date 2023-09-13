@@ -14,8 +14,16 @@ import CusDrawer from "@/components/drawer/Drawerleanq_support_coordinator";
 import SkeletonTable from "@/components/loaders/TableSkeletonleanq_support_coordinator";
 
 import ServiceForm from "./form/ServiceForm";
+import useGetParticipantPlan, { GetParticipantPlanProps } from "../../../hook/useGetParticipantPlan";
+import useGetParticipantDetail from "../../../hook/useGetParticipant";
 
 function ServiceList({ value }: { value: PaginatedTableValue }) {
+
+  const participant = useGetParticipantDetail();
+  const { plan, error: participantPlanError, isLoading: participantPlanLoading }: GetParticipantPlanProps = useGetParticipantPlan(
+    { id: participant?.id! }
+  );
+
   const [show, setShow] = useState<boolean>(false);
   const { paginationMeta, setPaginationMeta } = value;
 
@@ -32,6 +40,10 @@ function ServiceList({ value }: { value: PaginatedTableValue }) {
 
   if (isLoading) {
     return <SkeletonTable />;
+  }
+
+  if (plan === null) {
+    return <NoPlanConfiguredError />
   }
 
   const columns: any[] = [
@@ -82,3 +94,13 @@ function ServiceList({ value }: { value: PaginatedTableValue }) {
 }
 
 export default withPaginatedTable(ServiceList);
+
+
+export const NoPlanConfiguredError = () => <div className="flex flex-col bg-white gap-5 p-5">
+  <div className="flex justify-between">
+    <span className="text-lg font-semibold">Services</span>
+  </div>
+  <div>
+    <p>Add Plan First</p>
+  </div>
+</div>

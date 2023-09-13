@@ -7,43 +7,43 @@ import { endpoints } from "@/constants/endpointsleanq_support_coordinator";
 import { APIBaseResponse } from "../../../../core/interface/api.response";
 import { PlanInterface, PlanResponse } from "./interface/plan.interface";
 
-export const participantPlanApi =createApi({
-  baseQuery:protectedBaseQuery,
-  reducerPath:"participantPlanApi",
-  tagTypes:["Participant","Plan","PlanDocuments","PlanServices","ChargeItems"],
-  endpoints:(build)=>({
+export const participantPlanApi = createApi({
+  baseQuery: protectedBaseQuery,
+  reducerPath: "participantPlanApi",
+  tagTypes: ["Participant", "Plan", "PlanDocuments", "PlanServices", "ChargeItems"],
+  endpoints: (build) => ({
     participantPlan: build.query<APIBaseResponse<PlanResponse>, any>({
       query: (id: string | number) => endpoints.participants.plan.getPlan(id),
-      providesTags:["Plan"],
+      providesTags: ["Plan"],
     }),
-    createPlan:build.mutation<APIBaseResponse<any>,any>({
-      query:(planData:PlanInterface)=>({
-        url:endpoints.participants.plan.create,
-        body:planData,
-        method:"POST"
+    createPlan: build.mutation<APIBaseResponse<any>, any>({
+      query: (planData: PlanInterface) => ({
+        url: endpoints.participants.plan.create,
+        body: planData,
+        method: "POST"
       }),
-      invalidatesTags:["Plan"]
+      invalidatesTags: ["Plan"]
     }),
-    getAllDocuments:build.query<any,{plan:number|string}>({
-      query:(args)=>{
-        const {plan} = args
+    getAllDocuments: build.query<any, { plan: number | string }>({
+      query: (args) => {
+        const { plan } = args
         return {
-          url:endpoints.participants.plan.document.getAll,
-          params:{plan}
+          url: endpoints.participants.plan.document.getAll,
+          params: { plan }
         }
       },
-      providesTags:["PlanDocuments"],
+      providesTags: ["PlanDocuments"],
     }),
-    addPlanDocument:build.mutation<any,any>({
-      query:(documentData)=>({
-        url:endpoints.participants.plan.document.create,
-        body:documentData,
-        method:"POST"
+    addPlanDocument: build.mutation<any, any>({
+      query: (documentData) => ({
+        url: endpoints.participants.plan.document.create,
+        body: documentData,
+        method: "POST"
       }),
-      invalidatesTags:["PlanDocuments"]
+      invalidatesTags: ["PlanDocuments"]
     }),
     getPlanServices: build.query<any, { limit: number; page: number }>({
-   query: (args) => {
+      query: (args) => {
         const { limit, page } = args;
         return {
           url: endpoints.participants.plan.services.getAll,
@@ -52,11 +52,11 @@ export const participantPlanApi =createApi({
       },
       providesTags: ["PlanServices"]
     }),
-    addPlanService:build.mutation<any,any>({
-      query:(planServiceData)=>({
-        url:endpoints.participants.plan.services.add,
+    addPlanService: build.mutation<any, any>({
+      query: (planServiceData) => ({
+        url: endpoints.participants.plan.services.add,
         body: planServiceData,
-        method:"POST"
+        method: "POST"
       }),
       invalidatesTags: ["PlanServices"]
     }),
@@ -67,13 +67,17 @@ export const participantPlanApi =createApi({
         };
       },
       providesTags: ["ChargeItems"]
+    }),
+    getPlanServiceDetail: build.query<any, any>({
+      query: (id: string | number) =>
+        endpoints.participants.plan.services.getById + id
     })
   })
 })
 
 export const {
-  useParticipantPlanQuery,useCreatePlanMutation,
-  useGetAllDocumentsQuery,useAddPlanDocumentMutation,
-  useGetPlanServicesQuery,useGetChargeItemsQuery,
-  useAddPlanServiceMutation
+  useParticipantPlanQuery, useCreatePlanMutation,
+  useGetAllDocumentsQuery, useAddPlanDocumentMutation,
+  useGetPlanServicesQuery, useGetChargeItemsQuery,
+  useAddPlanServiceMutation, useGetPlanServiceDetailQuery
 } = participantPlanApi;

@@ -22,7 +22,5 @@ export const validationSchema = yup.object().shape({
   email: yup.string().required("Required"),
   gender: yup.string().required("Required"),
   dateOfBirth: yup.date().required("Required"),
-  preferredLanguage: yup.string().required("Required"),
-  pronouns: yup.string().required("Required"),
   ndisNumber: yup.number().required("Required"),
 });

@@ -50,6 +50,7 @@ export const endpoints = {
       services:{
         getAll: "participant/plan-service",
         add: "participant/plan-service",
+        getById:"participant/plan-service/"
       }
     }
   },

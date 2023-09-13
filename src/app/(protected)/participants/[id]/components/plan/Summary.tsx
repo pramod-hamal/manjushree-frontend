@@ -36,7 +36,7 @@ export default function Summary() {
             <div className="flex items-center gap-5 justify-between">
               <span className="font-semibold text-sm">{defaultDateFormat(plan.startDate)} -{defaultDateFormat(plan.endDate)}</span>
               <span>
-                <EyeOutlined className="text-primary-title mr-5" />P
+                <EyeOutlined className="text-primary-title mr-5" />
               </span>
             </div>
             <span className="text-xs text-gray-400">Days Remaining</span>

@@ -1,8 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { authApi } from "./auth/apiSlice";
+import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
 
 export interface AppState {
-    layoutState: LayoutState
+    layoutState: LayoutState,
+    user:any|null
 }
 
 export interface LayoutState {
@@ -10,7 +13,8 @@ export interface LayoutState {
 }
 
 const initialState: AppState = {
-    layoutState: { minimized: false }
+    layoutState: { minimized: false },
+    user:null
 }
 
 const appSlice = createSlice({
@@ -20,6 +24,17 @@ const appSlice = createSlice({
         toogleDrawer(state, action) {
             state.layoutState.minimized = action.payload;
         }
+    },
+    extraReducers:(builder)=>{
+        builder.addMatcher(
+            authApi.endpoints.getMe.matchFulfilled,
+            (state, action) => {
+              const response: APIBaseResponse<any> = action.payload;
+              if (response.statusCode === 200) {
+                state.user = response.data;
+              }
+            }
+          );
     }
 })
 

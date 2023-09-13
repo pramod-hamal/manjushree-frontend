@@ -46,6 +46,7 @@ export default function FormInput(inputProps: FormInputProps): any {
         type={type ?? "text"}
         suffix={suffix}
         prefix={prefix}
+        
       />
       {errors && <ErrorMessage message={errors} />}
     </div>

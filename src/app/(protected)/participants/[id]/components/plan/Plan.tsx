@@ -1,6 +1,5 @@
 import React from "react";
 import Summary from "./Summary";
-import Documents from "./document/Documents";
 import ServiceList from "./services/ServiceList";
 import DocumentsList from "./document/DocumentsList";
 
@@ -15,7 +14,7 @@ export default function Plan() {
           <DocumentsList />
         </div>
       </div>
-      <ServiceList />
+     <ServiceList /> 
     </div>
   );
 }

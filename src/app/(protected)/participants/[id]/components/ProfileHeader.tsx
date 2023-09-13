@@ -4,31 +4,22 @@ import React from "react";
 import Image from "next/image";
 import { EditOutlined, EyeOutlined } from "@ant-design/icons";
 
+import {
+  ParticipantDetail,
+} from "@/store/features/participants/detail/participantDetailSliceleanq_support_coordinator";
+import { defaultDateFormat } from "@/core/lib/date.utilsleanq_support_coordinator";
+
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 
-import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
-import {
-  ParticipantDetailSlice,
-  participantDetailState,
-} from "@/store/features/participants/detail/participantDetailSliceleanq_support_coordinator";
-import { useParticipantPlanQuery } from "@/store/features/participants/plan/apiSliceleanq_support_coordinator";
-import { defaultDateFormat } from "@/core/lib/date.utilsleanq_support_coordinator";
-import {
-  PlanInterface,
-  PlanResponse,
-} from "@/store/features/participants/plan/interface/plan.interfaceleanq_support_coordinator";
+import useGetParticipantDetail from "../hook/useGetParticipant";
+import useGetParticipantPlan, { GetParticipantPlanProps } from "../hook/useGetParticipantPlan";
 
 export default function ProfileHeader() {
-  const { participantDetail }: ParticipantDetailSlice = useAppSelector(
-    participantDetailState
+  const participant: ParticipantDetail | null = useGetParticipantDetail();
+
+  const { plan, error, isLoading }: GetParticipantPlanProps = useGetParticipantPlan(
+    { id: participant?.id! }
   );
-
-  const { data } = useParticipantPlanQuery(participantDetail?.id!);
-
-  const planData: undefined | PlanResponse = data?.data;
-  const plan: PlanInterface | null =
-    planData && planData.length > 0 ? planData[0] : null;
-
   return (
     <div className="flex items center justify-between">
       <div className="flex gap-10 items-center">
@@ -40,9 +31,9 @@ export default function ProfileHeader() {
         />
         <div className="flex flex-col">
           <span className="text-lg flex font-semibold gap-2">
-            <span> {participantDetail?.firstName}</span>
-            <span> {participantDetail?.middleName}</span>
-            <span> {participantDetail?.lastName}</span>
+            <span> {participant?.firstName}</span>
+            <span> {participant?.middleName}</span>
+            <span> {participant?.lastName}</span>
           </span>
           <span className="text-gray-400 text-sm">Primary Diagnosis</span>
         </div>
@@ -51,7 +42,7 @@ export default function ProfileHeader() {
         <FormInput
           name=""
           errors={null}
-          onChange={() => {}}
+          onChange={() => { }}
           value={""}
           disabled={true}
           placeHolder="John Wick"
@@ -62,7 +53,7 @@ export default function ProfileHeader() {
           <div className="flex gap-2 items-center">
             <span className="">Current Plan</span>
           </div>
-          <div className="flex items-center gap-5">
+          {plan !== null ? <div className="flex items-center gap-5">
             <span className="">
               {plan && defaultDateFormat(plan?.startDate)} -
               {plan && defaultDateFormat(plan?.endDate)}
@@ -70,7 +61,7 @@ export default function ProfileHeader() {
             <span>
               <EyeOutlined className="text-primary-title mr-5" />
             </span>
-          </div>
+          </div> : <>Plan not configured</>}
         </div>
       </div>
     </div>

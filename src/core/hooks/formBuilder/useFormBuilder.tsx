@@ -1,4 +1,4 @@
-import { FormikHelpers, useFormik } from "formik";
+import { useFormik } from "formik";
 
 import CusCheckbox from "@/components/form/Checkboxleanq_support_coordinator";
 import FormInput, {
@@ -8,6 +8,7 @@ import FormInput, {
 } from "@/components/form/FormInputleanq_support_coordinator";
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
 import { FormField, FormbuilderProps } from "./interface/formBuilder.interface";
+import CusDatePicker from "@/components/form/DatePickerleanq_support_coordinator";
 
 const useFormBuilder = ({
   initialValues,
@@ -46,7 +47,6 @@ const useFormBuilder = ({
         return;
       switch (formField.type) {
         case "text":
-        case "date":
         case "email":
           return (
             <FormInput
@@ -130,6 +130,19 @@ const useFormBuilder = ({
               options={formField.options!}
             />
           );
+        case "date":
+          return (
+            <CusDatePicker
+              required={formField.required ?? false}
+              label={formField.label ?? ""}
+              name={formField.name}
+              onChange={(date: any, dateString: any) =>
+                formik.setFieldValue(formField.name, dateString)
+              }
+              value={formik.values[formField.name]}
+              errors={formik.errors[formField.name]}
+            />
+          )
         default:
           break;
       }

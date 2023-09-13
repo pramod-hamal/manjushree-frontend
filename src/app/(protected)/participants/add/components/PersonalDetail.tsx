@@ -2,6 +2,8 @@ import React from "react";
 
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
+import CusDatePicker from "@/components/form/DatePickerleanq_support_coordinator";
+const dateFormat = "DD/MM/YYYY";
 
 export default function PersonalDetail({ formik, disabled }: any) {
   const { handleChange, values, errors } = formik;
@@ -55,16 +57,15 @@ export default function PersonalDetail({ formik, disabled }: any) {
             value={values.email}
             disabled={disabled}
           />
-          <FormInput
-            errors={errors?.dateOfBirth}
-            name="dateOfBirth"
+          <CusDatePicker
             label="Date of birth"
             required={true}
-            onChange={handleChange}
-            type="date"
-            value={values.dateOfBirth}
-            disabled={disabled}
-          />
+            name="dateOfBirth" 
+            onChange={(date: any, dateString: any) => {
+              formik.setFieldValue("dateOfBirth", dateString)
+            }} 
+            errors={errors?.dateOfBirth}
+             value={values.dateOfBirth} />
           <CusSelect
             value={values.gender}
             disabled={disabled}

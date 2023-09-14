@@ -137,7 +137,7 @@ export default function OrganizationalContactForm({
               placeHolder="Service"
               value={formik.values?.occupationService}
             />
-            {editMode !== true && (
+            {/* {editMode !== true && (
               <div className="gap-3 flex flex-col">
                 <div className="flex gap-2 items-center">
                   <span>Logo</span>
@@ -149,7 +149,7 @@ export default function OrganizationalContactForm({
                   value={null}
                 />
               </div>
-            )}
+            )} */}
           </div>
           <div className="gap-3 flex flex-col">
             <div className="flex gap-2 items-center">

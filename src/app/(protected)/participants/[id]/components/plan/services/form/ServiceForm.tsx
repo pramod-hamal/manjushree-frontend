@@ -57,7 +57,7 @@ export default function ServiceForm({ onClose }: { onClose: () => void }) {
       required: true,
       type: "select",
       options: [
-        { label: "NIDA Managed", value: "NIDA Managed" },
+        { label: "NDIA Managed", value: "NDIA Managed" },
         { label: "Plan Managed", value: "Plan Managed" },
         { label: "Self Managed", value: "Self Managed" },
       ],

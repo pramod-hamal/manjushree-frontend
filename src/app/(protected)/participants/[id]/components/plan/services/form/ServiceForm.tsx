@@ -90,7 +90,7 @@ export default function ServiceForm({ onClose }: { onClose: () => void }) {
     initialValues: {
       name: "",
       managementType: "",
-      budget: null,
+      budget: 0,
       participantId: participantDetail?.id,
       planId: plan?.id,
       scRate: 0,
@@ -113,8 +113,9 @@ export default function ServiceForm({ onClose }: { onClose: () => void }) {
           formik.resetForm();
           onClose();
         })
-        .catch((err) => {
-          showToast({ title: err.data?.message, type: "error" });
+        .catch((err:any) => {
+          console.log(err?.data?.error)
+          formik.setErrors(err?.data?.error);
         })
         .finally(() => {});
     },

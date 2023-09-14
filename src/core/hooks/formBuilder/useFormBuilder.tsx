@@ -121,6 +121,7 @@ const useFormBuilder = ({
             <CusSelect
               required={formField.required}
               disabled={formField.disabled}
+              errors={formik.errors[formField.name]}
               label={formField.label}
               onChange={(selectedValue: any) =>
                 formik.setFieldValue(formField.name, selectedValue)

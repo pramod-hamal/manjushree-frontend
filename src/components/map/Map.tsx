@@ -113,7 +113,7 @@ function MapComponent({ center: mapCenter, getLocation }: MapComponentProps) {
     getLocation(center);
   }, [center]);
 
-  const SearchBar = () => (
+  const SearchBar = (
     <div className="absolute w-[90%] mx-5 top-5">
       <Autocomplete>
         <FormInput
@@ -141,7 +141,7 @@ function MapComponent({ center: mapCenter, getLocation }: MapComponentProps) {
       options={mapOptions}
       onClick={handleLocationChange}
     >
-      <SearchBar />
+      {SearchBar} 
       <MarkerF
         draggable
         onLoad={() => {}}

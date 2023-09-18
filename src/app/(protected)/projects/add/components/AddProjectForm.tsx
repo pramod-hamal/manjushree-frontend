@@ -123,6 +123,7 @@ export default function AddProjectForm() {
             errors={""}
           />
            <CusDatePicker
+           disabled={false}
             label="Date"
             required={true}
             name="date"

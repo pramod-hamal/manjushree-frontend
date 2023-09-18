@@ -155,7 +155,8 @@ export default function OrganizationalContactForm({
               <span className="text-primary-danger text-sm">*</span>
               <span>Address</span>
             </div>
-            <MapComponent center={location}
+            <MapComponent
+              center={editMode ? { lat: Number(formik?.values.address?.latitude), lng: Number(formik?.values.address?.longitude) } : location}
               getLocation={handleGeoLocation} />
           </div>
         </div>

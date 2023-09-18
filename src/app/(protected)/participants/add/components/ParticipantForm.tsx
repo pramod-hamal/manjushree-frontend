@@ -35,7 +35,7 @@ export default function ParticipantForm() {
     const participantData = {
       ...values,
       phone: values.phone.toString(),
-      dateOfBirth: defaultDateFormat(new Date(values.dateOfBirth)),
+      dateOfBirth: values.dateOfBirth,
     };
     await add(participantData).unwrap().then((data: APIBaseResponse<Participant>) => {
       setShowModal(true);
@@ -62,6 +62,8 @@ export default function ParticipantForm() {
     validateOnBlur: false,
     enableReinitialize: true,
   });
+
+  console.log(addParticipantsFormik.errors);
 
   return (
     <div className="flex flex-col gap-5 p-5">

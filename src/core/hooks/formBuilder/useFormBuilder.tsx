@@ -8,7 +8,7 @@ import FormInput, {
 } from "@/components/form/FormInputleanq_support_coordinator";
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
 import { FormField, FormbuilderProps } from "./interface/formBuilder.interface";
-import CusDatePicker from "@/components/form/DatePickerleanq_support_coordinator";
+import CusDatePicker, { dateFormat } from "@/components/form/DatePickerleanq_support_coordinator";
 
 const useFormBuilder = ({
   initialValues,
@@ -140,6 +140,7 @@ const useFormBuilder = ({
               onChange={(date: any, dateString: any) =>
                 formik.setFieldValue(formField.name, dateString)
               }
+              disabled={formField.disabled ?? false}
               value={formik.values[formField.name]}
               errors={formik.errors[formField.name]}
             />

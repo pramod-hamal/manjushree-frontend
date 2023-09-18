@@ -63,6 +63,7 @@ function MapComponent({ center: mapCenter, getLocation }: MapComponentProps) {
         lng: latLng?.lng() ?? center.lng,
       };
       setCenter(newLatLng);
+      getLocation(newLatLng)
     }
   };
 
@@ -109,9 +110,7 @@ function MapComponent({ center: mapCenter, getLocation }: MapComponentProps) {
     setCenter(mapCenter);
   }, [mapCenter]);
 
-  useEffect(() => {
-    getLocation(center);
-  }, [center]);
+  console.log(center)
 
   const SearchBar = (
     <div className="absolute w-[90%] mx-5 top-5">

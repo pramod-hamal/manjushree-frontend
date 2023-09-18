@@ -146,11 +146,8 @@ export const NumberInput = (
 export const SearchInput = (inputProps: any) => {
   const {
     name,
-    type,
     onChange,
     placeHolder = "Search",
-    suffix,
-    prefix,
     value,
   } = inputProps;
   return (
@@ -159,7 +156,7 @@ export const SearchInput = (inputProps: any) => {
       name={name}
       onChange={onChange}
       placeholder={placeHolder}
-      suffix={<SearchOutlined />}
+      suffix={<SearchOutlined/>}
       value={value}
     />
   );

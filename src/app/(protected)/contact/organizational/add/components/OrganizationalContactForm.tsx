@@ -16,7 +16,6 @@ import MapComponent, {
 import FlatButton, {
   CancelButton,
 } from "@/components/buttons/Buttonleanq_support_coordinator";
-import FileUpload from "@/components/form/FileUploadleanq_support_coordinator";
 
 import { Address } from "../../../individual/interface/contact.interface";
 
@@ -115,7 +114,7 @@ export default function OrganizationalContactForm({
   return (
     <div className="p-5 flex flex-col gap-5">
       <span className="text-2xl font-semibold">Contact details</span>
-      <form className="flex flex-col gap-5" onSubmit={formik.handleSubmit}>
+      <form className="flex flex-col gap-5" >
         <div className="grid grid-cols-2 gap-5 gap-x-10">
           {renderFormFields()}
         </div>
@@ -163,7 +162,8 @@ export default function OrganizationalContactForm({
         <div className="flex gap-10 items-center">
           <FlatButton
             title={editMode ? "Edit" : "Submit"}
-            type="submit"
+            type="button"
+            onClick={formik.handleSubmit}
             loading={formik.isSubmitting}
           />
           <CancelButton />

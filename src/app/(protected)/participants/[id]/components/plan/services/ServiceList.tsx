@@ -30,7 +30,7 @@ function ServiceList({ value }: { value: PaginatedTableValue }) {
     { id: participant?.id! }
   );
 
-  const { data, isLoading, isFetching } = useGetPlanServicesQuery({ limit: paginationMeta.limit, page: paginationMeta.page ?? 1, });
+  const { data, isLoading, isFetching } = useGetPlanServicesQuery({ limit: paginationMeta.limit, page: paginationMeta.page ?? 1,plan:plan?.id!,participant:participant?.id! });
 
   useEffect(() => {
     if (data && data?.meta) {

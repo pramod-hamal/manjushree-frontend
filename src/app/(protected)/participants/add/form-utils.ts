@@ -21,6 +21,6 @@ export const validationSchema = yup.object().shape({
   phone: yup.string().min(10,"Phone number must be minimum 10 digit").required("Required"),
   email: yup.string().required("Required"),
   gender: yup.string().required("Required"),
-  dateOfBirth: yup.date().required("Required"),
+  dateOfBirth: yup.string().required("Required"),
   ndisNumber: yup.number().required("Required"),
 });

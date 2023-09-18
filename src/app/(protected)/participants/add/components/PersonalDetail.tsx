@@ -60,12 +60,13 @@ export default function PersonalDetail({ formik, disabled }: any) {
           <CusDatePicker
             label="Date of birth"
             required={true}
-            name="dateOfBirth" 
+            disabled={disabled}
+            name="dateOfBirth"
             onChange={(date: any, dateString: any) => {
               formik.setFieldValue("dateOfBirth", dateString)
-            }} 
+            }}
             errors={errors?.dateOfBirth}
-             value={values.dateOfBirth} />
+            value={values.dateOfBirth} />
           <CusSelect
             value={values.gender}
             disabled={disabled}

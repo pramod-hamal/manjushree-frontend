@@ -5,7 +5,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import { DatePicker } from 'antd'
 import ErrorMessage from './ErrorMessage';
 
-const dateFormat = "DD/MM/YYYY";
+export const dateFormat = "DD/MM/YYYY";
 dayjs.extend(customParseFormat);
 
 interface CusDatePickerProps {
@@ -15,9 +15,10 @@ interface CusDatePickerProps {
     errors: any;
     label: string;
     required: boolean;
+    disabled:boolean
 }
 
-export default function CusDatePicker({ onChange, name, value, errors, label, required }: CusDatePickerProps) {
+export default function CusDatePicker({ onChange, name, value, errors, label, required,disabled }: CusDatePickerProps) {
     return (
         <div className="flex flex-col gap-3 text-sm" >
             {label && (
@@ -26,7 +27,7 @@ export default function CusDatePicker({ onChange, name, value, errors, label, re
                     <span>{label}</span>
                 </div>
             )}
-            <DatePicker className='w-full rounded-none' onChange={onChange} format={dateFormat} name={name} />
+            <DatePicker className='w-full rounded-none'  defaultValue={dayjs(value, dateFormat)} disabled={disabled} onChange={onChange} format={dateFormat} name={name} />
             {errors && <ErrorMessage message={errors} />}
         </div>
     )

@@ -28,9 +28,9 @@ export default function CreatePlan({ onClose }: { onClose: () => void }) {
   const showToast = useToast();
 
   const rangePresets: TimeRangePickerProps["presets"] = [
-    { label: "Next 30 Days", value: [dayjs().add(30, "d"), dayjs()] },
-    { label: "Next 60 Days", value: [dayjs().add(60, "d"), dayjs()] },
-    { label: "Next 90 Days", value: [dayjs().add(90, "d"), dayjs()] },
+    { label: "Next 30 Days", value: [dayjs(), dayjs().add(30, "d"),] },
+    { label: "Next 60 Days", value: [dayjs(), dayjs().add(60, "d"),] },
+    { label: "Next 90 Days", value: [dayjs(), dayjs().add(90, "d"),] },
   ];
 
   const initialValues: CreatePlanDTO = {
@@ -74,11 +74,19 @@ export default function CreatePlan({ onClose }: { onClose: () => void }) {
     }
   };
 
+
   return (
     <form className="flex flex-col gap-4 p-5" onSubmit={formik.handleSubmit}>
       <h3 className="text-2xl font-semibold m-0">Create Plan</h3>
       <RangePicker
-        presets={[...rangePresets]}
+        presets={[
+          {
+            label: <span aria-label="Current Time to End of Day">Now ~ EOD</span>,
+            value: () => [dayjs(), dayjs().endOf('day')],
+
+          },
+          ...rangePresets,
+        ]}
         value={[
           dayjs(formik.values.startDate ?? Date.now()),
           dayjs(formik.values.endDate ?? Date.now()),

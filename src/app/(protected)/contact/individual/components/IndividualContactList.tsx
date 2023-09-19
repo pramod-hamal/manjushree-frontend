@@ -31,7 +31,7 @@ function IndividualContactList({ value }: any) {
         setPaginationMeta(organizationData?.meta);
       }
     }
-  }, [data,setPaginationMeta]);
+  }, [data, setPaginationMeta]);
 
 
   if (isLoading === true) {
@@ -69,6 +69,10 @@ const columns: any = [
     dataIndex: "name",
   },
   { title: "Email", dataIndex: "email" },
-  { title: "Phone No", dataIndex: "phone" },
+  {
+    title: "Phone No", dataIndex: "phone",
+    sorter: (a: any, b: any) => a.phone.length - b.phone.length,
+    defaultSortOrder: 'descend',
+  },
   { title: "Organization", dataIndex: "organization" },
 ];

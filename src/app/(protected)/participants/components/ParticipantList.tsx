@@ -40,7 +40,7 @@ function ParticipantList({ value }: any) {
     return <Skeleton />;
   }
 
-  if(error){
+  if (error) {
     console.log(error);
   }
 
@@ -48,7 +48,7 @@ function ParticipantList({ value }: any) {
     <div className="flex flex-col">
       <div className="flex items-center justify-between pb-5">
         <div className="w-[360px]">
-          <SearchInput  onChange={(e: any) => { setSearchText(e.target.value) }} placeHolder="Search Existing" />
+          <SearchInput onChange={(e: any) => { setSearchText(e.target.value) }} placeHolder="Search Existing" />
         </div>
         <NavigateButton
           icon={<PlusOutlined />}
@@ -71,12 +71,24 @@ function ParticipantList({ value }: any) {
 export default withPaginatedTable(ParticipantList);
 
 const columns: any = [
-  { title: "First Name", dataIndex: "firstName" },
+  {
+    title: "First Name", dataIndex: "firstName",
+    sorter: (a: any, b: any) => a.firstName.length - b.firstName.length,
+    sortDirections: ['descend'],
+  },
   { title: "Middle Name", dataIndex: "middleName" },
   { title: "Last Name", dataIndex: "lastName" },
   { title: "Email", dataIndex: "email" },
-  { title: "Phone No", dataIndex: "phone" },
-  { title: "NIDS Number", dataIndex: "ndisNumber" },
+  {
+    title: "Phone No", dataIndex: "phone",
+    defaultSortOrder: 'descend',
+    sorter: (a: any, b: any) => a.phone - b.phone,
+  },
+  {
+    title: "NIDS Number", dataIndex: "ndisNumber",
+    defaultSortOrder: 'descend',
+    sorter: (a: any, b: any) => a.ndisNumber - b.ndisNumber,
+  },
   {
     title: "Status",
     dataIndex: "status",

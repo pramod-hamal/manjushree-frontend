@@ -18,13 +18,13 @@ export const usersApi = createApi({
   endpoints: (build) => ({
     getAll: build.query<
       APIBaseResponse<UserList>,
-      { limit: number; page: number }
+      { limit: number; page: number, searchText: string }
     >({
       query: (args) => {
-        const { limit, page } = args;
+        const { limit, page, searchText } = args;
         return {
           url: endpoints.users.getAll,
-          params: { limit, page },
+          params: { limit, page, searchText },
         };
       },
       providesTags: ["List"],
@@ -47,7 +47,7 @@ export const usersApi = createApi({
         body: toUpdateUserData,
         method: "PUT",
       }),
-      invalidatesTags: ["List", ],
+      invalidatesTags: ["List",],
     }),
     allContacts: build.query<APIBaseResponse<UserContactResponse>, any>({
       query: (id: string | number) => endpoints.users.contact.getAll(id),

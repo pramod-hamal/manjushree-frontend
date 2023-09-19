@@ -16,22 +16,22 @@ export const contactApi = createApi({
       }),
       invalidatesTags: ["Individual"],
     }),
-    individualContactList: build.query<any, { limit: number; page: number }>({
+    individualContactList: build.query<any, { limit: number; page: number, searchText: string }>({
       query: (args) => {
-        const { limit, page } = args;
+        const { limit, page, searchText } = args;
         return {
           url: endpoints.contact.individual.all,
-          params: { limit, page },
+          params: { limit, page,searchText },
         }
       },
       providesTags: ["Individual"],
     }),
-    organizationalContactList: build.query<any, { limit: number; page: number }>({
+    organizationalContactList: build.query<any, { limit: number; page: number, searchText: string }>({
       query: (args) => {
-        const { limit, page } = args;
+        const { limit, page, searchText } = args;
         return {
           url: endpoints.contact.organizational.all,
-          params: { limit, page },
+          params: { limit, page,searchText },
         }
       },
       providesTags: ["Organizational"],

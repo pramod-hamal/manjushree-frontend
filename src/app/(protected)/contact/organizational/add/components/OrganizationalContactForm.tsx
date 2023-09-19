@@ -91,6 +91,7 @@ export default function OrganizationalContactForm({
         const errorData: APIBaseResponse<any> = error.data;
         showToast({ title: errorData.message, type: "error" });
       }
+      console.log(values)
     } catch (error) {
       console.log(error);
     } finally {
@@ -107,7 +108,13 @@ export default function OrganizationalContactForm({
 
   useEffect(() => {
     if (editMode === true && value !== null) {
-      formik.setValues(value);
+      formik.setValues({
+        ...value,address:{
+          ...value.address,
+          latitude:value.address.latitude ? Number(value.address.latitude) : location.lat,
+          longitude:value.address.longitude ? Number(value.address.longitude) : location.lng,
+        }
+      });
     }
   }, [editMode, value]);
 
@@ -156,7 +163,7 @@ export default function OrganizationalContactForm({
               <span>Address</span>
             </div>
             <MapComponent
-              center={editMode ? { lat: Number(formik?.values.address?.latitude), lng: Number(formik?.values.address?.longitude) } : location}
+              center={editMode ? {lat:formik.values?.address?.latitude,lng:formik.values?.address?.longitude} : location}
               getLocation={handleGeoLocation} />
           </div>
         </div>

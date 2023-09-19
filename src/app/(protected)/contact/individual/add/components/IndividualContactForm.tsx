@@ -95,7 +95,13 @@ export default function IndividualContactForm({
 
   useEffect(() => {
     if (editMode === true && values !== null) {
-      formik.setValues(values);
+      formik.setValues({
+        ...values,address:{
+          ...values.address,
+          latitude:values.address.latitude ? Number(values.address.latitude) : location.lat,
+          longitude:values.address.longitude ? Number(values.address.longitude) : location.lng,
+        }
+      });
     }
   }, [editMode, values]);
 
@@ -146,7 +152,7 @@ export default function IndividualContactForm({
               <span>Address</span>
             </div>
             <MapComponent
-              center={location}
+              center={editMode ? {lat:formik.values?.address?.latitude,lng:formik.values?.address?.longitude} : location}
               getLocation={async (position: LatLng) => {
                 const place = await getNameByLatLang(position);
                 const address: Address = {

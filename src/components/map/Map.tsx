@@ -78,6 +78,7 @@ function MapComponent({ center: mapCenter, getLocation }: MapComponentProps) {
       if (position !== null) {
         setSearchedAddress(e.target.value);
         setCenter(position);
+        getLocation(position)
       }
       e.preventDefault();
     }
@@ -90,7 +91,7 @@ function MapComponent({ center: mapCenter, getLocation }: MapComponentProps) {
    */
   const onLoad = useCallback(
     function callback(map: any) {
-      const bounds = new window.google.maps.LatLngBounds(center);
+      const bounds = new window.google.maps.LatLngBounds(mapCenter);
       map.fitBounds(bounds);
       setMap(map);
     },
@@ -107,10 +108,10 @@ function MapComponent({ center: mapCenter, getLocation }: MapComponentProps) {
   }, []);
 
   useEffect(() => {
-    setCenter(mapCenter);
+    if (mapCenter !== null) {
+      setCenter(mapCenter);
+    }
   }, [mapCenter]);
-
-  console.log(center)
 
   const SearchBar = (
     <div className="absolute w-[90%] mx-5 top-5">
@@ -134,16 +135,16 @@ function MapComponent({ center: mapCenter, getLocation }: MapComponentProps) {
     <GoogleMap
       mapContainerClassName="w-full h-[360px] relative"
       center={center}
-      zoom={10}
+      zoom={12}
       onLoad={onLoad}
       onUnmount={onUnmount}
       options={mapOptions}
       onClick={handleLocationChange}
     >
-      {SearchBar} 
+      {SearchBar}
       <MarkerF
         draggable
-        onLoad={() => {}}
+        onLoad={() => { }}
         onDragEnd={handleLocationChange}
         position={formatCenter(center)}
       />

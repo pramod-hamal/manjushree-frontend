@@ -37,6 +37,7 @@ import { useOrganizationContactQuery } from "@/store/features/dropdown/apiSlicel
 export default function IndividualContactForm({
   editMode,
   values,
+  handleOnClose
 }: IndividualContactFormProps) {
   const router = useRouter();
   const showToast = useToast();
@@ -54,13 +55,13 @@ export default function IndividualContactForm({
       if (data) {
         formik.resetForm();
         showToast({ title: "Contact Created Successfully", type: "success" });
-        router.replace(routes.individualContact);
+        handleOnClose !== null ? handleOnClose() : router.replace(routes.individualContact)
       } else {
         const errorData: APIBaseResponse<any> = error.data;
-        showToast({ title: errorData.data?.message, type: "error" });
+        formik.setErrors(errorData.error)
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      showToast({ title: error?.message, type: "error" });
     } finally {
       setSubmitting(false);
     }
@@ -96,14 +97,20 @@ export default function IndividualContactForm({
   useEffect(() => {
     if (editMode === true && values !== null) {
       formik.setValues({
-        ...values,address:{
+        ...values, address: {
           ...values.address,
-          latitude:values.address.latitude ? Number(values.address.latitude) : location.lat,
-          longitude:values.address.longitude ? Number(values.address.longitude) : location.lng,
+          latitude: values.address.latitude ? Number(values.address.latitude) : location.lat,
+          longitude: values.address.longitude ? Number(values.address.longitude) : location.lng,
         }
       });
     }
   }, [editMode, values]);
+
+  useEffect(()=>{
+   if(error && error.message){
+    showToast({title:error.message,type:"error"})
+   }
+  },[error])
 
   return (
     <div className="p-5 flex flex-col gap-5">
@@ -152,7 +159,7 @@ export default function IndividualContactForm({
               <span>Address</span>
             </div>
             <MapComponent
-              center={editMode ? {lat:formik.values?.address?.latitude,lng:formik.values?.address?.longitude} : location}
+              center={editMode ? { lat: formik.values?.address?.latitude, lng: formik.values?.address?.longitude } : location}
               getLocation={async (position: LatLng) => {
                 const place = await getNameByLatLang(position);
                 const address: Address = {

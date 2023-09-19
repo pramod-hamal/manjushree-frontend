@@ -9,6 +9,7 @@ export const participantDetailApi = createApi({
   endpoints: (build) => ({
     getUserById: build.query<any, any>({
       query: (id) => endpoints.participants.getById(id),
+      keepUnusedDataFor: 0,
       providesTags: ["Detail"],
     }),
     deleteReference: build.mutation<any, any>({

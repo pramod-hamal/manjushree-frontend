@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { PlusOutlined } from "@ant-design/icons";
 import { Skeleton } from "antd";
@@ -18,10 +18,12 @@ import { useOrganizationalContactListQuery } from "@/store/features/contact/apiS
 function OrganizationalContactList({ value }: any) {
   const router = useRouter();
   const { paginationMeta, setPaginationMeta } = value;
+  const [searchText, setSearchText] = useState("");
 
   const { isLoading, isFetching, error, data }: any = useOrganizationalContactListQuery({
     limit: paginationMeta.limit,
     page: paginationMeta.page ?? 1,
+    searchText
   });
 
   useEffect(() => {
@@ -40,7 +42,7 @@ function OrganizationalContactList({ value }: any) {
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between">
         <div className="w-[360px]">
-          <SearchInput placeHolder="Search Existing" />
+        <SearchInput onChange={(e: any) => { setSearchText(e.target.value) }} placeHolder="Search Existing" />
         </div>
         <NavigateButton
           icon={<PlusOutlined />}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { Skeleton } from "antd";
 import { useRouter } from "next/navigation";
@@ -18,10 +18,12 @@ import { routes } from "@/constants/routesleanq_support_coordinator";
 function IndividualContactList({ value }: any) {
   const router = useRouter();
   const { paginationMeta, setPaginationMeta } = value;
+  const [searchText, setSearchText] = useState("");
 
   const { isLoading, isFetching, error, data }: any = useIndividualContactListQuery({
     limit: paginationMeta.limit,
     page: paginationMeta.page ?? 1,
+    searchText
   });
 
   useEffect(() => {
@@ -41,7 +43,7 @@ function IndividualContactList({ value }: any) {
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between">
         <div className="w-[360px]">
-          <SearchInput placeHolder="Search Existing" />
+          <SearchInput onChange={(e: any) => { setSearchText(e.target.value) }} placeHolder="Search Existing" />
         </div>
         <NavigateButton
           icon={<PlusOutlined />}

@@ -19,6 +19,7 @@ export type Mode = "table" | "kanban";
 export default function Projects() {
   const [mode, setMode] = useState<Mode>("table");
   const handleToogle = (viewMode: Mode) => setMode(viewMode);
+  const [searchText, setSearchText] = useState("");
   return (
     <div className="w-full flex flex-col gap-5">
       <div className="flex justify-between items-center">
@@ -41,7 +42,7 @@ export default function Projects() {
       <div className="bg-white p-5 shadow">
         <div className="flex items-center justify-between pb-5">
           <div className="w-[360px]">
-            <SearchInput placeHolder="Search Existing" />
+          <SearchInput onChange={(e: any) => { setSearchText(e.target.value) }} placeHolder="Search Existing" />
           </div>
           <NavigateButton
             icon={<PlusOutlined />}
@@ -49,7 +50,7 @@ export default function Projects() {
             link={routes.addProjects}
           />
         </div>
-        {mode === "kanban" ? <KanbanBoard /> : <ProjectsList />}
+        {mode === "kanban" ? <KanbanBoard /> : <ProjectsList searchText={searchText} />}
       </div>
     </div>
   );

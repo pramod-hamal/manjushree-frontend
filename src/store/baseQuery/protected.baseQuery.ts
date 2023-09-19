@@ -3,7 +3,7 @@ import { prepareAuthHeader } from "@/core/lib/getHeadersleanq_support_coordinato
 
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError, fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
 
- export const apiQuery = fetchBaseQuery({
+export const apiQuery = fetchBaseQuery({
   baseUrl: baseUrl,
   prepareHeaders: prepareAuthHeader,
 });
@@ -16,6 +16,7 @@ export const protectedBaseQuery: BaseQueryFn<
   let result = await apiQuery(args, api, extraOptions)
   if (result.error && result.error.status === 401) {
     localStorage.clear();
+    location.reload()
   }
   return result
 }

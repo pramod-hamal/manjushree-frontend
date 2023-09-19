@@ -21,6 +21,7 @@ import {
 } from "@/core/hoc/withPaginatedTableleanq_support_coordinator";
 import SkeletonTable from "@/components/loaders/TableSkeletonleanq_support_coordinator";
 import { defaultDateFormat } from "@/core/lib/date.utilsleanq_support_coordinator";
+import moment from "moment";
 
 function ProjectsList({ value }: { value: PaginatedTableValue }) {
   const { paginationMeta, setPaginationMeta } = value;
@@ -78,6 +79,7 @@ const columns: any = [
   {
     title: "Date",
     dataIndex: "date",
+    sorter: (a:any, b:any) => moment(a.date).unix() - moment(b.date).unix(),
     render: (date: any) => {
       return <span>{defaultDateFormat(date)}</span>;
     },

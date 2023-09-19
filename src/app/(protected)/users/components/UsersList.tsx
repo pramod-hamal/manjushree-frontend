@@ -65,6 +65,8 @@ export default withPaginatedTable(UsersList);
 const columns: any = [
   {
     title: "Full Name",
+    sorter: (a: any, b: any) => a.firstName.length - b.firstName.length,
+    sortDirections: ['descend'],
     render: (data: any) => {
       return (
         <div>
@@ -74,7 +76,11 @@ const columns: any = [
     },
   },
   { title: "Email", dataIndex: "email" },
-  { title: "Phone No", dataIndex: "phone" },
+  {
+    title: "Phone No", dataIndex: "phone", 
+    defaultSortOrder: 'descend',
+    sorter: (a: any, b: any) => a.phone - b.phone,
+  },
 ];
 
 /**

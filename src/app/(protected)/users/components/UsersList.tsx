@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
@@ -18,12 +18,14 @@ import {
 
 function UsersList({ value }: { value: PaginatedTableValue }) {
   const { paginationMeta, setPaginationMeta } = value;
+  const [searchText, setSearchText] = useState("");
 
   const router = useRouter();
 
   const { isLoading, isFetching, error, data }: any = useGetAllQuery({
     limit: paginationMeta.limit,
     page: paginationMeta.page ?? 1,
+    searchText
   });
 
   useEffect(() => {
@@ -40,7 +42,7 @@ function UsersList({ value }: { value: PaginatedTableValue }) {
     <div className="flex flex-col">
       <div className="flex items-center justify-between pb-5">
         <div className="w-[360px]">
-          <SearchInput placeHolder="Search Existing" />
+        <SearchInput onChange={(e: any) => { setSearchText(e.target.value) }} placeHolder="Search Existing" />
         </div>
         <NavigateButton
           icon={<PlusOutlined />}
@@ -77,7 +79,7 @@ const columns: any = [
   },
   { title: "Email", dataIndex: "email" },
   {
-    title: "Phone No", dataIndex: "phone", 
+    title: "Phone No", dataIndex: "phone",
     defaultSortOrder: 'descend',
     sorter: (a: any, b: any) => a.phone - b.phone,
   },

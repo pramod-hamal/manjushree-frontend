@@ -23,7 +23,7 @@ import SkeletonTable from "@/components/loaders/TableSkeletonleanq_support_coord
 import { defaultDateFormat } from "@/core/lib/date.utilsleanq_support_coordinator";
 import moment from "moment";
 
-function ProjectsList({ value }: { value: PaginatedTableValue }) {
+function ProjectsList({ value,searchText }: { value: PaginatedTableValue ,searchText:string}) {
   const { paginationMeta, setPaginationMeta } = value;
 
   const { showProjectDetailDrawer } = useAppSelector(projectData);
@@ -32,7 +32,10 @@ function ProjectsList({ value }: { value: PaginatedTableValue }) {
   const { data, isLoading, isFetching, error } = useProjectListQuery({
     limit: paginationMeta.limit,
     page: paginationMeta.page ?? 1,
+    searchText
   });
+
+  console.log(searchText)
 
   useEffect(() => {
     let organizationData = data;

@@ -7,12 +7,12 @@ export const projectsApi = createApi({
   reducerPath: "projectsApi",
   tagTypes: ["Project", "List"],
   endpoints: (build) => ({
-    projectList: build.query<any, { limit: number; page: number }>({
+    projectList: build.query<any, { limit: number; page: number,searchText:string }>({
       query: (args) => {
-        const { limit, page } = args;
+        const { limit, page,searchText } = args;
         return {
           url: endpoints.projects.getAll,
-          paramgs: { limit, page },
+          params: { limit, page ,searchText},
         };
       },
       providesTags: ["List"],

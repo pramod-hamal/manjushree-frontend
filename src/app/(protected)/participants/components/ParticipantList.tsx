@@ -89,20 +89,20 @@ const columns: any = [
     defaultSortOrder: 'descend',
     sorter: (a: any, b: any) => a.ndisNumber - b.ndisNumber,
   },
-  {
-    title: "Status",
-    dataIndex: "status",
-    render: (status: number) => (
-      <div
-        className={`px-4 text-xs text-center py-2  text-white ${getStatusBackground(
-          status
-        )}`}
-      >
-        {getStatusTitle(status)}
-      </div>
-    ),
-    width: 150,
-  },
+  // {
+  //   title: "Status",
+  //   dataIndex: "status",
+  //   render: (status: number) => (
+  //     <div
+  //       className={`px-4 text-xs text-center py-2  text-white ${getStatusBackground(
+  //         status
+  //       )}`}
+  //     >
+  //       {getStatusTitle(status)}
+  //     </div>
+  //   ),
+  //   width: 150,
+  // },
 ];
 
 /**

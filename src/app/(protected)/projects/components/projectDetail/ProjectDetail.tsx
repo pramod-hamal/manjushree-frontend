@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { Divider } from "antd";
+import { Avatar, Divider } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
@@ -9,6 +9,7 @@ import {
   useAppSelector,
 } from "@/store/hooksleanq_support_coordinator";
 import { toogleTaskDrawer } from "@/store/features/projects/projectSliceleanq_support_coordinator";
+import { getNamefirstChar } from "@/core/lib/getFristChar.utilleanq_support_coordinator";
 
 export default function ProjectDetail({ data }: any) {
   const dispatch = useAppDispatch();
@@ -23,29 +24,17 @@ export default function ProjectDetail({ data }: any) {
         <div className="flex flex-col gap-2">
           <label className="text-xs font-semibold">Employee</label>
           <div className="flex gap-2">
-            {[1, 1].map((e: any, index: number) => {
+            {data?.supportCoordinators?.map((e: any, index: number) => {
               return (
-                <Image
-                  key={index}
-                  width={100}
-                  height={100}
-                  alt="asd"
-                  className="w-8 h-8 transition-all rounded-full cursor-pointer hover:scale:105 hover:shadow"
-                  src={"https://randomuser.me/api/portraits/men/75.jpg"}
-                />
+                <Avatar style={{ backgroundColor: '#87d068' }}> {getNamefirstChar(e.firstName)}{getNamefirstChar(e.lastName)}</Avatar>
               );
             })}
           </div>
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-xs font-semibold">Participants</label>
-          <Image
-            width={100}
-            height={100}
-            alt="asd"
-            className="w-8 h-8 transition-all rounded-full cursor-pointer hover:scale:105 hover:shadow"
-            src={"https://randomuser.me/api/portraits/men/75.jpg"}
-          />
+          <Avatar style={{ backgroundColor: '#1677ff' }}>
+            {getNamefirstChar(data?.participant?.firstName)}{getNamefirstChar(data?.participant?.lastName)}</Avatar>
         </div>
       </div>
       <Divider />

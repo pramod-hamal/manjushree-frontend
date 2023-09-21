@@ -4,7 +4,7 @@ const nextConfig = {
   compress:true,
   distDir:"build",
   images:{
-    domains:["images.unsplash.com","randomuser.me","imgs.search.brave.com","th.bing.com"],
+    domains:["images.unsplash.com","randomuser.me","imgs.search.brave.com","th.bing.com","ui-avatars.com"],
     minimumCacheTTL:15
   },
   devIndicators: {

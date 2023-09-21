@@ -11,14 +11,14 @@ import { routes } from "@/constants/routesleanq_support_coordinator";
 export default function Header() {
   const { data, error }: any = useGetMeQuery("");
   const router = useRouter();
-  
+
   const { user } = useAppSelector(appState);
 
   if (error && error?.status === 401) {
     localStorage.clear();
     router.replace(routes.login)
   }
-  
+
   return (
     <div className="sticky top-0 z-20 flex items-center justify-between px-5 text-black bg-white shadow h-14">
       <div className="flex items-center gap-4">

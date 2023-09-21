@@ -32,7 +32,7 @@ export interface CreateProjectDTO {
   date: Date | null;
   description: string;
   participantId: number | null;
-  suppportCoordinatorIds: number[];
+  supportCoordinatorIds: number[];
   planServiceId: number | null;
 }
 
@@ -53,13 +53,13 @@ export default function AddProjectForm() {
       date: null,
       description: "",
       participantId: null,
-      suppportCoordinatorIds: [],
+      supportCoordinatorIds: [],
       planServiceId: null,
     },
     onSubmit: async (values: any, { setSubmitting }: any) => {
       const projectValues = {
         ...values,
-        suppportCoordinatorIds: values.suppportCoordinatorIds.map(
+        supportCoordinatorIds: values.supportCoordinatorIds.map(
           (item: Dropdown) => {
             return item.value;
           }
@@ -73,6 +73,7 @@ export default function AddProjectForm() {
           router.push(routes.projects);
         })
         .catch((error) => {
+          formik.setErrors(error?.data?.error);
           showToast({
             title: error?.data?.message ?? "Something went wrong",
             type: "error",
@@ -85,7 +86,7 @@ export default function AddProjectForm() {
   });
 
   const handleRemoveCoordinators = (index: number) => {
-    let newSupportCoordinators = formik.values.suppportCoordinatorIds;
+    let newSupportCoordinators = formik.values.supportCoordinatorIds;
     newSupportCoordinators.splice(index, 1);
     formik.setFieldValue("references", newSupportCoordinators);
   };
@@ -144,17 +145,17 @@ export default function AddProjectForm() {
                 const getSelectedLabel: any = serviceCoordinators?.data.filter(
                   (item: any) => item.value === selectedValue
                 );
-                formik.setFieldValue("suppportCoordinatorIds", [
-                  ...formik.values.suppportCoordinatorIds,
+                formik.setFieldValue("supportCoordinatorIds", [
+                  ...formik.values.supportCoordinatorIds,
                   getSelectedLabel[0],
                 ]);
               }}
               required={true}
               value={""}
-              errors={formik.errors?.suppportCoordinatorIds}
+              errors={formik.errors?.supportCoordinatorIds}
             />
             <div className="flex gap-3 flex-wrap">
-              {formik.values.suppportCoordinatorIds.map(
+              {formik.values.supportCoordinatorIds.map(
                 (item: any, index: number) => {
                   return (
                     <div

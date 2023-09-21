@@ -10,22 +10,20 @@ import {
 } from "@/store/hooksleanq_support_coordinator";
 import { toogleTaskDrawer } from "@/store/features/projects/projectSliceleanq_support_coordinator";
 
-export default function ProjectDetail() {
-  const { selectedProject } = useAppSelector((state) => state.projects);
+export default function ProjectDetail({ data }: any) {
   const dispatch = useAppDispatch();
-
   return (
     <div>
       <div className="sticky">
-        <h3 className="text-2xl">{selectedProject?.name} </h3>
-        <p className="text-sm text-gray-500">{selectedProject?.description} </p>
+        <h3 className="text-2xl">{data?.title} </h3>
+        <p className="text-sm text-gray-500">{data?.description} </p>
       </div>
       <Divider />
       <div className="flex items-end justify-between w-full pt-2">
         <div className="flex flex-col gap-2">
           <label className="text-xs font-semibold">Employee</label>
           <div className="flex gap-2">
-            {selectedProject?.employee.map((e: any, index: number) => {
+            {[1, 1].map((e: any, index: number) => {
               return (
                 <Image
                   key={index}
@@ -33,7 +31,7 @@ export default function ProjectDetail() {
                   height={100}
                   alt="asd"
                   className="w-8 h-8 transition-all rounded-full cursor-pointer hover:scale:105 hover:shadow"
-                  src={e.image}
+                  src={"https://randomuser.me/api/portraits/men/75.jpg"}
                 />
               );
             })}
@@ -46,7 +44,7 @@ export default function ProjectDetail() {
             height={100}
             alt="asd"
             className="w-8 h-8 transition-all rounded-full cursor-pointer hover:scale:105 hover:shadow"
-            src={selectedProject?.participant.image}
+            src={"https://randomuser.me/api/portraits/men/75.jpg"}
           />
         </div>
       </div>
@@ -62,7 +60,7 @@ export default function ProjectDetail() {
           color="text-black bg-white border border-solid text-xs shadow border-[#1890FF] text-primary-title"
         />
       </div>
-      <TaskLists tasks={selectedProject?.tasks ?? []} />
+      <TaskLists tasks={[]} />
     </div>
   );
 }

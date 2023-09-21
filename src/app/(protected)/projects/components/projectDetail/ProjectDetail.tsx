@@ -1,12 +1,11 @@
 import React from "react";
 import Image from "next/image";
-import { Avatar, Divider } from "antd";
+import { Avatar, Divider, Tooltip } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
 import {
   useAppDispatch,
-  useAppSelector,
 } from "@/store/hooksleanq_support_coordinator";
 import { toogleTaskDrawer } from "@/store/features/projects/projectSliceleanq_support_coordinator";
 import { getNamefirstChar } from "@/core/lib/getFristChar.utilleanq_support_coordinator";
@@ -26,15 +25,19 @@ export default function ProjectDetail({ data }: any) {
           <div className="flex gap-2">
             {data?.supportCoordinators?.map((e: any, index: number) => {
               return (
-                <Avatar key={index} style={{ backgroundColor: '#87d068' }}> {getNamefirstChar(e.firstName)}{getNamefirstChar(e.lastName)}</Avatar>
+                <Tooltip key={index} title={`${e.firstName} ${e.middleName} ${e.lastName}`} trigger="hover">
+                  <Avatar key={index} style={{ backgroundColor: '#87d068' }}> {getNamefirstChar(e.firstName)}{getNamefirstChar(e.lastName)}</Avatar>
+                </Tooltip>
               );
             })}
           </div>
         </div>
         <div className="flex flex-col gap-2">
           <label className="text-xs font-semibold">Participants</label>
-          <Avatar style={{ backgroundColor: '#1677ff' }}>
-            {getNamefirstChar(data?.participant?.firstName)}{getNamefirstChar(data?.participant?.lastName)}</Avatar>
+          <Tooltip title={`${data?.participant?.firstName} ${data?.participant?.middleName} ${data?.participant?.lastName}`} trigger="hover">
+            <Avatar style={{ backgroundColor: '#1677ff' }}>
+              {getNamefirstChar(data?.participant?.firstName)}{getNamefirstChar(data?.participant?.lastName)}</Avatar>
+          </Tooltip>
         </div>
       </div>
       <Divider />

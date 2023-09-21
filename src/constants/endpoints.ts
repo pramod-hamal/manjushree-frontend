@@ -18,6 +18,7 @@ export const endpoints = {
   projects: {
     add: "/project",
     getAll: "/project",
+    getById:"/project/",
     update: ""
   },
   participants: {

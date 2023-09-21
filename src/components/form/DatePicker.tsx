@@ -10,7 +10,7 @@ dayjs.extend(customParseFormat);
 
 interface CusDatePickerProps {
     onChange: (date:any,dateString:any) => void;
-    value: any;
+    value: string|null;
     name: string;
     errors: any;
     label: string;
@@ -27,7 +27,7 @@ export default function CusDatePicker({ onChange, name, value, errors, label, re
                     <span>{label}</span>
                 </div>
             )}
-            <DatePicker className='w-full rounded-none'  defaultValue={dayjs(value, dateFormat)} disabled={disabled} onChange={onChange} format={dateFormat} name={name} />
+            <DatePicker className='w-full rounded-none'  defaultValue={value ? dayjs(value, dateFormat) : dayjs()} disabled={disabled} onChange={onChange} format={dateFormat} name={name} />
             {errors && <ErrorMessage message={errors} />}
         </div>
     )

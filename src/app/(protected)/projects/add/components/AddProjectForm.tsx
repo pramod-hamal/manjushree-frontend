@@ -1,7 +1,20 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
+import { CloseCircleOutlined } from "@ant-design/icons";
+
+
+import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
+import { Dropdown } from "@/core/interface/dropdown.interfaceleanq_support_coordinator";
+
+import {
+  useParticipantsQuery,
+  usePlanServicesQuery,
+  useServiceCoordinatorsQuery,
+} from "@/store/features/dropdown/apiSliceleanq_support_coordinator";
+import { useAddProjectMutation } from "@/store/features/projects/apiSliceleanq_support_coordinator";
 
 import FlatButton, {
   CancelButton,
@@ -10,19 +23,9 @@ import FormInput, {
   TextAreaInput,
 } from "@/components/form/FormInputleanq_support_coordinator";
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
-
-import {
-  useParticipantsQuery,
-  usePlanServicesQuery,
-  useServiceCoordinatorsQuery,
-} from "@/store/features/dropdown/apiSliceleanq_support_coordinator";
-import { useAddProjectMutation } from "@/store/features/projects/apiSliceleanq_support_coordinator";
-import { useRouter } from "next/navigation";
-import { routes } from "@/constants/routesleanq_support_coordinator";
-import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
-import { Dropdown } from "@/core/interface/dropdown.interfaceleanq_support_coordinator";
-import { CloseCircleOutlined } from "@ant-design/icons";
 import CusDatePicker from "@/components/form/DatePickerleanq_support_coordinator";
+
+import { routes } from "@/constants/routesleanq_support_coordinator";
 
 export interface CreateProjectDTO {
   title: string;
@@ -81,10 +84,10 @@ export default function AddProjectForm() {
     },
   });
 
-  const handleRemoveCoordinators = (index:number) => {
-     let newSupportCoordinators = formik.values.suppportCoordinatorIds;
-     newSupportCoordinators.splice(index, 1);
-     formik.setFieldValue("references", newSupportCoordinators);
+  const handleRemoveCoordinators = (index: number) => {
+    let newSupportCoordinators = formik.values.suppportCoordinatorIds;
+    newSupportCoordinators.splice(index, 1);
+    formik.setFieldValue("references", newSupportCoordinators);
   };
 
   return (
@@ -101,17 +104,6 @@ export default function AddProjectForm() {
             value={formik.values.title}
           />
           <CusSelect
-            options={planServices?.data ?? []}
-            placeHolder="Select Service"
-            label="Selecct Service"
-            onChange={(selectedData: any) => {
-              formik.setFieldValue("planServiceId", selectedData);
-            }}
-            required={true}
-            value={formik.values.planServiceId}
-            errors={""}
-          />
-          <CusSelect
             options={participants?.data ?? []}
             placeHolder="Select Participants"
             label="Add Participant"
@@ -122,8 +114,19 @@ export default function AddProjectForm() {
             value={formik.values.participantId}
             errors={""}
           />
-           <CusDatePicker
-           disabled={false}
+          <CusSelect
+            options={planServices?.data ?? []}
+            placeHolder="Select Service"
+            label="Select Service"
+            onChange={(selectedData: any) => {
+              formik.setFieldValue("planServiceId", selectedData);
+            }}
+            required={true}
+            value={formik.values.planServiceId}
+            errors={""}
+          />
+          <CusDatePicker
+            disabled={false}
             label="Date"
             required={true}
             name="date"
@@ -132,15 +135,6 @@ export default function AddProjectForm() {
             }}
             errors={formik.errors?.date}
             value={formik.values.date} />
-          {/* <FormInput
-            name="date"
-            type="date"
-            label="Date"
-            required={true}
-            onChange={formik.handleChange}
-            errors={formik.errors?.date}
-            value={formik.values.date}
-          /> */}
           <div>
             <CusSelect
               options={serviceCoordinators?.data ?? []}
@@ -194,7 +188,7 @@ export default function AddProjectForm() {
             type="submit"
             loading={formik.isSubmitting}
           />
-          <CancelButton onClick={() => {}} />
+          <CancelButton onClick={() => { }} />
         </div>
       </form>
     </div>

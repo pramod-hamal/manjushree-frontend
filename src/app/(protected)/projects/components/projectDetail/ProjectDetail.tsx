@@ -26,7 +26,7 @@ export default function ProjectDetail({ data }: any) {
           <div className="flex gap-2">
             {data?.supportCoordinators?.map((e: any, index: number) => {
               return (
-                <Avatar style={{ backgroundColor: '#87d068' }}> {getNamefirstChar(e.firstName)}{getNamefirstChar(e.lastName)}</Avatar>
+                <Avatar key={index} style={{ backgroundColor: '#87d068' }}> {getNamefirstChar(e.firstName)}{getNamefirstChar(e.lastName)}</Avatar>
               );
             })}
           </div>

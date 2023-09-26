@@ -1,10 +1,13 @@
+import React from "react";
+import Image from "next/image";
+
 import {
   UserSliceState,
   userState,
 } from "@/store/features/users/userSliceleanq_support_coordinator";
 import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
-import Image from "next/image";
-import React from "react";
+
+import CopyTextIcon from "@/components/icons/CopyTextIconleanq_support_coordinator";
 
 export default function ProfileHeader() {
   const { userDetail }: UserSliceState = useAppSelector(userState);
@@ -18,11 +21,10 @@ export default function ProfileHeader() {
           alt="Profile"
         />
         <div className="flex flex-col">
-          <span className="text-lg flex font-semibold gap-2">
-            <span> {userDetail?.firstName}</span>
-            <span> {userDetail?.middleName}</span>
-            <span> {userDetail?.lastName}</span>
-          </span>
+          <div className="text-lg flex font-semibold gap-2">
+            <span> {userDetail?.firstName! + " " + userDetail?.middleName + " " + userDetail?.lastName}</span>
+            <CopyTextIcon val={userDetail?.firstName! + " " + userDetail?.middleName + " " + userDetail?.lastName} />
+          </div>
           <span className="text-gray-400 text-sm">Role Here</span>
         </div>
       </div>

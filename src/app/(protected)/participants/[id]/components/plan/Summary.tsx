@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Skeleton } from "antd";
-import { CopyOutlined, PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 
 import {
   daysDifference,
@@ -9,12 +9,12 @@ import {
 
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
 import CusModal from "@/components/modals/Modalleanq_support_coordinator";
-
-import CreatePlan from "./CreatePlanForm";
+import CopyTextIcon from "@/components/icons/CopyTextIconleanq_support_coordinator";
 
 import useGetParticipantPlan, { GetParticipantPlanProps } from "../../hook/useGetParticipantPlan";
 import useGetParticipantDetail from "../../hook/useGetParticipant";
-import { copyTextToClipboard } from "@/core/lib/copyToClipboardleanq_support_coordinator";
+
+import CreatePlan from "./CreatePlanForm";
 
 export default function Summary() {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -32,23 +32,27 @@ export default function Summary() {
 
   return (
     <div className="bg-white rounded p-5 flex flex-col gap-5">
-      <span className="text-lg font-semibold">Plan Summary</span>
+      <div className="flex gap-5 items-center">
+        <span className="text-lg font-semibold">Plan Summary</span>
+        {plan !== null && <span>
+          <CopyTextIcon val={
+            `Plan period is ${defaultDateFormat(plan.startDate)} to ${defaultDateFormat(plan.endDate)} and ${daysDifference(defaultDateFormat(plan.startDate), defaultDateFormat(plan.endDate))}
+             days is remaining for tis plan.`
+          } />
+        </span>}
+      </div>
       <div className="flex flex-col gap-5">
         <span className="text-xs text-gray-400">Current Plan</span>
         {plan !== null ? (
           <>
             <div className="flex items-center gap-5 justify-between">
               <span className="font-semibold text-sm">{defaultDateFormat(plan.startDate)} -{defaultDateFormat(plan.endDate)}</span>
-              <span>
-                <CopyOutlined className="text-primary-title mr-5" />
-              </span>
             </div>
             <span className="text-xs text-gray-400">Days Remaining</span>
             <div className="flex items-center gap-5 font-semibold justify-between">
               <span className="font-semibold text-sm">
                 {daysDifference(defaultDateFormat(plan.startDate), defaultDateFormat(plan.endDate))}
               </span>
-              <span> <CopyOutlined className="text-primary-title mr-5" onClick={() => { copyTextToClipboard(daysDifference(defaultDateFormat(plan.startDate), defaultDateFormat(plan.endDate)).toString()) }} /></span>
             </div>
           </>
         ) : (
@@ -64,7 +68,7 @@ export default function Summary() {
       <CusModal show={showModal} onClose={() => setShowModal(false)}>
         <CreatePlan onClose={() => setShowModal(false)} />
       </CusModal>
-    </div>
+    </div >
   );
 }
 

@@ -2,11 +2,8 @@ import React from "react";
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
-import { useAppDispatch } from "@/store/hooksleanq_support_coordinator";
 
-export default function ReferenceNumbers({ formik, disabled, editMode }: any) {
-  const dispatch = useAppDispatch();
-
+export default function ReferenceNumbers({ formik, disabled }: any) {
   const addNewreferenceElement = () =>
     formik.setFieldValue("references", [
       ...formik.values.references,
@@ -34,6 +31,7 @@ export default function ReferenceNumbers({ formik, disabled, editMode }: any) {
           return (
             <div className="grid grid-cols-2 gap-8" key={index}>
               <FormInput
+                copy={true}
                 disabled={disabled}
                 value={references.title}
                 name="title"
@@ -51,6 +49,7 @@ export default function ReferenceNumbers({ formik, disabled, editMode }: any) {
               <div className="flex gap-3 items-center w-full">
                 <div className="w-full">
                   <FormInput
+                    copy={true}
                     label="Reference Number"
                     value={references.value}
                     disabled={disabled}

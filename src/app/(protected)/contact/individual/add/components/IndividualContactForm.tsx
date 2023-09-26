@@ -106,11 +106,11 @@ export default function IndividualContactForm({
     }
   }, [editMode, values]);
 
-  useEffect(()=>{
-   if(error && error.message){
-    showToast({title:error.message,type:"error"})
-   }
-  },[error])
+  useEffect(() => {
+    if (error && error.message) {
+      showToast({ title: error.message, type: "error" })
+    }
+  }, [error])
 
   return (
     <div className="p-5 flex flex-col gap-5">
@@ -136,7 +136,7 @@ export default function IndividualContactForm({
               }
               errors={formik.errors?.preferredContactMethod}
               required={true}
-              label="Prefered Contact"
+              label="Prefered Contact Methoid"
               placeHolder="Select Prefered Contact"
               options={[
                 { label: "Email", value: "email" },

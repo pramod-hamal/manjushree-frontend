@@ -13,8 +13,6 @@ export const initialValues: AddIndividualContactDTO = {
 
 export const validationSchema = yup.object().shape({
   name: yup.string().required("Required"),
-  email: yup.string().required("Required"),
-  phone: yup.string().required("Required"),
   note: yup.string().required("Required"),
   occupationService: yup.string().required("Required"),
   preferredContactMethod: yup.string().required("Required"),
@@ -33,14 +31,12 @@ export const formFields: FormField[] = [
     label: "Phone Number",
     placeHolder: "Phone Number",
     type: "text",
-    required: true,
   },
   {
     name: "email",
     label: "Email",
     placeHolder: "Email",
     type: "email",
-    required: true,
   },
   {
     name: "occupationService",

@@ -32,7 +32,7 @@ export default function HealthList() {
       <div className="flex flex-row-reverse">
         <FlatButton
           icon={<PlusOutlined />}
-          title="Add Marks"
+          title="Add Notes"
           onClick={() => dispatch(toogleModal(true))}
         />
       </div>

@@ -11,14 +11,21 @@ import {
 import { toogleTaskDrawer } from "@/store/features/projects/projectSliceleanq_support_coordinator";
 
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
+import CopyTextIcon from "@/components/icons/CopyTextIconleanq_support_coordinator";
 
 export default function ProjectDetail({ data }: any) {
   const dispatch = useAppDispatch();
   return (
     <div>
       <div className="sticky">
-        <h3 className="text-2xl">{data?.title} </h3>
-        <p className="text-sm text-gray-500">{data?.description} </p>
+        <div className="flex items-center gap-5">
+          <h3 className="text-2xl">{data?.title} </h3>
+          <CopyTextIcon val={data?.title} />
+        </div>
+        <div className="flex items-center gap-5">
+          <p className="text-sm text-gray-500">{data?.description} </p>
+          <CopyTextIcon val={data?.description} />
+        </div>
       </div>
       <Divider />
       <div className="flex items-end justify-between w-full pt-2">
@@ -26,7 +33,6 @@ export default function ProjectDetail({ data }: any) {
           <label className="text-xs font-semibold">Employee</label>
           <div className="flex gap-2">
             {data?.supportCoordinators?.map((e: any, index: number) => {
-              console.log(e, "e")
               return (
                 <Tooltip key={index} title={`${e.firstName} ${e?.middleName ?? ""} ${e.lastName}`} trigger="hover">
                   <Avatar key={index} style={{ backgroundColor: '#87d068' }}> {getNamefirstChar(e.firstName)}{getNamefirstChar(e.lastName)}</Avatar>

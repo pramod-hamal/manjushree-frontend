@@ -22,7 +22,7 @@ import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
 import { emailRegex } from "@/core/lib/regexleanq_support_coordinator";
 
 const validationSchema = yup.object().shape({
-  email: yup.string().matches(emailRegex,"Invalid Email").required("Required"),
+  email: yup.string().matches(emailRegex, "Invalid Email").required("Required"),
   phone: yup.string().required("Required"),
   firstName: yup.string().required("Required"),
   lastName: yup.string().required("Required"),
@@ -126,6 +126,7 @@ export default function EdituserForm() {
           <FormInput
             value={formik.values.email}
             name="email"
+            copy={true}
             disabled={disabled}
             label="Email"
             required={true}
@@ -136,6 +137,7 @@ export default function EdituserForm() {
           <FormInput
             type="number"
             value={formik.values.phone}
+            copy={true}
             name="phone"
             disabled={disabled}
             label="Phone Number"

@@ -31,6 +31,7 @@ export interface FormInputProps {
     label?: string;
     required?: boolean;
     onKeyDown?: any;
+    copy?: boolean;
     ref?: React.Ref<InputRef> | undefined;
 }
 

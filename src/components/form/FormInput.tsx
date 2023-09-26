@@ -1,8 +1,10 @@
 import React from "react";
 import { Input, InputNumber } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
+
 import ErrorMessage from "./ErrorMessage";
 import { FormInputProps, NumberInputProps } from "./interface/form.interface";
+import CopyTextIcon from "../icons/CopyTextIcon";
 
 /**
  * FormInput Component
@@ -25,6 +27,7 @@ export default function FormInput(inputProps: FormInputProps): any {
     ref,
     label,
     onKeyDown,
+    copy = false
   } = inputProps;
   return (
     <div className="flex flex-col gap-3 text-sm" key={key}>
@@ -32,6 +35,7 @@ export default function FormInput(inputProps: FormInputProps): any {
         <div className="flex items-center gap-2">
           {required && <span className="text-sm text-primary-danger">*</span>}
           <span>{label}</span>
+          {copy && <CopyTextIcon val={value} />}
         </div>
       )}
       <Input
@@ -46,7 +50,7 @@ export default function FormInput(inputProps: FormInputProps): any {
         type={type ?? "text"}
         suffix={suffix}
         prefix={prefix}
-        
+
       />
       {errors && <ErrorMessage message={errors} />}
     </div>
@@ -156,7 +160,7 @@ export const SearchInput = (inputProps: any) => {
       name={name}
       onChange={onChange}
       placeholder={placeHolder}
-      suffix={<SearchOutlined/>}
+      suffix={<SearchOutlined />}
       value={value}
     />
   );

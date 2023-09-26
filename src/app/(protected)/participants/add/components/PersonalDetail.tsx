@@ -48,6 +48,7 @@ export default function PersonalDetail({ formik, disabled }: any) {
           />
           <FormInput
             errors={errors?.phone}
+            copy={true}
             name="phone"
             label="Phone Number"
             type="number"
@@ -58,6 +59,7 @@ export default function PersonalDetail({ formik, disabled }: any) {
           />
           <FormInput
             errors={errors?.email}
+            copy={true}
             name="email"
             label="Email"
             required={true}
@@ -109,6 +111,7 @@ export default function PersonalDetail({ formik, disabled }: any) {
           />
           <FormInput
             errors={errors?.ndisNumber}
+            copy={true}
             name="ndisNumber"
             label="NDIS Number"
             required={true}

@@ -10,6 +10,7 @@ import {
 import { defaultDateFormat } from "@/core/lib/date.utilsleanq_support_coordinator";
 
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
+import CopyTextIcon from "@/components/icons/CopyTextIconleanq_support_coordinator";
 
 import useGetParticipantDetail from "../hook/useGetParticipant";
 import useGetParticipantPlan, { GetParticipantPlanProps } from "../hook/useGetParticipantPlan";
@@ -30,11 +31,10 @@ export default function ProfileHeader() {
           alt="Profile"
         />
         <div className="flex flex-col">
-          <span className="text-lg flex font-semibold gap-2">
-            <span> {participant?.firstName}</span>
-            <span> {participant?.middleName}</span>
-            <span> {participant?.lastName}</span>
-          </span>
+          <div className="text-lg flex font-semibold gap-2 items-center">
+            <span> {participant?.firstName! + " " + participant?.middleName + " " + participant?.lastName}</span>
+            <CopyTextIcon val={participant?.firstName! + " " + participant?.middleName + " " + participant?.lastName} />
+          </div>
           <span className="text-gray-400 text-sm">Primary Diagnosis</span>
         </div>
       </div>

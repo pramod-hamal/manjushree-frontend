@@ -63,8 +63,6 @@ export default function ParticipantForm() {
     enableReinitialize: true,
   });
 
-  console.log(addParticipantsFormik.errors);
-
   return (
     <div className="flex flex-col gap-5 p-5">
       <PersonalDetail formik={addParticipantsFormik} />

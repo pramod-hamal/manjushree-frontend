@@ -39,6 +39,14 @@ export default function PersonalDetail({ formik, disabled }: any) {
             disabled={disabled}
           />
           <FormInput
+            errors={errors?.preferredName}
+            name="preferredName"
+            label="Preferred Name"
+            onChange={handleChange}
+            value={values?.preferredName}
+            disabled={disabled}
+          />
+          <FormInput
             errors={errors?.phone}
             name="phone"
             label="Phone Number"

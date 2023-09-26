@@ -55,6 +55,7 @@ const useFormBuilder = ({
               placeHolder={formField.placeHolder}
               name={formField.name}
               suffix={formField.suffix}
+              copy={formField.copy}
               prefix={formField.prefix}
               type={formField.type}
               value={formik.values[formField.name]}

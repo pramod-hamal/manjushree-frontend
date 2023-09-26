@@ -42,7 +42,6 @@ export default function ParticipantForm() {
       router.back();
     }).catch((error: any) => {
       const errorData: APIBaseResponse<any> = error.data;
-      console.log(errorData)
       addParticipantsFormik.setErrors(errorData.error)
       showToast({
         title: errorData.message,

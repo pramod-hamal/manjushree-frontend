@@ -114,7 +114,6 @@ export default function ServiceForm({ onClose }: { onClose: () => void }) {
           onClose();
         })
         .catch((err:any) => {
-          console.log(err?.data?.error)
           formik.setErrors(err?.data?.error);
         })
         .finally(() => {});

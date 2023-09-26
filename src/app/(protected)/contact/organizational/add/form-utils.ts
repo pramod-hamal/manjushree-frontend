@@ -9,7 +9,7 @@ export const initialValues: OrganizationContactDTO = {
   preferredContactMethod: "",
   isOrganization: true,
   phone: "",
-  note: "Test Note",
+  note: "",
   url: "",
   address: { name: "" },
   logo: null,
@@ -28,12 +28,14 @@ export const formFields: FormField[] = [
     type: "text",
     placeHolder: "Name",
     required: true,
+    copy: true
   },
   {
     name: "phone",
     label: "Phone Number",
     placeHolder: "Phone Number",
     type: "text",
+    copy: true
   },
   {
     name: "preferredContactMethod",
@@ -50,6 +52,7 @@ export const formFields: FormField[] = [
     label: "Email",
     placeHolder: "Email",
     type: "email",
+    copy: true
   },
 ];
 

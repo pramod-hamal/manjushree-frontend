@@ -23,18 +23,21 @@ export const formFields: FormField[] = [
     type: "text",
     placeHolder: "Name",
     required: true,
+    copy: true
   },
   {
     name: "phone",
     label: "Phone Number",
     placeHolder: "Phone Number",
     type: "text",
+    copy: true
   },
   {
     name: "email",
     label: "Email",
     placeHolder: "Email",
     type: "email",
+    copy: true
   },
   {
     name: "occupationService",

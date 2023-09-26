@@ -41,7 +41,6 @@ export const participantHealthSlice = createSlice({
       (state, action) => {
         const response: APIBaseResponse<any> = action.payload;
         if (response.statusCode === 200) {
-          console.log(response.data);
           state.healthList = response.data;
           state.paginationMeta = response.data?.meta;
         }

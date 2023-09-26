@@ -136,7 +136,7 @@ export default function IndividualContactForm({
               }
               errors={formik.errors?.preferredContactMethod}
               required={true}
-              label="Prefered Contact Methoid"
+              label="Prefered Contact Method"
               placeHolder="Select Prefered Contact"
               options={[
                 { label: "Email", value: "email" },

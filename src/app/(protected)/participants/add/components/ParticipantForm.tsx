@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { FormikHelpers, useFormik } from "formik";
 
 import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
-import { defaultDateFormat } from "@/core/lib/date.utilsleanq_support_coordinator";
 import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
 
 import { Participant } from "@/store/features/participants/interface/participantStateleanq_support_coordinator";

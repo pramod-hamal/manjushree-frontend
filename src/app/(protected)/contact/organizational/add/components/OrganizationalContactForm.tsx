@@ -69,6 +69,7 @@ export default function OrganizationalContactForm({
         router.replace(routes.organizationalContact);
       } else {
         const errorData: APIBaseResponse<any> = error.data;
+        formik.setErrors(errorData.error)
         showToast({ title: errorData.message, type: "error" });
       }
     } catch (error) {
@@ -109,10 +110,10 @@ export default function OrganizationalContactForm({
   useEffect(() => {
     if (editMode === true && value !== null) {
       formik.setValues({
-        ...value,address:{
+        ...value, address: {
           ...value.address,
-          latitude:value.address.latitude ? Number(value.address.latitude) : location.lat,
-          longitude:value.address.longitude ? Number(value.address.longitude) : location.lng,
+          latitude: value.address.latitude ? Number(value.address.latitude) : location.lat,
+          longitude: value.address.longitude ? Number(value.address.longitude) : location.lng,
         }
       });
     }
@@ -143,19 +144,6 @@ export default function OrganizationalContactForm({
               placeHolder="Service"
               value={formik.values?.occupationService}
             />
-            {/* {editMode !== true && (
-              <div className="gap-3 flex flex-col">
-                <div className="flex gap-2 items-center">
-                  <span>Logo</span>
-                </div>
-                <FileUpload
-                  onChange={(file: any) => {
-                    formik.setFieldValue("logo", file.file);
-                  }}
-                  value={null}
-                />
-              </div>
-            )} */}
           </div>
           <div className="gap-3 flex flex-col">
             <div className="flex gap-2 items-center">
@@ -163,7 +151,7 @@ export default function OrganizationalContactForm({
               <span>Address</span>
             </div>
             <MapComponent
-              center={editMode ? {lat:formik.values?.address?.latitude,lng:formik.values?.address?.longitude} : location}
+              center={editMode ? { lat: formik.values?.address?.latitude, lng: formik.values?.address?.longitude } : location}
               getLocation={handleGeoLocation} />
           </div>
         </div>

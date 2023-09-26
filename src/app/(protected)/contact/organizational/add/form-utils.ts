@@ -21,7 +21,6 @@ export const validationSchema = yup.object().shape({
   preferredContactMethod: yup.string().required("Required"),
 });
 
-
 export const formFields: FormField[] = [
   {
     name: "name",

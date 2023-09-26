@@ -144,14 +144,6 @@ export default function IndividualContactForm({
               ]}
               value={formik.values.preferredContactMethod}
             />
-            {/* <TextAreaInput
-              label="Note"
-              errors={formik.errors?.note}
-              name="note"
-              placeHolder="Notes Here"
-              onChange={formik.handleChange}
-              value={formik.values.note}
-            /> */}
           </div>
           <div className="gap-3 flex flex-col">
             <div className="flex gap-2 items-center">

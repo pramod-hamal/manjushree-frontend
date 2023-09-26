@@ -1,5 +1,5 @@
 export interface ParticipantAddDTO {
-  id?: number|null;
+  id?: number | null;
   createdAt?: Date;
   updatedAt?: Date;
   firstName: string;
@@ -11,12 +11,12 @@ export interface ParticipantAddDTO {
   gender: string;
   pronouns: string;
   preferredLanguage: string;
-  ndisNumber: number|string;
+  ndisNumber: number | string;
   primaryCoordinator?: null;
   references: ReferenceNo[];
 }
 
 export interface ReferenceNo {
   title: string;
-  value: number;
+  value: string;
 }

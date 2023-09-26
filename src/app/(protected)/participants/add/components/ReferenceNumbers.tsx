@@ -57,7 +57,6 @@ export default function ReferenceNumbers({ formik, disabled, editMode }: any) {
                     required={true}
                     placeHolder="Text Here"
                     name="value"
-                    type="number"
                     errors={null}
                     onChange={(e: any) => {
                       handleElementChange(
@@ -78,7 +77,7 @@ export default function ReferenceNumbers({ formik, disabled, editMode }: any) {
       </div>
       <div
         className="flex text-primary-title items-center cursor-pointer gap-2 bg-white"
-        onClick={disabled ? () => {} : addNewreferenceElement}
+        onClick={disabled ? () => { } : addNewreferenceElement}
       >
         <PlusOutlined />
         <span>Add Reference</span>

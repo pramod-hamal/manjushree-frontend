@@ -2,7 +2,6 @@ import { memo, useEffect, useState } from "react";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { MoreOutlined, PlusCircleOutlined } from "@ant-design/icons";
 
-import { kanbanData } from "@/constants/data/kanbanleanq_support_coordinator";
 import CardItem from "./CardItems";
 
 function KanbanBoard() {
@@ -34,7 +33,7 @@ function KanbanBoard() {
   useEffect(() => {
     if (typeof window !== undefined) {
       setReady(true);
-      setBoardData(kanbanData);
+      setBoardData([]);
     }
   }, []);
 
@@ -59,9 +58,8 @@ function KanbanBoard() {
                         ref={provided.innerRef}
                       >
                         <div
-                          className={` rounded-md flex flex-col relative overflow-hidden h-full ${
-                            snapshot.isDraggingOver && "bg-white"
-                          }`}
+                          className={` rounded-md flex flex-col relative overflow-hidden h-full ${snapshot.isDraggingOver && "bg-white"
+                            }`}
                         >
                           <div className="overflow-y-auto overflow-x-hidden   py-2">
                             {board.items.length > 0 &&
@@ -99,10 +97,10 @@ const KanbanHeader = ({ title }: any) => {
         <span className="text-md font-semibold  text-gray-600"> {title} </span>
       </h4>
       <div className="flex gap-2 flex-row-reverse">
-        <MoreOutlined className="w-5 h-5 text-gray-500" onClick={() => {}} />
+        <MoreOutlined className="w-5 h-5 text-gray-500" onClick={() => { }} />
         <PlusCircleOutlined
           className="w-5 h-5 text-gray-500"
-          onClick={() => {}}
+          onClick={() => { }}
         />
       </div>
     </div>

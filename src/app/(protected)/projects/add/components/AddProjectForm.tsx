@@ -128,7 +128,7 @@ export default function AddProjectForm() {
           />
           <CusDatePicker
             disabled={false}
-            label="Date"
+            label="Due Date"
             required={true}
             name="date"
             onChange={(_: any, dateString: string) => {

@@ -75,7 +75,7 @@ export default withPaginatedTable(ProjectsList);
 
 const columns: any = [
   {
-    title: "Date",
+    title: "Due Date",
     dataIndex: "date",
     sorter: (a: any, b: any) => moment(a.date).unix() - moment(b.date).unix(),
     render: (date: any) => {

@@ -32,14 +32,14 @@ export default function HealthList() {
       <div className="flex flex-row-reverse">
         <FlatButton
           icon={<PlusOutlined />}
-          title="Add Condition"
+          title="Add Marks"
           onClick={() => dispatch(toogleModal(true))}
         />
       </div>
       <div>
         <CusTable
           columns={columns}
-          onRowClick={() => {}}
+          onRowClick={() => { }}
           paginationMeta={paginationMeta}
           dataSource={healthList}
           loading={isLoading}

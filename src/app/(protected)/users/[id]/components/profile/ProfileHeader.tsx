@@ -22,8 +22,8 @@ export default function ProfileHeader() {
         />
         <div className="flex flex-col">
           <div className="text-lg flex font-semibold gap-2">
-            <span> {userDetail?.firstName! + " " + userDetail?.middleName + " " + userDetail?.lastName}</span>
-            <CopyTextIcon val={userDetail?.firstName! + " " + userDetail?.middleName + " " + userDetail?.lastName} />
+            <span> {`${userDetail?.firstName} ${userDetail?.middleName ?? " "} ${userDetail?.lastName}`}</span>
+            <CopyTextIcon val={`${userDetail?.firstName} ${userDetail?.middleName ?? " "} ${userDetail?.lastName}`} />
           </div>
           <span className="text-gray-400 text-sm">Role Here</span>
         </div>

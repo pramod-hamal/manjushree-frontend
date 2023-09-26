@@ -29,7 +29,7 @@ const items: any[] = [
     icon: <UserOutlined />,
   },
   {
-    label: "Health",
+    label: "Care Plan",
     key: "2",
     children: <HealthList />,
     icon: <HeartOutlined />,
@@ -46,7 +46,7 @@ const items: any[] = [
     children: <ContactList />,
     icon: <ContactsOutlined />,
   },
-  { label: "Plan", key: "5", children: <Plan />, icon: <BarChartOutlined /> },
+  { label: "Budget", key: "5", children: <Plan />, icon: <BarChartOutlined /> },
 ];
 
 export default function ParticipantDetail({
@@ -65,7 +65,7 @@ export default function ParticipantDetail({
           <ProfileHeader />
           <div className="py-5" />
 
-          <CusTabs items={items} type="line" onTabClick={() => {}} />
+          <CusTabs items={items} type="line" onTabClick={() => { }} />
         </>
       )}
     </div>

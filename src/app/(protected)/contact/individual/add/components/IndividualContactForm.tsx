@@ -9,7 +9,6 @@ import useFormBuilder from "@/core/hooks/formBuilder/useFormBuilderleanq_support
 import useCurrentLocation from "@/core/hooks/currentLocation/useCurrentLocationleanq_support_coordinator";
 
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
-import { TextAreaInput } from "@/components/form/FormInputleanq_support_coordinator";
 import MapComponent, {
   LatLng,
   getNameByLatLang,
@@ -78,6 +77,7 @@ export default function IndividualContactForm({
         router.replace(routes.individualContact);
       } else {
         const errorData: APIBaseResponse<any> = error.data;
+        formik.setErrors(errorData.error)
         showToast({ title: errorData.data?.message, type: "error" });
       }
     } catch (error) {
@@ -106,11 +106,11 @@ export default function IndividualContactForm({
     }
   }, [editMode, values]);
 
-  useEffect(()=>{
-   if(error && error.message){
-    showToast({title:error.message,type:"error"})
-   }
-  },[error])
+  useEffect(() => {
+    if (error && error.message) {
+      showToast({ title: error.message, type: "error" })
+    }
+  }, [error])
 
   return (
     <div className="p-5 flex flex-col gap-5">
@@ -136,7 +136,7 @@ export default function IndividualContactForm({
               }
               errors={formik.errors?.preferredContactMethod}
               required={true}
-              label="Prefered Contact"
+              label="Prefered Contact Methoid"
               placeHolder="Select Prefered Contact"
               options={[
                 { label: "Email", value: "email" },
@@ -144,14 +144,14 @@ export default function IndividualContactForm({
               ]}
               value={formik.values.preferredContactMethod}
             />
-            <TextAreaInput
+            {/* <TextAreaInput
               label="Note"
               errors={formik.errors?.note}
               name="note"
               placeHolder="Notes Here"
               onChange={formik.handleChange}
               value={formik.values.note}
-            />
+            /> */}
           </div>
           <div className="gap-3 flex flex-col">
             <div className="flex gap-2 items-center">

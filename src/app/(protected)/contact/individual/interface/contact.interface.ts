@@ -1,6 +1,7 @@
 export interface AddIndividualContactDTO {
     name: string;
     email: string;
+    note: string;
     occupationService: string;
     preferredContactMethod: string;
     isOrganization: boolean;

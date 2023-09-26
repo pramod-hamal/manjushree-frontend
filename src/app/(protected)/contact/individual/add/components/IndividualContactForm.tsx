@@ -32,6 +32,7 @@ import {
   Address,
 } from "../../interface/contact.interface";
 import { useOrganizationContactQuery } from "@/store/features/dropdown/apiSliceleanq_support_coordinator";
+import { TextAreaInput } from "@/components/form/FormInputleanq_support_coordinator";
 
 export default function IndividualContactForm({
   editMode,
@@ -45,25 +46,21 @@ export default function IndividualContactForm({
   const [updateContact] = useUpdateIndividualContactMutation();
   const { data, isLoading }: any = useOrganizationContactQuery("");
 
+  console.log(handleOnClose)
+
   const handleAddContact = async (
     values: AddIndividualContactDTO,
     { setSubmitting }: FormikHelpers<AddIndividualContactDTO>
   ) => {
-    try {
-      const { data, error }: any = await addContact(values);
-      if (data) {
-        formik.resetForm();
-        showToast({ title: "Contact Created Successfully", type: "success" });
-        handleOnClose !== null ? handleOnClose() : router.replace(routes.individualContact)
-      } else {
-        const errorData: APIBaseResponse<any> = error.data;
-        formik.setErrors(errorData.error)
-      }
-    } catch (error: any) {
-      showToast({ title: error?.message, type: "error" });
-    } finally {
-      setSubmitting(false);
-    }
+    const { data, error }: any = await addContact(values).unwrap().then((data: any) => {
+      formik.resetForm();
+      showToast({ title: "Contact Created Successfully", type: "success" });
+      router.replace(routes.individualContact)
+    }).catch((error: any) => {
+      console.log(error)
+      const errorData: APIBaseResponse<any> = error.data;
+      formik.setErrors(errorData.error)
+    }).finally(() => { setSubmitting(false) });
   };
 
   const handleEditContact = async (
@@ -80,7 +77,9 @@ export default function IndividualContactForm({
         formik.setErrors(errorData.error)
         showToast({ title: errorData.data?.message, type: "error" });
       }
-    } catch (error) {
+    } catch (error: any) {
+      const errorData: APIBaseResponse<any> = error.data;
+      formik.setErrors(errorData.error)
       console.log(error);
     } finally {
       setSubmitting(false);
@@ -144,6 +143,13 @@ export default function IndividualContactForm({
               ]}
               value={formik.values.preferredContactMethod}
             />
+            <TextAreaInput
+              className="h-[100px]"
+              label="Note"
+              errors={formik.errors?.note}
+              name="note"
+              onChange={formik.handleChange}
+              value={formik.values?.note} />
           </div>
           <div className="gap-3 flex flex-col">
             <div className="flex gap-2 items-center">

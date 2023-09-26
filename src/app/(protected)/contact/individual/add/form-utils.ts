@@ -5,6 +5,7 @@ import { AddIndividualContactDTO } from "../interface/contact.interface";
 export const initialValues: AddIndividualContactDTO = {
   name: "",
   email: "",
+  note: "",
   isOrganization: false,
   occupationService: "",
   preferredContactMethod: "",

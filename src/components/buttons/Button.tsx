@@ -19,7 +19,6 @@ export default function FlatButton(flatButtonProps: FlatButtonProps) {
     loading,
     color,
     type = "button",
-    ...rest
   }: FlatButtonProps = flatButtonProps;
   if (loading === true) {
     return <CircularLoader />;

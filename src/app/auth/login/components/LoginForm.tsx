@@ -51,7 +51,7 @@ export default function LoginForm() {
       })
       .catch((error) => {
         const errorData: APIBaseResponse<any> = error.data;
-        showToast({ title: errorData.message, type: "error" });
+        showToast({ title: errorData.error?.message, type: "error" });
         setSubmitting(false);
       });
 

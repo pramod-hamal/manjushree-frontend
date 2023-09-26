@@ -51,17 +51,15 @@ export default function IndividualContactForm({
   const handleAddContact = async (
     values: AddIndividualContactDTO,
     { setSubmitting }: FormikHelpers<AddIndividualContactDTO>
-  ) => {
-    const { data, error }: any = await addContact(values).unwrap().then((data: any) => {
-      formik.resetForm();
-      showToast({ title: "Contact Created Successfully", type: "success" });
-      router.replace(routes.individualContact)
-    }).catch((error: any) => {
-      console.log(error)
-      const errorData: APIBaseResponse<any> = error.data;
-      formik.setErrors(errorData.error)
-    }).finally(() => { setSubmitting(false) });
-  };
+  ) => await addContact(values).unwrap().then((data: any) => {
+    formik.resetForm();
+    showToast({ title: "Contact Created Successfully", type: "success" });
+    router.replace(routes.individualContact)
+  }).catch((error: any) => {
+    console.log(error)
+    const errorData: APIBaseResponse<any> = error.data;
+    formik.setErrors(errorData.error)
+  }).finally(() => { setSubmitting(false) });
 
   const handleEditContact = async (
     values: any,

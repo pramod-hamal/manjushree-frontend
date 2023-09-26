@@ -73,6 +73,7 @@ export default function PersonalDetail({ formik, disabled }: any) {
             options={[
               { value: "male", label: "Male" },
               { value: "female", label: "Female" },
+              { value: "other", label: "Other" },
             ]}
             required={true}
             placeHolder="Select Gender"

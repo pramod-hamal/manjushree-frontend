@@ -15,7 +15,6 @@ import {
   useAddOrganizationalContactMutation,
   useUpdateOrganizationalContactMutation,
 } from "@/store/features/contact/apiSliceleanq_support_coordinator";
-import { usePlanServicesQuery } from "@/store/features/dropdown/apiSliceleanq_support_coordinator";
 
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 import MapComponent, {
@@ -28,6 +27,7 @@ import FlatButton, {
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
 
 import { routes } from "@/constants/routesleanq_support_coordinator";
+import { organizationalType } from "@/constants/data/organizationlServiceTypeleanq_support_coordinator";
 
 import {
   OrganizationContactDTO,
@@ -47,7 +47,6 @@ export default function OrganizationalContactForm({
 
   const [add] = useAddOrganizationalContactMutation();
   const [update] = useUpdateOrganizationalContactMutation();
-  const { data: planServices } = usePlanServicesQuery("");
 
   const handleGeoLocation = async (position: LatLng) => {
     const place = await getNameByLatLang(position);
@@ -127,7 +126,7 @@ export default function OrganizationalContactForm({
             />
             <CusSelect
               errors={formik.errors?.occupationService}
-              options={planServices?.data ?? []}
+              options={organizationalType}
               onChange={(selectedData: any) => { formik.setFieldValue("occupationService", selectedData) }}
               label="Service"
               placeHolder="Service"

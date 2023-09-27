@@ -46,8 +46,6 @@ export default function IndividualContactForm({
   const [updateContact] = useUpdateIndividualContactMutation();
   const { data, isLoading }: any = useOrganizationContactQuery("");
 
-  console.log(handleOnClose)
-
   const handleAddContact = async (
     values: AddIndividualContactDTO,
     { setSubmitting }: FormikHelpers<AddIndividualContactDTO>

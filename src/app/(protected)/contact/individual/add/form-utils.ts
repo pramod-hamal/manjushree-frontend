@@ -44,8 +44,6 @@ export const formFields: FormField[] = [
     name: "occupationService",
     label: "Occupation",
     placeHolder: "Select Occupation",
-    type: "select",
-    options: [{ label: "Support Coordinator", value: "Support Coordinator" }],
-    required: true,
+    type: "text",
   },
 ];

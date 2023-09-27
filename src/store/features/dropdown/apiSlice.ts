@@ -7,23 +7,32 @@ import { protectedBaseQuery } from "@/store/baseQuery/protected.baseQueryleanq_s
 import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
 
 export const dropdownApi = createApi({
-  baseQuery:protectedBaseQuery,
-  reducerPath:"dropdownApi",
-  endpoints:(build)=>({
-     contact:build.query<APIBaseResponse<Dropdown[]>,any>({
-      query:()=>endpoints.dropdowns.contact,
+  baseQuery: protectedBaseQuery,
+  reducerPath: "dropdownApi",
+  endpoints: (build) => ({
+    contact: build.query<APIBaseResponse<Dropdown[]>, any>({
+      query: () => endpoints.dropdowns.contact,
     }),
-    organizationContact:build.query<APIBaseResponse<Dropdown[]>,any>({
-      query:()=>endpoints.dropdowns.organizationalContact,
+    organizationContact: build.query<APIBaseResponse<Dropdown[]>, any>({
+      query: () => endpoints.dropdowns.organizationalContact,
     }),
-     serviceCoordinators:build.query<APIBaseResponse<Dropdown[]>,any>({
-      query:()=>endpoints.dropdowns.serviceCoordinators,
+    serviceCoordinators: build.query<APIBaseResponse<Dropdown[]>, any>({
+      query: () => endpoints.dropdowns.serviceCoordinators,
     }),
-     participants:build.query<APIBaseResponse<Dropdown[]>,any>({
-      query:()=>endpoints.dropdowns.participants,
-    }), 
-    planServices:build.query<APIBaseResponse<Dropdown[]>,any>({
-      query:()=>endpoints.dropdowns.planServices,
+    participants: build.query<APIBaseResponse<Dropdown[]>, any>({
+      query: () => endpoints.dropdowns.participants,
+    }),
+    planServices: build.query<APIBaseResponse<Dropdown[]>, any>({
+      query: () => endpoints.dropdowns.planServices,
+    }),
+    participantPlanService: build.query<APIBaseResponse<Dropdown[]>, { participant: number | string }>({
+      query: (args) => {
+        const { participant } = args
+        return {
+          url: endpoints.dropdowns.planServiceByParticipant,
+          params: { participant }
+        }
+      }
     })
   })
 })
@@ -33,4 +42,6 @@ export const {
   useContactQuery,
   usePlanServicesQuery,
   useServiceCoordinatorsQuery,
-  useParticipantsQuery} = dropdownApi;
+  useParticipantsQuery,
+  useParticipantPlanServiceQuery
+} = dropdownApi;

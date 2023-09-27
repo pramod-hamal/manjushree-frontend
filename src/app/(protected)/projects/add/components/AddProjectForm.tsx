@@ -10,8 +10,8 @@ import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
 import { Dropdown } from "@/core/interface/dropdown.interfaceleanq_support_coordinator";
 
 import {
+  useParticipantPlanServiceQuery,
   useParticipantsQuery,
-  usePlanServicesQuery,
   useServiceCoordinatorsQuery,
 } from "@/store/features/dropdown/apiSliceleanq_support_coordinator";
 import { useAddProjectMutation } from "@/store/features/projects/apiSliceleanq_support_coordinator";
@@ -39,7 +39,6 @@ export interface CreateProjectDTO {
 export default function AddProjectForm() {
   const router = useRouter();
 
-  const { data: planServices } = usePlanServicesQuery("");
   const { data: serviceCoordinators } = useServiceCoordinatorsQuery("");
   const { data: participants } = useParticipantsQuery("");
 
@@ -60,9 +59,7 @@ export default function AddProjectForm() {
       const projectValues = {
         ...values,
         supportCoordinatorIds: values.supportCoordinatorIds.map(
-          (item: Dropdown) => {
-            return item.value;
-          }
+          (item: Dropdown) => item.value
         ),
       };
       await addProject(projectValues)
@@ -91,6 +88,10 @@ export default function AddProjectForm() {
     formik.setFieldValue("references", newSupportCoordinators);
   };
 
+  const { data: participantPlanServices } = useParticipantPlanServiceQuery({ participant: formik.values.participantId! }, {
+    skip: formik.values.participantId === null
+  })
+
   return (
     <div className="p-5 flex flex-col gap-5">
       <span className="text-2xl font-semibold">Project details</span>
@@ -110,13 +111,14 @@ export default function AddProjectForm() {
             label="Add Participant"
             onChange={(selectedData: any) => {
               formik.setFieldValue("participantId", selectedData);
+              formik.setFieldValue("planServiceId", null)
             }}
             required={true}
             value={formik.values.participantId}
             errors={""}
           />
           <CusSelect
-            options={planServices?.data ?? []}
+            options={participantPlanServices?.data ?? []}
             placeHolder="Select Service"
             label="Select Service"
             onChange={(selectedData: any) => {

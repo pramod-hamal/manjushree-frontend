@@ -10,6 +10,7 @@ export const initialValues: ParticipantAddDTO = {
   gender: "",
   dateOfBirth: "",
   preferredLanguage: "",
+  preferredName: "",
   pronouns: "",
   ndisNumber: "",
   references: [],
@@ -18,7 +19,7 @@ export const initialValues: ParticipantAddDTO = {
 export const validationSchema = yup.object().shape({
   firstName: yup.string().required("Required"),
   lastName: yup.string().required("Required"),
-  phone: yup.string().min(10,"Phone number must be minimum 10 digit").required("Required"),
+  phone: yup.string().min(10, "Phone number must be minimum 10 digit").required("Required"),
   email: yup.string().required("Required"),
   gender: yup.string().required("Required"),
   dateOfBirth: yup.string().required("Required"),

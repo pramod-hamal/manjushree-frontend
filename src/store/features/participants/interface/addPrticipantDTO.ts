@@ -10,6 +10,7 @@ export interface ParticipantAddDTO {
   dateOfBirth: string;
   gender: string;
   pronouns: string;
+  preferredName: string | null;
   preferredLanguage: string;
   ndisNumber: number | string;
   primaryCoordinator?: null;

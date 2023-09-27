@@ -88,7 +88,9 @@ export default function AddProjectForm() {
     formik.setFieldValue("references", newSupportCoordinators);
   };
 
-  const { data: participantPlanServices } = useParticipantPlanServiceQuery({ participant: formik.values.participantId! })
+  const { data: participantPlanServices } = useParticipantPlanServiceQuery({ participant: formik.values.participantId! }, {
+    skip: formik.values.participantId === null
+  })
 
   return (
     <div className="p-5 flex flex-col gap-5">

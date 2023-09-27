@@ -7,6 +7,15 @@ import { FormikHelpers } from "formik";
 
 import useFormBuilder from "@/core/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
 import useCurrentLocation from "@/core/hooks/currentLocation/useCurrentLocationleanq_support_coordinator";
+import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
+import { multiFormData } from "@/core/lib/append-form-dataleanq_support_coordinator";
+import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
+
+import {
+  useAddOrganizationalContactMutation,
+  useUpdateOrganizationalContactMutation,
+} from "@/store/features/contact/apiSliceleanq_support_coordinator";
+import { usePlanServicesQuery } from "@/store/features/dropdown/apiSliceleanq_support_coordinator";
 
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 import MapComponent, {
@@ -16,23 +25,15 @@ import MapComponent, {
 import FlatButton, {
   CancelButton,
 } from "@/components/buttons/Buttonleanq_support_coordinator";
-
-import { Address } from "../../../individual/interface/contact.interface";
-
-import {
-  useAddOrganizationalContactMutation,
-  useUpdateOrganizationalContactMutation,
-} from "@/store/features/contact/apiSliceleanq_support_coordinator";
-import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
-
-import { multiFormData } from "@/core/lib/append-form-dataleanq_support_coordinator";
-import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
+import CusSelect from "@/components/form/Selectleanq_support_coordinator";
 
 import { routes } from "@/constants/routesleanq_support_coordinator";
+
 import {
   OrganizationContactDTO,
   OrganizationContactFormProps,
 } from "../interface/add-organization.interface";
+import { Address } from "../../../individual/interface/contact.interface";
 import { initialValues, validationSchema, formFields } from "../form-utils";
 
 export default function OrganizationalContactForm({
@@ -46,6 +47,7 @@ export default function OrganizationalContactForm({
 
   const [add] = useAddOrganizationalContactMutation();
   const [update] = useUpdateOrganizationalContactMutation();
+  const { data: planServices } = usePlanServicesQuery("");
 
   const handleGeoLocation = async (position: LatLng) => {
     const place = await getNameByLatLang(position);
@@ -61,43 +63,30 @@ export default function OrganizationalContactForm({
     values: OrganizationContactDTO,
     { setSubmitting }: FormikHelpers<OrganizationContactDTO>
   ) => {
-    try {
-      const formData = multiFormData(values);
-      const { data, error }: any = await add(formData);
-      if (data) {
-        showToast({ title: "Organization Added", type: "success" });
-        router.replace(routes.organizationalContact);
-      } else {
-        const errorData: APIBaseResponse<any> = error.data;
-        formik.setErrors(errorData.error)
-        showToast({ title: errorData.message, type: "error" });
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setSubmitting(false);
-    }
+    const formData = multiFormData(values);
+    return await add(formData).unwrap().then((_: any) => {
+      showToast({ title: "Organization Added", type: "success" });
+      router.replace(routes.organizationalContact);
+    }).catch((error: any) => {
+      const errorData: APIBaseResponse<any> = error.data;
+      formik.setErrors(errorData.error)
+      showToast({ title: errorData.message, type: "error" });
+    }).finally(() => { setSubmitting(false) });
   };
 
   const handleEdit = async (
     values: OrganizationContactDTO,
     { setSubmitting }: FormikHelpers<OrganizationContactDTO>
   ) => {
-    try {
-      const { data, error }: any = await update(values);
-      if (data) {
-        showToast({ title: "Update Successfully", type: "success" });
-        router.replace(routes.organizationalContact);
-      } else {
-        const errorData: APIBaseResponse<any> = error.data;
-        showToast({ title: errorData.message, type: "error" });
-      }
-      console.log(values)
-    } catch (error) {
-      console.log(error);
-    } finally {
+    await update(values).unwrap().then(() => {
+      showToast({ title: "Update Successfully", type: "success" });
+      router.replace(routes.organizationalContact);
+    }).catch(() => {
+      const errorData: APIBaseResponse<any> = error.data;
+      showToast({ title: errorData.message, type: "error" });
+    }).finally(() => {
       setSubmitting(false);
-    }
+    });
   };
 
   const { formik, renderFormFields } = useFormBuilder({
@@ -129,17 +118,17 @@ export default function OrganizationalContactForm({
         <div className="grid grid-cols-2 gap-5 gap-x-10">
           <div className="flex gap-5 flex-col">
             <FormInput
-              errors={""}
+              errors={formik.errors?.url}
               name="url"
               onChange={formik.handleChange}
               label="URL"
               placeHolder="URL"
               value={formik.values?.url}
             />
-            <FormInput
-              errors={""}
-              name="occupationService"
-              onChange={formik.handleChange}
+            <CusSelect
+              errors={formik.errors?.occupationService}
+              options={planServices?.data ?? []}
+              onChange={(selectedData: any) => { formik.setFieldValue("occupationService", selectedData) }}
               label="Service"
               placeHolder="Service"
               value={formik.values?.occupationService}

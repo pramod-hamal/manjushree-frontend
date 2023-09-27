@@ -31,6 +31,9 @@ export default function CreatePlan({ onClose }: { onClose: () => void }) {
     { label: "Next 30 Days", value: [dayjs(), dayjs().add(30, "d"),] },
     { label: "Next 60 Days", value: [dayjs(), dayjs().add(60, "d"),] },
     { label: "Next 90 Days", value: [dayjs(), dayjs().add(90, "d"),] },
+    { label: "Next 1 Year", value: [dayjs(), dayjs().add(1, "y"),] },
+    { label: "Next 2 Year", value: [dayjs(), dayjs().add(2, "y"),] },
+    { label: "Next 3 Year", value: [dayjs(), dayjs().add(3, "y"),] },
   ];
 
   const initialValues: CreatePlanDTO = {

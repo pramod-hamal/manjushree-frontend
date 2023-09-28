@@ -42,7 +42,7 @@ function OrganizationalContactList({ value }: any) {
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between">
         <div className="w-[360px]">
-        <SearchInput onChange={(e: any) => { setSearchText(e.target.value) }} placeHolder="Search Existing" />
+          <SearchInput onChange={(e: any) => { setSearchText(e.target.value) }} placeHolder="Search Existing" />
         </div>
         <NavigateButton
           icon={<PlusOutlined />}
@@ -72,7 +72,7 @@ const columns: any = [
   { title: "Email", dataIndex: "email" },
   {
     title: "Phone No", dataIndex: "phone", defaultSortOrder: 'descend',
-    sorter: (a: any, b: any) => a.phone.length - b.phone.length,
+    sorter: (a: any, b: any) => a.phone?.length - b.phone?.length,
   },
   {
     title: "URL",

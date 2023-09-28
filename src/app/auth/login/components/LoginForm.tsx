@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FormikHelpers, useFormik } from "formik";
@@ -34,26 +34,31 @@ const validationSchema = yup.object().shape({
 });
 
 export default function LoginForm() {
-  const showToast = useToast();
   const router = useRouter();
+  const showToast = useToast();
+
   const [login] = useSignInMutation();
 
-  const handleLogin = (
+  const [loader, setLoader] = useState<boolean>(false);
+
+  const handleLogin = async (
     values: LoginFormDTO,
     { setSubmitting }: FormikHelpers<LoginFormDTO>
-  ) =>
-    login(values)
-      .unwrap()
-      .then((data: APIBaseResponse<LoginResponseData>) => {
-        router.push("/dashboard");
-        localStorage.setItem("token", data.data.accessToken);
-        showToast({ title: "Login Successfull", type: "success" });
-      })
-      .catch((error) => {
-        const errorData: APIBaseResponse<any> = error.data;
-        showToast({ title: errorData.error?.message, type: "error" });
-        setSubmitting(false);
-      });
+  ) => {
+    setLoader(true)
+    try {
+      const data = await login(values)
+        .unwrap();
+      router.push("/dashboard");
+      localStorage.setItem("token", data.data.accessToken);
+      showToast({ title: "Login Successfull", type: "success" });
+    } catch (error: any) {
+      const errorData: APIBaseResponse<any> = error.data;
+      showToast({ title: errorData.error?.message, type: "error" });
+      setSubmitting(false);
+      setLoader(false);
+    }
+  }
 
   const formik = useFormik({
     initialValues,
@@ -99,7 +104,7 @@ export default function LoginForm() {
           <p className="font-semibold text-primary-title">Forgot Password?</p>
         </Link>
       </div>
-      <FlatButton type="submit" title="Sign In" loading={formik.isSubmitting} />
+      <FlatButton type="submit" title="Sign In" loading={loader} />
     </form>
   );
 }

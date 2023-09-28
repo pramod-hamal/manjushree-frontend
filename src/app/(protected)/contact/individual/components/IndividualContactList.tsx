@@ -73,7 +73,7 @@ const columns: any = [
   { title: "Email", dataIndex: "email" },
   {
     title: "Phone No", dataIndex: "phone",
-    sorter: (a: any, b: any) => a.phone.length - b.phone.length,
+    sorter: (a: any, b: any) => a.phone?.length - b.phone?.length,
     defaultSortOrder: 'descend',
   },
   { title: "Organization", dataIndex: "organization" },

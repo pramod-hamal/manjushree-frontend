@@ -46,7 +46,11 @@ export default function CreatePlan({ onClose }: { onClose: () => void }) {
     values: CreatePlanDTO,
     { setSubmitting }: FormikHelpers<CreatePlanDTO>
   ) => {
-    await createPlan(values)
+    var newValues: CreatePlanDTO | null = null;
+    if (typeof values.startDate === "number") {
+      newValues = { startDate: dayjs(values.startDate).toDate(), endDate: dayjs(values.endDate).toDate(), participantId: values.participantId }
+    }
+    await createPlan(newValues ?? values)
       .unwrap()
       .then((data) => {
         showToast({ title: "Plan Updated", type: "success" });
@@ -76,7 +80,6 @@ export default function CreatePlan({ onClose }: { onClose: () => void }) {
       console.log("Clear");
     }
   };
-
 
   return (
     <form className="flex flex-col gap-4 p-5" onSubmit={formik.handleSubmit}>

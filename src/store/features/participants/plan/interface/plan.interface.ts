@@ -1,14 +1,14 @@
 
 export interface PlanInterface {
-    id?:        number;
+    id?: number;
     startDate: Date;
-    endDate:   Date;
+    endDate: Date;
 }
 
-export type PlanResponse= PlanInterface[];
+export type PlanResponse = PlanInterface[];
 
-export interface CreatePlanDTO{
-    startDate:any;
-    endDate:any;
-    participantId:number|string|null
+export interface CreatePlanDTO {
+    startDate: any;
+    endDate: any;
+    participantId: number | string | null
 };

@@ -15,6 +15,7 @@ export const validationSchema = yup.object().shape({
   name: yup.string().required("Required"),
   occupationService: yup.string().required("Required"),
   preferredContactMethod: yup.string().required("Required"),
+  address: yup.object().required("Address required")
 });
 
 export const formFields: FormField[] = [

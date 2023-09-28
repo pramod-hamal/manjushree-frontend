@@ -25,6 +25,7 @@ import FlatButton, {
   CancelButton,
 } from "@/components/buttons/Buttonleanq_support_coordinator";
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
+import ErrorMessage from "@/components/form/ErrorMessageleanq_support_coordinator";
 
 import { routes } from "@/constants/routesleanq_support_coordinator";
 import { organizationalType } from "@/constants/data/organizationlServiceTypeleanq_support_coordinator";
@@ -141,6 +142,7 @@ export default function OrganizationalContactForm({
             <MapComponent
               center={editMode ? { lat: formik.values?.address?.latitude, lng: formik.values?.address?.longitude } : location}
               getLocation={handleGeoLocation} />
+            {formik.errors?.address && <ErrorMessage message={formik.errors?.address.toString()} />}
           </div>
         </div>
         <div className="flex gap-10 items-center">

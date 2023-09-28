@@ -33,54 +33,41 @@ import {
 } from "../../interface/contact.interface";
 import { useOrganizationContactQuery } from "@/store/features/dropdown/apiSliceleanq_support_coordinator";
 import { TextAreaInput } from "@/components/form/FormInputleanq_support_coordinator";
+import ErrorMessage from "@/components/form/ErrorMessageleanq_support_coordinator";
 
 export default function IndividualContactForm({
   editMode,
   values,
-  handleOnClose
 }: IndividualContactFormProps) {
   const router = useRouter();
   const showToast = useToast();
   const { location, error } = useCurrentLocation();
   const [addContact] = useAddIndividualContactMutation();
   const [updateContact] = useUpdateIndividualContactMutation();
-  const { data, isLoading }: any = useOrganizationContactQuery("");
+  const { data }: any = useOrganizationContactQuery("");
 
-  const handleAddContact = async (
-    values: AddIndividualContactDTO,
-    { setSubmitting }: FormikHelpers<AddIndividualContactDTO>
-  ) => await addContact(values).unwrap().then((data: any) => {
-    formik.resetForm();
-    showToast({ title: "Contact Created Successfully", type: "success" });
-    router.replace(routes.individualContact)
-  }).catch((error: any) => {
-    console.log(error)
-    const errorData: APIBaseResponse<any> = error.data;
-    formik.setErrors(errorData.error)
-  }).finally(() => { setSubmitting(false) });
-
-  const handleEditContact = async (
-    values: any,
-    { setSubmitting }: FormikHelpers<any>
-  ) => {
-    try {
-      const { data, error }: any = await updateContact(values);
-      if (data) {
-        showToast({ title: "Contact Updated Successfully", type: "success" });
-        router.replace(routes.individualContact);
-      } else {
-        const errorData: APIBaseResponse<any> = error.data;
-        formik.setErrors(errorData.error)
-        showToast({ title: errorData.data?.message, type: "error" });
-      }
-    } catch (error: any) {
+  const handleAddContact = async (values: AddIndividualContactDTO, { setSubmitting }: FormikHelpers<AddIndividualContactDTO>) =>
+    await addContact(values).unwrap().then((_: any) => {
+      formik.resetForm();
+      showToast({ title: "Contact Created Successfully", type: "success" });
+      router.replace(routes.individualContact)
+    }).catch((error: any) => {
+      console.log(error)
       const errorData: APIBaseResponse<any> = error.data;
       formik.setErrors(errorData.error)
-      console.log(error);
-    } finally {
+    }).finally(() => { setSubmitting(false) });
+
+  const handleEditContact = async (values: any, { setSubmitting }: FormikHelpers<any>) =>
+    await updateContact(values).unwrap().then((_) => {
+      showToast({ title: "Contact Updated Successfully", type: "success" });
+      router.replace(routes.individualContact);
+    }).catch(() => {
+      const errorData: APIBaseResponse<any> = error.data;
+      formik.setErrors(errorData.error)
+      showToast({ title: errorData.data?.message, type: "error" });
+    }).finally(() => {
       setSubmitting(false);
-    }
-  };
+    });
 
   const { formik, renderFormFields } = useFormBuilder({
     initialValues,
@@ -102,18 +89,14 @@ export default function IndividualContactForm({
   }, [editMode, values]);
 
   useEffect(() => {
-    if (error && error.message) {
-      showToast({ title: error.message, type: "error" })
-    }
+    if (error && error.message) { showToast({ title: error.message, type: "error" }) }
   }, [error])
 
   return (
     <div className="p-5 flex flex-col gap-5">
       <span className="text-2xl font-semibold">Contact details</span>
       <form className="flex flex-col gap-5" >
-        <div className="grid grid-cols-2 gap-5 gap-x-10">
-          {renderFormFields()}
-        </div>
+        <div className="grid grid-cols-2 gap-5 gap-x-10"> {renderFormFields()}</div>
         <div className="grid grid-cols-2 gap-5 gap-x-10">
           <div className="flex gap-5 flex-col">
             <CusSelect
@@ -148,9 +131,7 @@ export default function IndividualContactForm({
               value={formik.values?.note} />
           </div>
           <div className="gap-3 flex flex-col">
-            <div className="flex gap-2 items-center">
-              <span className="text-primary-danger text-sm">*</span>
-              <span>Address</span>
+            <div className="flex gap-2 items-center"><span className="text-primary-danger text-sm">*</span><span>Address</span>
             </div>
             <MapComponent
               center={editMode ? { lat: formik.values?.address?.latitude, lng: formik.values?.address?.longitude } : location}
@@ -164,6 +145,7 @@ export default function IndividualContactForm({
                 formik.setFieldValue("address", address);
               }}
             />
+            {formik.errors?.address && <ErrorMessage message={formik.errors?.address.toString()} />}
           </div>
         </div>
         <div className="flex gap-10 items-center">

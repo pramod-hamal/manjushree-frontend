@@ -2,13 +2,13 @@
 
 import React, { memo, useCallback, useEffect, useState } from "react";
 import {
-  Autocomplete,
   GoogleMap,
   MarkerF,
   useJsApiLoader,
 } from "@react-google-maps/api";
 
-import FormInput from "../form/FormInput";
+import Autocomplete from "react-google-autocomplete";
+
 import axios from "axios";
 
 export interface MapComponentProps {
@@ -72,15 +72,12 @@ function MapComponent({ center: mapCenter, getLocation }: MapComponentProps) {
    * @param {any} e:any
    * @returns {Promise<void>}
    */
-  const handleSearch = async (e: any): Promise<void> => {
-    if (e.key === "Enter") {
-      const position = await getLatLngByName(e.target.value);
-      if (position !== null) {
-        setSearchedAddress(e.target.value);
-        setCenter(position);
-        getLocation(position)
-      }
-      e.preventDefault();
+  const handleSearch = async (val: any): Promise<void> => {
+    const position = await getLatLngByName(val);
+    if (position !== null) {
+      setSearchedAddress(val);
+      setCenter(position);
+      getLocation(position)
     }
   };
 
@@ -115,17 +112,12 @@ function MapComponent({ center: mapCenter, getLocation }: MapComponentProps) {
 
   const SearchBar = (
     <div className="absolute w-[90%] mx-5 top-5">
-      <Autocomplete>
-        <FormInput
-          value={searchedAddress}
-          errors={""}
-          name="address"
-          onKeyDown={handleSearch}
-          onChange={(e: any) => {
-            setSearchedAddress(e.target.value);
-          }}
-        />
-      </Autocomplete>
+      <Autocomplete
+        defaultValue={searchedAddress}
+        className="w-full h-[32px] border-none rounded-lg shadow px-5"
+        apiKey="AIzaSyCw10y2Ncvk6XpZirQHbf0VUvZZF35rvbg"
+        onPlaceSelected={(place: any) => handleSearch(place.formatted_address)}
+      />
     </div>
   );
 
@@ -193,9 +185,13 @@ const getLatLngByName = async (name: string): Promise<LatLng | null> => {
 export const getNameByLatLang = async (geoLocation: LatLng) => {
   try {
     const response = await axios.get(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${geoLocation.lat},${geoLocation.lng}&key=AIzaSyCw10y2Ncvk6XpZirQHbf0VUvZZF35rvbg`
-    );
-
+      `https://maps.googleapis.com/maps/api/geocode/json`
+      , {
+        params: {
+          latlng: `${geoLocation.lat},${geoLocation.lng}`,
+          key: "AIzaSyCw10y2Ncvk6XpZirQHbf0VUvZZF35rvbg"
+        }
+      });
     const result = response.data.results[0];
     if (result) {
       return result.formatted_address;

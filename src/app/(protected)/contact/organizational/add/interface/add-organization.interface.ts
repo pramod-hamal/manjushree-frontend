@@ -14,6 +14,6 @@ export interface OrganizationContactDTO {
   phone: string;
   note: string;
   url: string;
-  address: Address;
+  address?: Address;
   logo?: null;
 }

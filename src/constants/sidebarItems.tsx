@@ -3,7 +3,7 @@ import {
   ContactsOutlined,
   DashboardOutlined,
   TeamOutlined,
-  UnlockOutlined,
+  SettingOutlined,
   UnorderedListOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -37,11 +37,6 @@ export const sidebarItems: SidebarItem[] = [
     title: "Projects",
     icon: <UnorderedListOutlined style={{ fontSize: 14 }} />,
   },
-  // {
-  //   link: routes.roles,
-  //   title: "Role and Permission",
-  //   icon: <UnlockOutlined style={{ fontSize: 14 }} />,
-  // },
   {
     link: "#",
     title: "Contact",
@@ -55,6 +50,23 @@ export const sidebarItems: SidebarItem[] = [
       {
         link: "/contact/organizational",
         title: "Organizational",
+        icon: <SettingOutlined style={{ fontSize: 14 }} />,
+      },
+    ],
+  },
+  {
+    link: "#",
+    title: "Settings",
+    icon: <SettingOutlined style={{ fontSize: 14 }} />,
+    children: [
+      {
+        link: "#",
+        title: "Roles",
+        icon: <UserOutlined style={{ fontSize: 14 }} />,
+      },
+      {
+        link: "#",
+        title: "Charge List",
         icon: <BankOutlined style={{ fontSize: 14 }} />,
       },
     ],

@@ -7,17 +7,20 @@ export interface CusDrawerProps {
   children: React.ReactNode;
   width?: number;
   title?: React.ReactNode;
+  footer?: React.ReactNode;
 }
 
 export default function CusDrawer({
   open,
   handleDrawerToogle,
   children,
+  footer,
   title,
   width,
 }: CusDrawerProps) {
   return (
     <Drawer
+      footer={footer ?? <></>}
       className="bg-white"
       title={title ?? <div></div>}
       width={width ?? 900}

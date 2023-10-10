@@ -16,7 +16,7 @@ export const protectedBaseQuery: BaseQueryFn<
   let result = await apiQuery(args, api, extraOptions)
   if (result.error && result.error.status === 401) {
     localStorage.clear();
-    location.reload()
+    location.replace("/auth/login")
   }
   return result
 }

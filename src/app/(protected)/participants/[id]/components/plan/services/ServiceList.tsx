@@ -23,14 +23,14 @@ function ServiceList({ value }: { value: PaginatedTableValue }) {
 
   const [show, setShow] = useState<boolean>(false);
   const [showDetail, setShowDetail] = useState<boolean>(false);
-  const [serviceDetail, setServiceDetail] = useState<any|null>(null)
+  const [serviceDetail, setServiceDetail] = useState<any | null>(null)
 
   const participant = useGetParticipantDetail();
   const { plan }: GetParticipantPlanProps = useGetParticipantPlan(
     { id: participant?.id! }
   );
 
-  const { data, isLoading, isFetching } = useGetPlanServicesQuery({ limit: paginationMeta.limit, page: paginationMeta.page ?? 1,plan:plan?.id!,participant:participant?.id! });
+  const { data, isLoading, isFetching } = useGetPlanServicesQuery({ limit: paginationMeta.limit, page: paginationMeta.page ?? 1, plan: plan?.id!, participant: participant?.id! });
 
   useEffect(() => {
     if (data && data?.meta) {
@@ -58,15 +58,14 @@ function ServiceList({ value }: { value: PaginatedTableValue }) {
           loading={isFetching}
         />
       </div>
-      <CusDrawer open={show} handleDrawerToogle={() => setShow(false)}>
+      <CusDrawer width={1000} open={show} title="Add service" handleDrawerToogle={() => setShow(false)}>
         <ServiceForm onClose={() => setShow(false)} />
       </CusDrawer>
-
       <CusDrawer open={showDetail} handleDrawerToogle={() => {
         setShowDetail(false);
         setServiceDetail(null);
       }}>
-        <ServiceDetail id={serviceDetail?.id}/>
+        <ServiceDetail id={serviceDetail?.id} />
       </CusDrawer>
     </div>
   );

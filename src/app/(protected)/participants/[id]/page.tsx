@@ -54,7 +54,7 @@ export default function ParticipantDetail({
 }: {
   params: { id: string };
 }) {
-  const { isLoading, error }: any = useGetUserByIdQuery(params.id,);
+  const { isLoading, error }: any = useGetUserByIdQuery(params.id);
 
   return (
     <div className="relative">

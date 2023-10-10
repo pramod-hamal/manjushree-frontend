@@ -7,56 +7,49 @@ import FlatButton, {
 } from "@/components/buttons/Buttonleanq_support_coordinator";
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
 
-import { useAddMutation } from "@/store/features/participants/contact/apiSliceleanq_support_coordinator";
 import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "@/store/hooksleanq_support_coordinator";
-import { participantDetailState } from "@/store/features/participants/detail/participantDetailSliceleanq_support_coordinator";
-import { toogleModal } from "@/store/features/participants/contact/contactDetailSliceleanq_support_coordinator";
-import { dropdownApi, useContactQuery } from "@/store/features/dropdown/apiSliceleanq_support_coordinator";
+import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
+import { useContactQuery } from "@/store/features/dropdown/apiSliceleanq_support_coordinator";
 
 import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
+import {
+  UserSliceState,
+  userState,
+} from "@/store/features/users/userSliceleanq_support_coordinator";
+import { UserContactDTO } from "@/store/features/users/interface/user.contact.interfaceleanq_support_coordinator";
+import { useAddContactMutation } from "@/store/features/users/apiSliceleanq_support_coordinator";
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 import ErrorMessage from "@/components/form/ErrorMessageleanq_support_coordinator";
 import CusModal from "@/components/modals/Modalleanq_support_coordinator";
-import IndividualContactForm from "@/app/(protected)/contact/individual/add/components/IndividualContactFormleanq_support_coordinator";
+import IndividualContactForm from "@/app/support-coordinator/contact/individual/add/components/IndividualContactFormleanq_support_coordinator";
 
-export interface ParticipantContactDTO {
-  relation: string;
-  participantId?: number;
-  contactId: number | null;
-}
-
-export default function ContactForm() {
+export default function ContactForm({ onClose }: { onClose: () => void }) {
   const [showContactForm, setShowContactForm] = useState<boolean>(false);
-  
-  const [addContact] = useAddMutation();
-  const { participantDetail } = useAppSelector(participantDetailState);
-  const { data ,refetch}: any = useContactQuery("");
 
-  const dispatch = useAppDispatch();
+  const { userDetail }: UserSliceState = useAppSelector(userState);
+  const { data, refetch }: any = useContactQuery("");
+  const [addContact] = useAddContactMutation();
 
   const showToast = useToast();
 
   const handleToogleShow = () => setShowContactForm(!showContactForm)
 
-  const initialValues: ParticipantContactDTO = {
+  const initialValues: UserContactDTO = {
     relation: "",
-    participantId: participantDetail?.id,
+    userId: userDetail?.id!,
     contactId: null,
   };
 
   const handleSubmit = async (
-    values: ParticipantContactDTO,
+    values: UserContactDTO,
     { setSubmitting }: { setSubmitting: any }
   ) => {
     await addContact(values).unwrap().then((_: APIBaseResponse<any>) => {
-      dispatch(toogleModal(false));
+      onClose();
+      formik.resetForm();
       showToast({ title: "Contact Added", type: "success" });
-      formik.resetForm()
     }).catch((error: any) => {
+      console.log(error)
       formik.setErrors(error?.data?.error);
       showToast({ title: error?.data?.message, type: "error" });
     }).finally(() => {
@@ -67,10 +60,6 @@ export default function ContactForm() {
   const formik = useFormik({
     initialValues,
     onSubmit: handleSubmit,
-    validateOnMount: false,
-    validateOnChange: false,
-    validateOnBlur: false,
-    enableReinitialize: true,
   });
 
   return (
@@ -105,7 +94,7 @@ export default function ContactForm() {
               placeHolder="Relationship"
               onChange={formik.handleChange}
               name="relation"
-              errors={formik.errors.relation}
+              errors={formik.errors?.relation}
               value={formik.values.relation}
             />
           </div>

@@ -4,8 +4,8 @@ import React, { useEffect } from "react";
 import { EditFilled } from "@ant-design/icons";
 import { useFormik } from "formik";
 
-import PersonalDetail from "@/app/(protected)/participants/add/components/PersonalDetailleanq_support_coordinator";
-import ReferenceNumbers from "@/app/(protected)/participants/add/components/ReferenceNumbersleanq_support_coordinator";
+import PersonalDetail from "@/app/support-coordinator/participants/add/components/PersonalDetailleanq_support_coordinator";
+import ReferenceNumbers from "@/app/support-coordinator/participants/add/components/ReferenceNumbersleanq_support_coordinator";
 
 import {
   defaultDateFormat,
@@ -25,7 +25,7 @@ import {
 } from "@/store/hooksleanq_support_coordinator";
 
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
-import { validationSchema } from "@/app/(protected)/participants/add/form-utilsleanq_support_coordinator";
+import { validationSchema } from "@/app/support-coordinator/participants/add/form-utilsleanq_support_coordinator";
 
 export default function EditProfile() {
   const showToast = useToast();
@@ -44,13 +44,13 @@ export default function EditProfile() {
     await update(participantData)
       .unwrap()
       .then((data: APIBaseResponse<any>) => {
-        showToast({title: data.message,description: "Profile edited successfull",type: "success"});
+        showToast({ title: data.message, description: "Profile edited successfull", type: "success" });
         dispatch(toogleEdit(!disabled));
       })
       .catch((error) => {
         const errorData: APIBaseResponse<any> = error.data;
         formik.setErrors(errorData.error)
-        showToast({title: errorData.message,description: errorData.error?.message,type: "error"});
+        showToast({ title: errorData.message, description: errorData.error?.message, type: "error" });
       })
       .finally(() => {
         setSubmitting(false);
@@ -60,7 +60,7 @@ export default function EditProfile() {
   const formik = useFormik({
     initialValues: participantDetail ?? {},
     onSubmit: handleEdit,
-    validationSchema:validationSchema,
+    validationSchema: validationSchema,
     validateOnMount: false,
     validateOnChange: false,
     validateOnBlur: false,

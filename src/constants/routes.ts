@@ -3,25 +3,25 @@ export const routes = {
       login: "/auth/login",
       forgetPassword: "/auth/forgetPassword",
       //dashboard
-      dashboard: "/dashboard",
+      dashboard: "/support-coordinator/dashboard",
       // user
-      users: "/users",
-      addUser: "/users/add",
-      userProfile: (id: string | number) => `/users/${id}`,
+      users: "/support-coordinator/users",
+      addUser: "/support-coordinator/users/add",
+      userProfile: (id: string | number) => `/support-coordinator/users/${id}`,
       // projects
-      projects: "/projects",
-      addProjects: "/projects/add",
+      projects: "/support-coordinator/projects",
+      addProjects: "/support-coordinator/projects/add",
       // participants
-      participants: "/participants",
-      addParticipants: "/participants/add",
-      participantDetails: (id:number|string)=>"/participants/"+id,
+      participants: "/support-coordinator/participants",
+      addParticipants: "/support-coordinator/participants/add",
+      participantDetails: (id: number | string) => "/support-coordinator/participants/" + id,
       // roles
-      roles: "/roles",
+      roles: "/support-coordinator/roles",
       // contacts
-      individualContact: "/contact/individual",
-      editIndividualContact:(id:string|number)=>"/contact/individual/"+id,
-      editOrganizationalContact:(id:string|number)=>"/contact/organizational/"+id,
-      addIndividualContact: "/contact/individual/add",
-      organizationalContact: "/contact/organizational",
-      addOrganizationalContact: "/contact/organizational/add",
+      individualContact: "/support-coordinator/contact/individual",
+      editIndividualContact: (id: string | number) => "/support-coordinator/contact/individual/" + id,
+      editOrganizationalContact: (id: string | number) => "/support-coordinator/contact/organizational/" + id,
+      addIndividualContact: "/support-coordinator/contact/individual/add",
+      organizationalContact: "/support-coordinator/contact/organizational",
+      addOrganizationalContact: "/support-coordinator/contact/organizational/add",
 }

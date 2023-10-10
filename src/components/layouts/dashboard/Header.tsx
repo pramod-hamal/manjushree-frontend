@@ -1,11 +1,15 @@
 import React from "react";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { deleteCookie } from "cookies-next"
+
 import Avatar from "antd/es/avatar/avatar";
+
 import { useGetMeQuery } from "@/store/features/auth/apiSliceleanq_support_coordinator";
 import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
 import { appState } from "@/store/features/appSliceleanq_support_coordinator";
-import { useRouter } from "next/navigation";
+
 import { routes } from "@/constants/routesleanq_support_coordinator";
 
 export default function Header() {
@@ -15,7 +19,7 @@ export default function Header() {
   const { user } = useAppSelector(appState);
 
   if (error && error?.status === 401) {
-    localStorage.clear();
+    deleteCookie("token", {});
     router.replace(routes.login)
   }
 
@@ -38,7 +42,7 @@ export default function Header() {
         <Avatar style={{ backgroundColor: "#fde3cf", color: "#f56a00" }}>
           {user?.firstName}
         </Avatar>
-        <p className="text-sm uppercase">{user?.firstName + " " + user?.lastName}</p>
+        {user && <p className="text-sm uppercase">{user?.firstName + " " + user?.lastName}</p>}
       </div>
     </div>
   );

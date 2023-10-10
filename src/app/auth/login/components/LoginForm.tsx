@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FormikHelpers, useFormik } from "formik";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { setCookie } from 'cookies-next';
 
 import * as yup from "yup";
 
@@ -21,7 +22,6 @@ import {
   APIBaseResponse,
 } from "@/core/interface/api.responseleanq_support_coordinator";
 import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
-import { LoginResponseData } from "@/store/features/auth/interface/auth.responseleanq_support_coordinator";
 
 const initialValues: LoginFormDTO = {
   email: "",
@@ -49,8 +49,8 @@ export default function LoginForm() {
     try {
       const data = await login(values)
         .unwrap();
-      router.push("/dashboard");
-      localStorage.setItem("token", data.data.accessToken);
+      router.push(routes.dashboard);
+      setCookie("token", data.data.accessToken)
       showToast({ title: "Login Successfull", type: "success" });
     } catch (error: any) {
       const errorData: APIBaseResponse<any> = error.data;

@@ -43,12 +43,12 @@ export const sidebarItems: SidebarItem[] = [
     icon: <ContactsOutlined style={{ fontSize: 14 }} />,
     children: [
       {
-        link: "/contact/individual",
+        link: routes.individualContact,
         title: "Individual",
         icon: <UserOutlined style={{ fontSize: 14 }} />,
       },
       {
-        link: "/contact/organizational",
+        link: routes.organizationalContact,
         title: "Organizational",
         icon: <SettingOutlined style={{ fontSize: 14 }} />,
       },

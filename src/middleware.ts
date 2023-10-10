@@ -3,7 +3,6 @@ import { NextResponse, type NextRequest } from 'next/server'
 export async function middleware(request: NextRequest) {
     let token: string | undefined;
     const pathName: string = request.nextUrl.pathname;
-    const hostName: string = request.nextUrl.hostname;
 
     if (request.cookies.has("token")) {
         token = request.cookies.get("token")?.value;

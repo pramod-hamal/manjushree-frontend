@@ -31,18 +31,15 @@ const withAuth = (WrappedComponent: React.ComponentType<any>) => {
         if (!valid) {
           showToast({ title: "Invalid SubDomain", type: "error" });
           setError("invalid");
-          setLoading(false);
           return;
         }
         if (valid === "blocked") {
           setError("blocked");
           showToast({ title: "Account Status Blocked", type: "error" });
-          setLoading(false);
           return;
         }
-      } else {
-        setLoading(false)
       }
+      setLoading(false);
     }, [path, router]);
 
     useEffect(() => {

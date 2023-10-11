@@ -1,7 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { validateDomain } from "../lib/validateDomain/validate.api";
 import { useToast } from "../lib/toast/useToast";
@@ -16,12 +15,9 @@ const withAuth = (WrappedComponent: React.ComponentType<any>) => {
     const [error, setError] = useState<"invalid" | "blocked" | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
-    const router = useRouter();
-    const path = usePathname();
-
     const showToast = useToast();
 
-    const checkDomain = useCallback(async () => {
+    const checkDomain = async () => {
       const host = window.location.host;
       if (!host.includes("localhost")) {
         const subDomain: string | null = getSubDomain(host);
@@ -39,7 +35,7 @@ const withAuth = (WrappedComponent: React.ComponentType<any>) => {
       }
       setLoading(false);
       return;
-    }, [path, router]);
+    }
 
     useEffect(() => {
       if (typeof window !== "undefined") {

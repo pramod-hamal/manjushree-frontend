@@ -89,49 +89,4 @@ const columns: any = [
     defaultSortOrder: 'descend',
     sorter: (a: any, b: any) => a.ndisNumber - b.ndisNumber,
   },
-  // {
-  //   title: "Status",
-  //   dataIndex: "status",
-  //   render: (status: number) => (
-  //     <div
-  //       className={`px-4 text-xs text-center py-2  text-white ${getStatusBackground(
-  //         status
-  //       )}`}
-  //     >
-  //       {getStatusTitle(status)}
-  //     </div>
-  //   ),
-  //   width: 150,
-  // },
 ];
-
-/**
- * Get Status Background Color using user status
- * @param {any} status:string
- * @returns {string | undefined}
- */
-const getStatusBackground = (status: number): string | undefined => {
-  switch (status) {
-    case 1:
-      return "bg-budgetStatus-on";
-    case 2:
-      return "bg-budgetStatus-over";
-    case 3:
-      return "bg-budgetStatus-under";
-    default:
-      break;
-  }
-};
-
-const getStatusTitle = (status: number): string | undefined => {
-  switch (status) {
-    case 1:
-      return "On Budget";
-    case 2:
-      return "Over Budget";
-    case 3:
-      return "Under Budget";
-    default:
-      break;
-  }
-};

@@ -60,17 +60,14 @@ export const participantPlanApi = createApi({
       }),
       invalidatesTags: ["PlanServices"]
     }),
-    getChargeItems: build.query<any, any>({
-      query: () => {
-        return {
-          url: endpoints.chargeItems.all,
-        };
-      },
-      providesTags: ["ChargeItems"]
-    }),
     getPlanServiceDetail: build.query<any, any>({
       query: (id: string | number) =>
         endpoints.participants.plan.services.getById + id
+    }),
+    // get charge item by support group id
+    getChargeListBySupportGroupId: build.query<any, any>({
+      query: (id: string | number) =>
+        endpoints.chargeItems.getById + id
     })
   })
 })
@@ -78,6 +75,6 @@ export const participantPlanApi = createApi({
 export const {
   useParticipantPlanQuery, useCreatePlanMutation,
   useGetAllDocumentsQuery, useAddPlanDocumentMutation,
-  useGetPlanServicesQuery, useGetChargeItemsQuery,
-  useAddPlanServiceMutation, useGetPlanServiceDetailQuery
+  useGetPlanServicesQuery, useAddPlanServiceMutation, useGetPlanServiceDetailQuery,
+  useLazyGetChargeListBySupportGroupIdQuery
 } = participantPlanApi;

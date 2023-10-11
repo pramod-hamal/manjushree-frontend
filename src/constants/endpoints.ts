@@ -14,7 +14,9 @@ export const endpoints = {
     serviceCoordinators: "/dropdown/service-coordinators",
     participants: "/dropdown/participants",
     planServices: "/dropdown/plan-services",
-    planServiceByParticipant: "/dropdown/participant/plan-service"
+    planServiceByParticipant: "/dropdown/participant/plan-service",
+    supportCategory: "/dropdown/support-category",
+    supportGroup: "/dropdown/support-group/"
   },
   projects: {
     add: "/project",
@@ -81,6 +83,6 @@ export const endpoints = {
     }
   },
   chargeItems: {
-    all: "/charge-items"
+    getById: "/charge-items/"
   }
 }

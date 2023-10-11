@@ -14,7 +14,7 @@ export interface FormbuilderProps<T> {
 export interface FormField {
     name: string;
     placeHolder?: string;
-    copy?:boolean;
+    copy?: boolean;
     label?: string;
     prefix?: React.ReactNode;
     suffix?: React.ReactNode;

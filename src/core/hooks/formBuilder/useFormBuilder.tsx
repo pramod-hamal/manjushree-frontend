@@ -8,7 +8,7 @@ import FormInput, {
 } from "@/components/form/FormInputleanq_support_coordinator";
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
 import { FormField, FormbuilderProps } from "./interface/formBuilder.interface";
-import CusDatePicker, { dateFormat } from "@/components/form/DatePickerleanq_support_coordinator";
+import CusDatePicker from "@/components/form/DatePickerleanq_support_coordinator";
 
 const useFormBuilder = ({
   initialValues,
@@ -50,6 +50,7 @@ const useFormBuilder = ({
         case "email":
           return (
             <FormInput
+              key={index}
               required={formField.required}
               label={formField.label}
               placeHolder={formField.placeHolder}
@@ -68,6 +69,7 @@ const useFormBuilder = ({
           return (
             <TextAreaInput
               required={formField.required}
+              key={index}
               label={formField.label}
               disabled={formField.disabled}
               placeHolder={formField.placeHolder}
@@ -82,6 +84,7 @@ const useFormBuilder = ({
         case "password":
           return (
             <PasswordFormInput
+              key={index}
               required={formField.required}
               disabled={formField.disabled}
               name={formField.name}
@@ -96,6 +99,7 @@ const useFormBuilder = ({
         case "checkbox":
           return (
             <CusCheckbox
+              key={index}
               required={formField.required}
               disabled={formField.disabled}
               value={formik.values[formField.name]}
@@ -107,6 +111,7 @@ const useFormBuilder = ({
         case "number":
           return (
             <NumberInput
+              key={index}
               required={formField.required}
               max={formField.max!}
               label={formField.label}
@@ -120,12 +125,13 @@ const useFormBuilder = ({
         case "select":
           return (
             <CusSelect
+              key={index}
               required={formField.required}
               disabled={formField.disabled}
               errors={formik.errors[formField.name]}
               label={formField.label}
               onChange={(selectedValue: any) =>
-                formik.setFieldValue(formField.name, selectedValue)
+                formField.onChange ? formField.onChange(selectedValue) : formik.setFieldValue(formField.name, selectedValue)
               }
               placeHolder={formField.placeHolder ?? ""}
               value={formik.values[formField.name]}
@@ -135,6 +141,7 @@ const useFormBuilder = ({
         case "date":
           return (
             <CusDatePicker
+              key={index}
               required={formField.required ?? false}
               label={formField.label ?? ""}
               name={formField.name}

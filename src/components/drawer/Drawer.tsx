@@ -5,7 +5,7 @@ export interface CusDrawerProps {
   open: boolean;
   handleDrawerToogle: any;
   children: React.ReactNode;
-  width?: number;
+  width?: number | string;
   title?: React.ReactNode;
   footer?: React.ReactNode;
 }

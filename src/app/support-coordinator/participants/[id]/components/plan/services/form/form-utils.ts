@@ -1,3 +1,4 @@
+import * as yup from "yup"
 import { FormField } from "@/core/hooks/formBuilder/interface/formBuilder.interfaceleanq_support_coordinator";
 import { Dropdown } from "@/core/interface/dropdown.interfaceleanq_support_coordinator";
 
@@ -34,7 +35,7 @@ export const formFields = ({ serviceCategories, onChargeListChage, serviceCoordi
     {
         name: "supportGroupId",
         label: "Support Category Group",
-        placeHolder: "Budget Amount",
+        placeHolder: "Support Category Group",
         required: true,
         type: "select",
         options: supportGroupData,
@@ -66,8 +67,28 @@ export const formFields = ({ serviceCategories, onChargeListChage, serviceCoordi
     {
         name: "scRate",
         label: "Employee Rate",
-        placeHolder: "SC Rate",
+        placeHolder: "Employee Rate",
         required: true,
         type: "text",
     },
 ];
+
+
+export const serviceFormvalidationSchema = yup.object().shape({
+    name: yup.string().required("Required"),
+    budget: yup.number().required("Required"),
+    scRate: yup.number().required("Required"),
+    supportCategoryId: yup.number().required("Required"),
+    serviceCoordinatorId: yup.number().required("Required"),
+    supportGroupId: yup.number().required("Required"),
+    chargeItems: yup
+        .array()
+        .of(
+            yup.object().shape({
+                id: yup.number().required("Required"),
+                managementType: yup.string().required("Required"),
+                rate: yup.number().required("Required"),
+            })
+        )
+        .min(1, 'At least one charge item is required'), // Minimum length of 1
+});

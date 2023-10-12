@@ -8,7 +8,7 @@ import useServiceFormHook from "../hooks/useServiceForm";
 export default function ServiceForm({ onClose }: { onClose: () => void }) {
 
   const { serviceFormik: { formik, renderFormFields } } = useServiceFormHook(onClose)
-
+  console.log(formik.errors)
   return (
     <div className="space-y-5 relative h-full">
       <div className="grid grid-cols-2 gap-5">

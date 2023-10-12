@@ -63,7 +63,7 @@ export default function SelectedChargeList({ data, formik }: { data: any[], form
         },
     ];
     return (
-        <div>
+        <div className='h-[400px] overflow-y-auto'>
             <CusTable
                 columns={columns}
                 dataSource={data}

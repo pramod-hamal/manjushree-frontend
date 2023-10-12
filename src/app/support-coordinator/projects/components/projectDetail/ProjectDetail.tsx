@@ -73,13 +73,17 @@ const TaskLists = ({ tasks }: { tasks: any[] }) => {
   return tasks.map((task: any, index: number) => {
     return (
       <div
-        className="p-3 my-5 transition-all bg-white shadow cursor-pointer hover:shadow-lg hover:scale-105"
+        className="p-3 my-5 transition-all bg-white shadow cursor-pointer hover:shadow-lg"
         key={index}
       >
         <p className="w-full text-sm font-semibold">{task.title}</p>
         <span className="text-xs text-gray-400">{task.description}</span>
-        <div className="flex items-end justify-between w-full pt-2">
+        <div className="flex items-center gap-4  w-full pt-2">
           <div className="flex flex-col gap-2"><label className="text-xs font-semibold">Employee</label></div>
+          <Tooltip title={`${task?.supportCoordinator?.firstName} ${task?.supportCoordinator?.middleName ?? ""} ${task?.supportCoordinator?.lastName ?? ""}`} trigger="hover">
+            <Avatar style={{ backgroundColor: '#1677ff' }}>
+              {getNamefirstChar(task?.supportCoordinator?.firstName)}{getNamefirstChar(task?.supportCoordinator?.lastName)}</Avatar>
+          </Tooltip>
         </div>
       </div>
     );

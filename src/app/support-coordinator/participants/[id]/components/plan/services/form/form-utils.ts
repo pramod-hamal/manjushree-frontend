@@ -25,7 +25,7 @@ export const generateServiceFormValues = (values: any) => {
 export const formFields = ({ serviceCategories, onChargeListChage, serviceCoordinatorData, supportGroupData, chargeListData }: ServiceFormFieldsProps): FormField[] => [
     {
         name: "supportCategoryId",
-        label: "Support Type",
+        label: "Support Category Type",
         placeHolder: "Select Support Type",
         required: true,
         type: "select",
@@ -33,7 +33,7 @@ export const formFields = ({ serviceCategories, onChargeListChage, serviceCoordi
     },
     {
         name: "supportGroupId",
-        label: "Service Name",
+        label: "Support Category Group",
         placeHolder: "Budget Amount",
         required: true,
         type: "select",
@@ -65,7 +65,7 @@ export const formFields = ({ serviceCategories, onChargeListChage, serviceCoordi
     },
     {
         name: "scRate",
-        label: "SC Rate",
+        label: "Employee Rate",
         placeHolder: "SC Rate",
         required: true,
         type: "text",

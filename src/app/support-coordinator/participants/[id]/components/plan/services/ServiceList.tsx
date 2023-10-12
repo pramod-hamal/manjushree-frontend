@@ -1,5 +1,5 @@
 import React from "react";
-import { PlusOutlined } from "@ant-design/icons";
+import { CloseCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
 import {
   PaginatedTableValue,
@@ -43,7 +43,12 @@ function ServiceList({ value }: { value: PaginatedTableValue }) {
           loading={isFetching}
         />
       </div>
-      <CusDrawer width={"80%"} open={show} title="Add service" handleDrawerToogle={onServiceFormClose}>
+      <CusDrawer width={"80%"} open={show} title={
+        <div className="flex justify-between items-center">
+          <h3>Add Service</h3>
+          <div><CloseCircleOutlined onClick={onServiceFormClose} /></div>
+        </div>
+      } handleDrawerToogle={onServiceFormClose}>
         <ServiceForm onClose={onServiceFormClose} />
       </CusDrawer>
       <CusDrawer open={showDetail} handleDrawerToogle={handleDetailDrawerToogle}>
@@ -71,7 +76,6 @@ const columns: any[] = [
     },
   },
   { title: "Budget", dataIndex: "budget" },
-  { title: "Management Type", dataIndex: "managementType" },
 ];
 
 export default withPaginatedTable(ServiceList);

@@ -12,9 +12,7 @@ const usePlanDocumentList = () => {
     const plan: PlanInterface | null =
         planData && planData.length > 0 ? planData[0] : null;
 
-    const { data, isLoading, isFetching, error } = useGetAllDocumentsQuery({
-        plan: plan?.id!,
-    });
+    const { data, isLoading, isFetching, error } = useGetAllDocumentsQuery(plan?.id!);
 
     return { data, isLoading, isFetching, error }
 }

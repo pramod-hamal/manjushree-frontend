@@ -19,7 +19,6 @@ export interface ServiceFormHookProps {
 
 interface InitialValues {
     name: string,
-    // managementType: string,
     budget: number,
     participantId: number,
     planId: number,
@@ -34,9 +33,9 @@ const useServiceFormHook = (onClose: any): ServiceFormHookProps => {
     const { participantDetail } = useAppSelector(participantDetailState);
 
     const { data } = useParticipantPlanQuery(participantDetail?.id!);
+
     const { data: serviceCategories } = useSupportCategoriesQuery("");
     const { data: serviceCoordinatorData, error } = useServiceCoordinatorsQuery("");
-
     const [fetchCategoryGroup, { data: supportGroupData, error: supportGroupError }] = useLazySupportGroupQuery()
     const [fetchChargeList, { data: chargeListData, error: chargeListError }] = useLazyGetChargeListBySupportGroupIdQuery()
 
@@ -47,7 +46,6 @@ const useServiceFormHook = (onClose: any): ServiceFormHookProps => {
 
     const initialValues: InitialValues = {
         name: "",
-        // managementType: "",
         budget: 0,
         participantId: participantDetail?.id!,
         planId: plan?.id!,
@@ -58,6 +56,7 @@ const useServiceFormHook = (onClose: any): ServiceFormHookProps => {
     }
 
     const findChargeItemById = (id: string | number): any[] => chargeListData?.data?.filter((item: any) => item.id === id);
+    const doesChargeItemExists = (id: string | number): boolean => formik.values?.chargeItems?.filter((item: any) => item.id === id).length > 0 ? true : false;
 
     const chargeListDropdown: Dropdown[] = chargeListData?.data ?
         chargeListData.data.map((item: any) => { return { label: item.supportItemName, value: item.id } })
@@ -68,9 +67,8 @@ const useServiceFormHook = (onClose: any): ServiceFormHookProps => {
         serviceCoordinatorData: serviceCoordinatorData?.data ?? [],
         supportGroupData: supportGroupData?.data ?? [],
         chargeListData: chargeListDropdown,
-        onChargeListChage: onChargeListChage
+        onChargeListChage: onChargeListChage,
     })
-    const doesChargeItemExists = (id: string | number): boolean => formik.values?.chargeItems?.filter((item: any) => item.id === id).length > 0 ? true : false;
 
     const onSubmit = async (values: any) => {
         const serviceValue = generateServiceFormValues(values);
@@ -103,6 +101,12 @@ const useServiceFormHook = (onClose: any): ServiceFormHookProps => {
     useEffect(() => {
         if (formik.values.supportCategoryId) {
             fetchCategoryGroup(formik.values.supportCategoryId);
+            let selectedService = serviceCategories?.data?.filter((item: any) => {
+                if (item.value === formik.values.supportCategoryId) {
+                    return item.label
+                }
+            })[0];
+            formik.setFieldValue("name", selectedService?.label);
         }
     }, [formik.values.supportCategoryId])
 

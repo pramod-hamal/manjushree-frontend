@@ -22,7 +22,12 @@ export const endpoints = {
     add: "/project",
     getAll: "/project",
     getById: "/project/",
-    update: ""
+    update: "",
+    task: {
+      add: "/project-task",
+      getById: "/project-task/",
+      getByProjectId: "/project-task/project/"
+    }
   },
   participants: {
     all: "/participants",

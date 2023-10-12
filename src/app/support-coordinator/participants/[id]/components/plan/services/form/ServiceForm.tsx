@@ -3,7 +3,7 @@ import React from "react";
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
 
 import SelectedChargeList from "./SelectedChargeList";
-import useServiceFormHook from "../hooks/useServiceFormHook";
+import useServiceFormHook from "../hooks/useServiceForm";
 
 export default function ServiceForm({ onClose }: { onClose: () => void }) {
 

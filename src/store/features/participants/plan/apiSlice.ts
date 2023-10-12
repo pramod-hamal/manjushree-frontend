@@ -4,7 +4,7 @@ import { protectedBaseQuery } from "@/store/baseQuery/protected.baseQueryleanq_s
 
 import { endpoints } from "@/constants/endpointsleanq_support_coordinator";
 
-import { APIBaseResponse } from "../../../../core/interface/api.response";
+import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
 import { PlanInterface, PlanResponse } from "./interface/plan.interface";
 
 export const participantPlanApi = createApi({
@@ -22,7 +22,7 @@ export const participantPlanApi = createApi({
         body: planData,
         method: "POST"
       }),
-      invalidatesTags: ["Plan"]
+      invalidatesTags: (result, error) => error ? [] : ["Plan"]
     }),
     getAllDocuments: build.query<any, { plan: number | string }>({
       query: (args) => {
@@ -40,7 +40,7 @@ export const participantPlanApi = createApi({
         body: documentData,
         method: "POST"
       }),
-      invalidatesTags: ["PlanDocuments"]
+      invalidatesTags: (result, error) => error ? [] : ["PlanDocuments"]
     }),
     getPlanServices: build.query<any, { limit: number; page: number, plan: number, participant: number }>({
       query: (args) => {
@@ -58,7 +58,8 @@ export const participantPlanApi = createApi({
         body: planServiceData,
         method: "POST"
       }),
-      invalidatesTags: ["PlanServices"]
+      // invaidate tag only on success response
+      invalidatesTags: (result, error) => error ? [] : ["PlanServices"]
     }),
     getPlanServiceDetail: build.query<any, any>({
       query: (id: string | number) =>

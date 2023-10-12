@@ -19,8 +19,8 @@ function ServiceList({ value }: { value: PaginatedTableValue }) {
   const {
     planService: { isLoading, data, isFetching },
     onRowClick, onServiceFormClose, onServiceFormOpen,
-    serviceDetail, plan, handleDetailDrawerToogle,
-    show, showDetail,
+    handleDetailDrawerToogle,
+    serviceDetail, plan, show, showDetail,
   } = useServiceListHook({ pagination: value })
 
   if (isLoading) { return <SkeletonTable />; }

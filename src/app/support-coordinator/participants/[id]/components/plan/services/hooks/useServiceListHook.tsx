@@ -28,12 +28,6 @@ const useServiceListHook = ({ pagination }: { pagination: PaginatedTableValue })
         setServiceDetail(rowData)
     }
 
-    useEffect(() => {
-        if (data && data?.meta) {
-            setPaginationMeta(data?.meta);
-        }
-    }, [data, setPaginationMeta]);
-
     const onServiceFormClose = () => setShow(false)
     const onServiceFormOpen = () => setShow(true)
 
@@ -41,6 +35,12 @@ const useServiceListHook = ({ pagination }: { pagination: PaginatedTableValue })
         setShowDetail(false);
         setServiceDetail(null);
     }
+
+    useEffect(() => {
+        if (data && data?.meta) {
+            setPaginationMeta(data?.meta);
+        }
+    }, [data, setPaginationMeta]);
 
     return {
         planService: { data, isLoading, isFetching },

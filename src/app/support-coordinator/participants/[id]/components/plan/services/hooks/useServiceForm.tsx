@@ -19,7 +19,7 @@ export interface ServiceFormHookProps {
 
 interface InitialValues {
     name: string,
-    managementType: string,
+    // managementType: string,
     budget: number,
     participantId: number,
     planId: number,
@@ -47,7 +47,7 @@ const useServiceFormHook = (onClose: any): ServiceFormHookProps => {
 
     const initialValues: InitialValues = {
         name: "",
-        managementType: "",
+        // managementType: "",
         budget: 0,
         participantId: participantDetail?.id!,
         planId: plan?.id!,
@@ -79,7 +79,7 @@ const useServiceFormHook = (onClose: any): ServiceFormHookProps => {
             .then((data) => {
                 showToast({ title: "Service Added", type: "success" });
                 formik.resetForm();
-                onClose();
+                onClose()
             })
             .catch((err: any) => { formik.setErrors(err?.data?.error); })
             .finally(() => { });

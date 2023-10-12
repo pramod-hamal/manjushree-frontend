@@ -11,7 +11,7 @@ import { useAddPlanServiceMutation, useLazyGetChargeListBySupportGroupIdQuery, u
 import { PlanInterface, PlanResponse } from "@/store/features/participants/plan/interface/plan.interfaceleanq_support_coordinator";
 import { useAppSelector } from "@/store/hooksleanq_support_coordinator";
 
-import { formFields, generateServiceFormValues } from "../form/form-utils";
+import { formFields, generateServiceFormValues, serviceFormvalidationSchema } from "../form/form-utils";
 
 export interface ServiceFormHookProps {
     serviceFormik: { formik: any, renderFormFields: any }
@@ -19,10 +19,10 @@ export interface ServiceFormHookProps {
 
 interface InitialValues {
     name: string,
-    budget: number,
+    budget: number | null,
     participantId: number,
     planId: number,
-    scRate: number,
+    scRate: number | null,
     serviceCoordinatorId: number | null,
     chargeItem?: null,
     chargeItems: any[],
@@ -46,10 +46,10 @@ const useServiceFormHook = (onClose: any): ServiceFormHookProps => {
 
     const initialValues: InitialValues = {
         name: "",
-        budget: 0,
+        budget: null,
         participantId: participantDetail?.id!,
         planId: plan?.id!,
-        scRate: 0,
+        scRate: null,
         serviceCoordinatorId: null,
         chargeItem: null,
         chargeItems: [],
@@ -85,6 +85,7 @@ const useServiceFormHook = (onClose: any): ServiceFormHookProps => {
 
     const { formik, renderFormFields } = useFormBuilder({
         initialValues, onSubmit,
+        validationSchema: serviceFormvalidationSchema,
         formFields: serviceFormFields({
             onChargeListChage: (selectedValue: number | string) => {
                 if (doesChargeItemExists(selectedValue)) {

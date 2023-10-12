@@ -14,6 +14,7 @@ export default function SelectedChargeList({ data, formik }: { data: any[], form
             title: "Management Type", render: (data: any) => {
                 const index = formik.values?.chargeItems?.indexOf(data);
                 return <CusSelect
+                    errors={formik.errors?.chargeItems?.length > 0 && formik.errors?.chargeItems[index]?.managementType}
                     onChange={(selectedValue: string) => {
                         formik.setFieldValue(`chargeItems[${index}][managementType]`, selectedValue)
                     }}
@@ -31,7 +32,7 @@ export default function SelectedChargeList({ data, formik }: { data: any[], form
                 return (
                     <FormInput
                         name={``}
-                        errors={null}
+                        errors={formik.errors?.chargeItems?.length > 0 && formik.errors?.chargeItems[index]?.rate}
                         onChange={(e: any) => {
                             formik.setFieldValue(`chargeItems[${index}][rate]`, e.target.value)
                         }}

@@ -116,7 +116,7 @@ function MapComponent({ center: mapCenter, getLocation }: MapComponentProps) {
         defaultValue={searchedAddress}
         className="w-full h-[32px] border-none rounded-lg shadow px-5"
         apiKey="AIzaSyCw10y2Ncvk6XpZirQHbf0VUvZZF35rvbg"
-        onPlaceSelected={(place: any) => handleSearch(place.formatted_address)}
+        onPlaceSelected={(place: any) => handleSearch(place?.formatted_address)}
       />
     </div>
   );

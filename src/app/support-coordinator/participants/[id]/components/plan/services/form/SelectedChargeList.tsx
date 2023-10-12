@@ -1,45 +1,65 @@
+import React from 'react'
+import { DeleteFilled } from '@ant-design/icons';
+
 import FormInput from '@/components/form/FormInputleanq_support_coordinator';
 import CusSelect from '@/components/form/Selectleanq_support_coordinator';
 import CusTable from '@/components/tables/Tableleanq_support_coordinator'
-import { DeleteFilled } from '@ant-design/icons';
-import React from 'react'
 
-export default function SelectedChargeList() {
-    const data = [{ supportItemNumber: "452-45211-4785", "reference": "Viral", "unit": "H", managementType: "NDIA Managed", price: "2500" }]
-
+export default function SelectedChargeList({ data, formik }: { data: any[], formik: any }) {
     const columns: any = [
+        { title: "Name", dataIndex: "supportItemName" },
         { title: "Number", dataIndex: "supportItemNumber" },
-        { title: "Reference", dataIndex: "reference" },
-        { title: "Unit", dataIndex: "unit" },
+        { title: "Unit", dataIndex: "unit", width: 100 },
         {
-            title: "Management Type", render: () => {
-                return <CusSelect onChange={() => { }} options={[]} placeHolder='Select Management Type' value={""} />
+            title: "Management Type", render: (data: any) => {
+                const index = formik.values?.chargeItems?.indexOf(data);
+                return <CusSelect
+                    onChange={(selectedValue: string) => {
+                        formik.setFieldValue(`chargeItems[${index}][managementType]`, selectedValue)
+                    }}
+                    options={[{ label: "NDIA Managed", value: "NDIA Managed" },
+                    { label: "Plan Managed", value: "Plan Managed" },
+                    { label: "Self Managed", value: "Self Managed" },]}
+                    placeHolder='Select Management Type'
+                    value={data.managementType} />
             }
         },
         {
             title: "Price",
             render: (data: any) => {
+                const index = formik.values?.chargeItems?.indexOf(data);
                 return (
                     <FormInput
                         name={``}
                         errors={null}
-                        onChange={() => { }}
+                        onChange={(e: any) => {
+                            formik.setFieldValue(`chargeItems[${index}][rate]`, e.target.value)
+                        }}
                         value={data.rate}
                     />
                 );
             },
+            width: 120
         },
         {
             title: "Action",
             dataIndex: "",
-            render: () => (
-                <div>
+            render: (data: any) => {
+                const index = formik.values?.chargeItems?.indexOf(data);
+                const handleElementDelete = () => {
+                    let newChargeItems = formik.values?.chargeItems;
+                    newChargeItems.splice(index, 1);
+                    formik.setFieldValue("chargeItems", [...newChargeItems]);
+                };
+                return <div>
                     <DeleteFilled
+                        onClick={handleElementDelete}
                         className="text-primary-danger cursor-pointer "
                         style={{ fontSize: 14 }}
                     />
                 </div>
-            ),
+            },
+            width: 100
         },
     ];
     return (

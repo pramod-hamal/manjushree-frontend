@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import type { TablePaginationConfig } from "antd/es/table";
+import type { ColumnsType, TablePaginationConfig } from "antd/es/table";
 import dynamic from "next/dynamic";
 import SkeletonTable from "../loaders/TableSkeleton";
 import { PaginationMetaDTO } from "@/core/interface/pagination.metaleanq_support_coordinator";

@@ -3,7 +3,6 @@ import React from "react";
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
 import CusDatePicker from "@/components/form/DatePickerleanq_support_coordinator";
-const dateFormat = "DD/MM/YYYY";
 
 export default function PersonalDetail({ formik, disabled }: any) {
   const { handleChange, values, errors } = formik;

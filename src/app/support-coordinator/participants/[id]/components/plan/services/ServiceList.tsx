@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { PlusOutlined } from "@ant-design/icons";
+import React from "react";
+import { CloseCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
 import {
   PaginatedTableValue,
   withPaginatedTable,
 } from "@/core/hoc/withPaginatedTableleanq_support_coordinator";
-
-import { useGetPlanServicesQuery } from "@/store/features/participants/plan/apiSliceleanq_support_coordinator";
 
 import FlatButton from "@/components/buttons/Buttonleanq_support_coordinator";
 import CusTable from "@/components/tables/Tableleanq_support_coordinator";
@@ -14,29 +12,16 @@ import CusDrawer from "@/components/drawer/Drawerleanq_support_coordinator";
 import SkeletonTable from "@/components/loaders/TableSkeletonleanq_support_coordinator";
 
 import ServiceForm from "./form/ServiceForm";
-import useGetParticipantPlan, { GetParticipantPlanProps } from "../../../hook/useGetParticipantPlan";
-import useGetParticipantDetail from "../../../hook/useGetParticipant";
 import ServiceDetail from "./ServiceDetail";
+import useServiceListHook from "./hooks/useServiceListHook";
 
 function ServiceList({ value }: { value: PaginatedTableValue }) {
-  const { paginationMeta, setPaginationMeta } = value;
-
-  const [show, setShow] = useState<boolean>(false);
-  const [showDetail, setShowDetail] = useState<boolean>(false);
-  const [serviceDetail, setServiceDetail] = useState<any | null>(null)
-
-  const participant = useGetParticipantDetail();
-  const { plan }: GetParticipantPlanProps = useGetParticipantPlan(
-    { id: participant?.id! }
-  );
-
-  const { data, isLoading, isFetching } = useGetPlanServicesQuery({ limit: paginationMeta.limit, page: paginationMeta.page ?? 1, plan: plan?.id!, participant: participant?.id! });
-
-  useEffect(() => {
-    if (data && data?.meta) {
-      setPaginationMeta(data?.meta);
-    }
-  }, [data, setPaginationMeta]);
+  const {
+    planService: { isLoading, data, isFetching },
+    onRowClick, onServiceFormClose, onServiceFormOpen,
+    handleDetailDrawerToogle,
+    serviceDetail, plan, show, showDetail,
+  } = useServiceListHook({ pagination: value })
 
   if (isLoading) { return <SkeletonTable />; }
 
@@ -48,23 +33,25 @@ function ServiceList({ value }: { value: PaginatedTableValue }) {
     <div className="flex flex-col bg-white gap-5 p-5">
       <div className="flex justify-between">
         <span className="text-lg font-semibold">Services</span>
-        <FlatButton icon={<PlusOutlined />} title="Add Service" onClick={() => setShow(true)} />
+        <FlatButton icon={<PlusOutlined />} title="Add Service" onClick={onServiceFormOpen} />
       </div>
       <div>
         <CusTable
           columns={columns}
-          onRowClick={(rowData: any) => { setShowDetail(true); setServiceDetail(rowData) }}
+          onRowClick={onRowClick}
           dataSource={services ?? []}
           loading={isFetching}
         />
       </div>
-      <CusDrawer width={1000} open={show} title="Add service" handleDrawerToogle={() => setShow(false)}>
-        <ServiceForm onClose={() => setShow(false)} />
+      <CusDrawer width={"80%"} open={show} title={
+        <div className="flex justify-between items-center">
+          <h3>Add Service</h3>
+          <div><CloseCircleOutlined onClick={onServiceFormClose} /></div>
+        </div>
+      } handleDrawerToogle={onServiceFormClose}>
+        <ServiceForm onClose={onServiceFormClose} />
       </CusDrawer>
-      <CusDrawer open={showDetail} handleDrawerToogle={() => {
-        setShowDetail(false);
-        setServiceDetail(null);
-      }}>
+      <CusDrawer open={showDetail} handleDrawerToogle={handleDetailDrawerToogle}>
         <ServiceDetail id={serviceDetail?.id} />
       </CusDrawer>
     </div>
@@ -89,7 +76,6 @@ const columns: any[] = [
     },
   },
   { title: "Budget", dataIndex: "budget" },
-  { title: "Management Type", dataIndex: "managementType" },
 ];
 
 export default withPaginatedTable(ServiceList);

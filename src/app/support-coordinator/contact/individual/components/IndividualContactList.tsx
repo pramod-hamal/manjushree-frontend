@@ -35,10 +35,10 @@ function IndividualContactList({ value }: any) {
     }
   }, [data, setPaginationMeta]);
 
-
   if (isLoading === true) {
     return <Skeleton />;
   }
+
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between">

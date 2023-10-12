@@ -42,7 +42,7 @@ export default function AddTask({ sc, participant, onClose }: AddTaskProps) {
     title: ""
   }
 
-  const onSubmit = (values: AddTaskDto, { setSubmitting }: FormikHelpers<AddTaskDto>) => add(values).unwrap()
+  const onSubmit = (values: AddTaskDto, { setSubmitting }: FormikHelpers<AddTaskDto>): Promise<void> => add(values).unwrap()
     .then((data) => {
       formik.resetForm();
       onClose();

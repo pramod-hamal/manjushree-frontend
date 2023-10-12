@@ -1,7 +1,9 @@
 import { FormikHelpers } from "formik";
 import { useRouter } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
+import { OpenNotification } from "@/core/lib/toast/interface/toastProvider.interfaceleanq_support_coordinator";
 import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
 import useFormBuilder from "@/core/hooks/formBuilder/useFormBuilderleanq_support_coordinator";
 
@@ -10,20 +12,22 @@ import { useOrganizationContactQuery } from "@/store/features/dropdown/apiSlicel
 
 import { routes } from "@/constants/routesleanq_support_coordinator";
 
-import { initialValues, formFields, validationSchema } from "../form-utils";
-import { AddIndividualContactDTO } from "../../interface/contact.interface";
+import { initialValues, formFields, validationSchema } from "../add/form-utils";
+import { AddIndividualContactDTO } from "../interface/contact.interface";
 
-const useAddIndividualContactHook = ({ editMode }: { editMode: boolean | undefined }) => {
+interface AddIndividualContactHookProps { editMode: boolean | undefined }
 
-    const router = useRouter();
-    const showToast = useToast();
+const useAddIndividualContactHook = ({ editMode }: AddIndividualContactHookProps) => {
 
-    const { data: organizationContact }: any = useOrganizationContactQuery("");
+    const router: AppRouterInstance = useRouter();
+    const showToast: (props: OpenNotification) => any = useToast();
+
+    const { data: organizationContact } = useOrganizationContactQuery("");
 
     const [addContact] = useAddIndividualContactMutation();
     const [updateContact] = useUpdateIndividualContactMutation();
 
-    const handleAddContact = async (values: AddIndividualContactDTO, { setSubmitting }: FormikHelpers<AddIndividualContactDTO>) =>
+    const handleAddContact = async (values: AddIndividualContactDTO, { setSubmitting }: FormikHelpers<AddIndividualContactDTO>): Promise<void> =>
         await addContact(values).unwrap().then((_: any) => {
             formik.resetForm();
             showToast({ title: "Contact Created Successfully", type: "success" });
@@ -34,7 +38,7 @@ const useAddIndividualContactHook = ({ editMode }: { editMode: boolean | undefin
             formik.setErrors(errorData.error)
         }).finally(() => { setSubmitting(false) });
 
-    const handleEditContact = async (values: any, { setSubmitting }: FormikHelpers<any>) =>
+    const handleEditContact = async (values: any, { setSubmitting }: FormikHelpers<any>): Promise<void> =>
         await updateContact(values).unwrap().then((_) => {
             showToast({ title: "Contact Updated Successfully", type: "success" });
             router.replace(routes.individualContact);

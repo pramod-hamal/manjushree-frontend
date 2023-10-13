@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { setCookie } from "cookies-next";
 import { FormikHelpers, useFormik } from "formik";
 import * as yup from "yup";

@@ -76,6 +76,8 @@ export const participantPlanApi = createApi({
 export const {
   useParticipantPlanQuery, useCreatePlanMutation,
   useGetAllDocumentsQuery, useAddPlanDocumentMutation,
-  useGetPlanServicesQuery, useAddPlanServiceMutation, useGetPlanServiceDetailQuery,
+  useGetPlanServicesQuery, useAddPlanServiceMutation,
+   useGetPlanServiceDetailQuery,
+   useLazyGetPlanServiceDetailQuery,
   useLazyGetChargeListBySupportGroupIdQuery
 } = participantPlanApi;

@@ -1,25 +1,26 @@
-import { useGetPlanServiceDetailQuery } from '@/store/features/participants/plan/apiSliceleanq_support_coordinator'
-import { Skeleton } from 'antd'
 import React from 'react'
+import { Skeleton } from 'antd'
+
+import SelectedChargeList from './form/SelectedChargeList';
+import useUpdateServiceDetailForm from './hooks/useUpdateServiceDetailForm';
 
 
 export default function ServiceDetail({ id }: { id: string | number }) {
-    const { data, isLoading, error } = useGetPlanServiceDetailQuery(id)
+    const { isLoading, isFetching, formik, renderFormFields } = useUpdateServiceDetailForm({ id })
 
-    if (isLoading) { return <Skeleton /> }
-
-    const serviceDetail = data?.data;
+    if (isLoading || isFetching) { return <Skeleton /> }
 
     return (
         <div>
             <div className="flex justify-between items-center w-full">
                 <h3 className="text-2xl font-semibold m-0 pb-5">Services</h3>
             </div>
-            <div className='flex flex-col gap-5'>
-                <p> Name : {serviceDetail?.name}</p>
-                <p> Management Type : {serviceDetail?.managementType}</p>
-                <p> Sc Rate : {serviceDetail?.scRate}</p>
-                <p> Budget : {serviceDetail?.budget}</p>
+            <div className='grid grid-cols-2 gap-5'>
+                {renderFormFields()}
+            </div>
+            <div className='py-4'>
+                <h3 className="text-xl font-semibold m-0 pb-5">Selected Charge List</h3>
+                <SelectedChargeList formik={formik} data={formik.values.chargeItems} />
             </div>
         </div>
     )

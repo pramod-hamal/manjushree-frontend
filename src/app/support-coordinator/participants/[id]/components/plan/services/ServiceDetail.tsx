@@ -20,7 +20,7 @@ export default function ServiceDetail({ id }: { id: string | number }) {
             </div>
             <div className='py-4'>
                 <h3 className="text-xl font-semibold m-0 pb-5">Selected Charge List</h3>
-                <SelectedChargeList formik={formik} data={formik.values.chargeItems} />
+                <SelectedChargeList isEdit={true} formik={formik} data={formik.values.chargeItems} />
             </div>
         </div>
     )

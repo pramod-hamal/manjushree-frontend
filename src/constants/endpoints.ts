@@ -89,5 +89,10 @@ export const endpoints = {
   },
   chargeItems: {
     getById: "/charge-items/"
+  },
+  settings: {
+    import: {
+      add: "/settings/import"
+    }
   }
 }

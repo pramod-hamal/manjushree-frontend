@@ -15,8 +15,9 @@ export const routes = {
       participants: "/support-coordinator/participants",
       addParticipants: "/support-coordinator/participants/add",
       participantDetails: (id: number | string) => "/support-coordinator/participants/" + id,
-      // roles
+      // settings
       roles: "/support-coordinator/roles",
+      import: "/support-coordinator/settings/import",
       // contacts
       individualContact: "/support-coordinator/contact/individual",
       editIndividualContact: (id: string | number) => "/support-coordinator/contact/individual/" + id,

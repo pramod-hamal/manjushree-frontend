@@ -20,6 +20,7 @@ import { participantDocumentReducer } from "./features/participants/documents/pa
 import { dropdownApi } from "./features/dropdown/apiSlice";
 import { participantPlanApi } from "./features/participants/plan/apiSlice";
 import { userReducer } from "./features/users/userSlice";
+import { importAPISlice } from "./features/settings/import/apiSlice";
 
 export const stores = configureStore({
     // Root Reducers
@@ -27,29 +28,32 @@ export const stores = configureStore({
         //appstate
         app: appReducer,
         // dropdown
-        [dropdownApi.reducerPath]:dropdownApi.reducer,
+        [dropdownApi.reducerPath]: dropdownApi.reducer,
         // auth
-        auth:authSlice.reducer,
-        [authApi.reducerPath]:authApi.reducer,
+        auth: authSlice.reducer,
+        [authApi.reducerPath]: authApi.reducer,
         // projects
         projects: projectReducer,
         [projectsApi.reducerPath]: projectsApi.reducer,
         // contact
         [contactApi.reducerPath]: contactApi.reducer,
         // participant
-        participantDetail:participantDetailReducer,
-        participantHealth:participantHealthReducer,
-        participantDocument:participantDocumentReducer,
-        contactDetail:contactDetailReducer,
+        participantDetail: participantDetailReducer,
+        participantHealth: participantHealthReducer,
+        participantDocument: participantDocumentReducer,
+        contactDetail: contactDetailReducer,
         [participantsApi.reducerPath]: participantsApi.reducer,
-        [participantDetailApi.reducerPath]:participantDetailApi.reducer,
-        [participantHealthApi.reducerPath]:participantHealthApi.reducer,
-        [participantDocumentApi.reducerPath]:participantDocumentApi.reducer,
-        [participantDetailContactApi.reducerPath]:participantDetailContactApi.reducer,
-        [participantPlanApi.reducerPath]:participantPlanApi.reducer,
+        [participantDetailApi.reducerPath]: participantDetailApi.reducer,
+        [participantHealthApi.reducerPath]: participantHealthApi.reducer,
+        [participantDocumentApi.reducerPath]: participantDocumentApi.reducer,
+        [participantDetailContactApi.reducerPath]: participantDetailContactApi.reducer,
+        [participantPlanApi.reducerPath]: participantPlanApi.reducer,
         // Users
         [usersApi.reducerPath]: usersApi.reducer,
-        users:userReducer
+        users: userReducer,
+
+        // Settings
+        [importAPISlice.reducerPath]: importAPISlice.reducer
     },
     // Initializing create api middlewares
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({})
@@ -65,6 +69,7 @@ export const stores = configureStore({
             participantDetailContactApi.middleware,
             participantPlanApi.middleware,
             usersApi.middleware,
+            importAPISlice.middleware
         )
 });
 

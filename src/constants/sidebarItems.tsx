@@ -65,7 +65,7 @@ export const sidebarItems: SidebarItem[] = [
         icon: <UserOutlined style={{ fontSize: 14 }} />,
       },
       {
-        link: "#",
+        link: routes.import,
         title: "Charge List",
         icon: <BankOutlined style={{ fontSize: 14 }} />,
       },

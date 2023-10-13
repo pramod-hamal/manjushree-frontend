@@ -1,9 +1,11 @@
 "use client";
 import React from "react";
-import PageHeader from "@/components/headers/PageHeaderleanq_support_coordinator";
-import IndividualContactForm from "../add/components/IndividualContactForm";
-import { useGetContactbyIdQuery } from "@/store/features/contact/apiSliceleanq_support_coordinator";
 import { Skeleton } from "antd";
+
+import { useGetContactbyIdQuery } from "@/store/features/contact/apiSliceleanq_support_coordinator";
+
+import PageHeader from "@/components/headers/PageHeaderleanq_support_coordinator";
+import IndividualContactForm from "../components/IndividualContactForm";
 
 export default function EditIndividualContactPage({
   params,

@@ -1,6 +1,6 @@
 import PageHeader from "@/components/headers/PageHeaderleanq_support_coordinator";
 import React from "react";
-import OrganizationalContactForm from "./components/OrganizationalContactForm";
+import OrganizationalContactForm from "../components/OrganizationalContactForm";
 
 export default function AddOrganizationalContact() {
   return (

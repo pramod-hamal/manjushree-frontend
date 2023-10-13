@@ -1,7 +1,7 @@
 import React from "react";
 
 import PageHeader from "@/components/headers/PageHeaderleanq_support_coordinator";
-import IndividualContactForm from "./components/IndividualContactForm";
+import IndividualContactForm from "../components/IndividualContactForm";
 
 export default function AddIndividualContact() {
   return (

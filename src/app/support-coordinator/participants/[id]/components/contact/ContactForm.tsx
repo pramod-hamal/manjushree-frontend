@@ -21,7 +21,7 @@ import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 import ErrorMessage from "@/components/form/ErrorMessageleanq_support_coordinator";
 import CusModal from "@/components/modals/Modalleanq_support_coordinator";
-import IndividualContactForm from "@/app/support-coordinator/contact/individual/add/components/IndividualContactFormleanq_support_coordinator";
+import IndividualContactForm from "@/app/support-coordinator/contact/individual/components/IndividualContactFormleanq_support_coordinator";
 
 export interface ParticipantContactDTO {
   relation: string;

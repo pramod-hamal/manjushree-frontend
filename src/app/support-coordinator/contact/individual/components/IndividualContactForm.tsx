@@ -14,10 +14,10 @@ import FlatButton, {
   CancelButton,
 } from "@/components/buttons/Buttonleanq_support_coordinator";
 
-import { IndividualContactFormProps } from "../interface/add-individual.interface";
+import { IndividualContactFormProps } from "../add/interface/add-individual.interface";
 import {
   Address,
-} from "../../interface/contact.interface";
+} from "../interface/contact.interface";
 import { TextAreaInput } from "@/components/form/FormInputleanq_support_coordinator";
 import ErrorMessage from "@/components/form/ErrorMessageleanq_support_coordinator";
 import useAddIndividualContactHook from "../hook/useAddIndividualContactHook";

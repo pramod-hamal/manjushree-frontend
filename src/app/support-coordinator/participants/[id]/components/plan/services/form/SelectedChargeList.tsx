@@ -5,11 +5,11 @@ import FormInput from '@/components/form/FormInputleanq_support_coordinator';
 import CusSelect from '@/components/form/Selectleanq_support_coordinator';
 import CusTable from '@/components/tables/Tableleanq_support_coordinator'
 
-export default function SelectedChargeList({ data, formik }: { data: any[], formik: any }) {
+export default function SelectedChargeList({ data, formik, isEdit }: { isEdit?: boolean, data: any[], formik: any }) {
     const columns: any = [
-        { title: "Name", dataIndex: "supportItemName" },
-        { title: "Number", dataIndex: "supportItemNumber" },
-        { title: "Unit", dataIndex: "unit", width: 100 },
+        { title: "Name", dataIndex: isEdit ? ["chargeItem", "supportItemName"] : "supportItemName" },
+        { title: "Number", dataIndex: isEdit ? ["chargeItem", "supportItemNumber"] : "supportItemNumber" },
+        { title: "Unit", dataIndex: isEdit ? ["chargeItem", "unit"] : "unit", width: 100 },
         {
             title: "Management Type", render: (data: any) => {
                 const index = formik.values?.chargeItems?.indexOf(data);
@@ -42,31 +42,32 @@ export default function SelectedChargeList({ data, formik }: { data: any[], form
             },
             width: 120
         },
-        {
-            title: "Action",
-            dataIndex: "",
-            render: (data: any) => {
-                const index = formik.values?.chargeItems?.indexOf(data);
-                const handleElementDelete = () => {
-                    let newChargeItems = formik.values?.chargeItems;
-                    newChargeItems.splice(index, 1);
-                    formik.setFieldValue("chargeItems", [...newChargeItems]);
-                };
-                return <div>
-                    <DeleteFilled
-                        onClick={handleElementDelete}
-                        className="text-primary-danger cursor-pointer "
-                        style={{ fontSize: 14 }}
-                    />
-                </div>
-            },
-            width: 100
-        },
     ];
     return (
         <div className='h-[400px] overflow-y-auto'>
             <CusTable
-                columns={columns}
+                columns={isEdit ? columns : [...columns, {
+                    title: "Action",
+                    dataIndex: "",
+                    render: (data: any) => {
+                        const index = formik.values?.chargeItems?.indexOf(data);
+                        const handleElementDelete = () => {
+                            if (isEdit) { } else {
+                                let newChargeItems = formik.values?.chargeItems;
+                                newChargeItems.splice(index, 1);
+                                formik.setFieldValue("chargeItems", [...newChargeItems]);
+                            }
+                        };
+                        return <div>
+                            <DeleteFilled
+                                onClick={handleElementDelete}
+                                className="text-primary-danger cursor-pointer "
+                                style={{ fontSize: 14 }}
+                            />
+                        </div>
+                    },
+                    width: 100
+                },]}
                 dataSource={data}
                 loading={false}
             />

@@ -43,6 +43,7 @@ function ServiceList({ value }: { value: PaginatedTableValue }) {
           loading={isFetching}
         />
       </div>
+      {/* Add Drawer */}
       <CusDrawer width={"80%"} open={show} title={
         <div className="flex justify-between items-center">
           <h3>Add Service</h3>
@@ -51,6 +52,7 @@ function ServiceList({ value }: { value: PaginatedTableValue }) {
       } handleDrawerToogle={onServiceFormClose}>
         <ServiceForm onClose={onServiceFormClose} />
       </CusDrawer>
+      {/* Detail Drawer */}
       <CusDrawer open={showDetail} handleDrawerToogle={handleDetailDrawerToogle}>
         <ServiceDetail id={serviceDetail?.id} />
       </CusDrawer>

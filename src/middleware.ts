@@ -18,6 +18,14 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/support-coordinator/dashboard', request.url))
     }
 
+    if (token && pathName === "/support-coordinator/contact") {
+        return NextResponse.redirect(new URL('/support-coordinator/contact/individual', request.url))
+    }
+
+    if (token && pathName === "/support-coordinator/settings") {
+        return NextResponse.redirect(new URL('/support-coordinator/settings/import', request.url))
+    }
+
     return NextResponse.next();
 }
 

@@ -119,6 +119,21 @@ export default function PersonalDetail({ formik, disabled }: any) {
             value={values.ndisNumber}
             disabled={disabled}
           />
+          <CusSelect
+            value={values.state}
+            disabled={disabled}
+            options={[
+              { value: "AU", label: "AU" },
+              { value: "EU", label: "EU" },
+            ]}
+            required={true}
+            placeHolder="Select State"
+            label="Select State"
+            onChange={(selected: any) => {
+              formik.setFieldValue("state", selected);
+            }}
+            errors={errors?.gender}
+          />
         </div>
       </div>
     </div>

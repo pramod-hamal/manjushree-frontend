@@ -1,14 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { FormikHelpers, useFormik } from "formik";
-import * as yup from "yup";
+import React from "react";
 import { useRouter } from "next/navigation";
-
-import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
-
-import { useAddMutation } from "@/store/features/users/apiSliceleanq_support_coordinator";
-import { CreateUserDTO } from "@/store/features/users/interface/user.interfaceleanq_support_coordinator";
 
 import FormInput from "@/components/form/FormInputleanq_support_coordinator";
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
@@ -17,56 +10,12 @@ import FlatButton, {
 } from "@/components/buttons/Buttonleanq_support_coordinator";
 
 import SuccessModal from "./SuccessModal";
-import { emailRegex } from "@/core/lib/regexleanq_support_coordinator";
-
-const validationSchema = yup.object().shape({
-  firstName: yup.string().required("Required"),
-  lastName: yup.string().required("Required"),
-  email: yup.string().matches(emailRegex, "Invalid Email").required("Required"),
-  phone: yup.string().required("Required"),
-});
+import useAddUser from "../hook/useAddUser";
 
 export default function AddUserForm() {
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const showToast = useToast();
   const router = useRouter();
-  const [addUser] = useAddMutation();
 
-  const initialValues: CreateUserDTO = {
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    role: null,
-  };
-
-  const handleAddUser = async (
-    values: CreateUserDTO,
-    { setSubmitting }: FormikHelpers<CreateUserDTO>
-  ) => {
-    await addUser({ ...values, phone: values.phone.toString() })
-      .unwrap()
-      .then(() => {
-        setShowModal(true);
-        showToast({ title: "User Added", type: "success" });
-        router.back();
-      })
-      .catch((error: any) => {
-        formik.setErrors(error?.data?.error)
-        showToast({ title: error.data.message, type: "error" });
-      });
-  };
-
-  const formik = useFormik({
-    initialValues,
-    onSubmit: handleAddUser,
-    validationSchema,
-    validateOnMount: false,
-    validateOnChange: false,
-    validateOnBlur: false,
-    enableReinitialize: true,
-  });
+  const { formik, showModal, setShowModal } = useAddUser();
 
   return (
     <div className="p-5 flex flex-col gap-5">
@@ -134,7 +83,7 @@ export default function AddUserForm() {
             type="submit"
             loading={formik.isSubmitting}
           />
-          <CancelButton onClick={()=>router.back()}/>
+          <CancelButton onClick={() => router.back()} />
         </div>
       </form>
       <SuccessModal show={showModal} onClose={() => setShowModal(false)} />

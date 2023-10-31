@@ -2,19 +2,14 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { useFormik } from "formik";
 import { CloseCircleOutlined } from "@ant-design/icons";
 
 
-import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
-import { Dropdown } from "@/core/interface/dropdown.interfaceleanq_support_coordinator";
 
 import {
-  useParticipantPlanServiceQuery,
   useParticipantsQuery,
   useServiceCoordinatorsQuery,
 } from "@/store/features/dropdown/apiSliceleanq_support_coordinator";
-import { useAddProjectMutation } from "@/store/features/projects/apiSliceleanq_support_coordinator";
 
 import FlatButton, {
   CancelButton,
@@ -24,8 +19,8 @@ import FormInput, {
 } from "@/components/form/FormInputleanq_support_coordinator";
 import CusSelect from "@/components/form/Selectleanq_support_coordinator";
 import CusDatePicker from "@/components/form/DatePickerleanq_support_coordinator";
+import useAddProject from "../hook/useAddProject";
 
-import { routes } from "@/constants/routesleanq_support_coordinator";
 
 export interface CreateProjectDTO {
   title: string;
@@ -37,60 +32,11 @@ export interface CreateProjectDTO {
 }
 
 export default function AddProjectForm() {
-  const router = useRouter();
 
   const { data: serviceCoordinators } = useServiceCoordinatorsQuery("");
   const { data: participants } = useParticipantsQuery("");
 
-  const [addProject] = useAddProjectMutation();
-
-  const showToast = useToast();
-
-  const formik = useFormik({
-    initialValues: {
-      title: "",
-      date: null,
-      description: "",
-      participantId: null,
-      supportCoordinatorIds: [],
-      planServiceId: null,
-    },
-    onSubmit: async (values: any, { setSubmitting }: any) => {
-      const projectValues = {
-        ...values,
-        supportCoordinatorIds: values.supportCoordinatorIds.map(
-          (item: Dropdown) => item.value
-        ),
-      };
-      await addProject(projectValues)
-        .unwrap()
-        .then(() => {
-          formik.resetForm();
-          showToast({ title: "Project Created", type: "success" });
-          router.push(routes.projects);
-        })
-        .catch((error) => {
-          formik.setErrors(error?.data?.error);
-          showToast({
-            title: error?.data?.message ?? "Something went wrong",
-            type: "error",
-          });
-        })
-        .finally(() => {
-          setSubmitting(false);
-        });
-    },
-  });
-
-  const handleRemoveCoordinators = (index: number) => {
-    let newSupportCoordinators = formik.values.supportCoordinatorIds;
-    newSupportCoordinators.splice(index, 1);
-    formik.setFieldValue("references", newSupportCoordinators);
-  };
-
-  const { data: participantPlanServices } = useParticipantPlanServiceQuery({ participant: formik.values.participantId! }, {
-    skip: formik.values.participantId === null
-  })
+  const { formik, handleRemoveCoordinators, participantPlanServices } = useAddProject();
 
   return (
     <div className="p-5 flex flex-col gap-5">

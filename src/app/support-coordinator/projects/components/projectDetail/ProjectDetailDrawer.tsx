@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Drawer } from "antd";
-
-import { Dropdown } from "@/core/interface/dropdown.interfaceleanq_support_coordinator";
 
 import {
   useAppDispatch,
@@ -11,12 +9,12 @@ import {
   projectData,
   toogleTaskDrawer,
 } from "@/store/features/projects/projectSliceleanq_support_coordinator";
-import { useLazyGetByIdQuery } from "@/store/features/projects/apiSliceleanq_support_coordinator";
 
 import { CircularLoader } from "@/components/loaders/CircularLoaderleanq_support_coordinator";
 
 import ProjectDetail from "./ProjectDetail";
 import AddTask from "./AddTask";
+import useGetProjectDetail from "../../hook/useGetProjectDetail";
 
 export interface ProjectDetailDrawerProps {
   open: boolean;
@@ -24,7 +22,7 @@ export interface ProjectDetailDrawerProps {
 }
 
 export default function ProjectDetailDrawer({ open, handleDrawerToogle }: any) {
-  const { showTaskDrawer, selectedProject } = useAppSelector(projectData);
+  const { showTaskDrawer } = useAppSelector(projectData);
 
   const dispatch = useAppDispatch();
 
@@ -32,21 +30,7 @@ export default function ProjectDetailDrawer({ open, handleDrawerToogle }: any) {
     dispatch(toogleTaskDrawer(false));
   };
 
-  const [fetch, { data, isLoading, isFetching, error }] = useLazyGetByIdQuery();
-
-  const supportCoordinators: Dropdown[] = data?.supportCoordinators?.map((sc: any) => {
-    return { label: sc.firstName + sc.middleName ?? " " + sc.lastName ?? " ", value: sc.id }
-  });
-  const participant: Dropdown[] = [{
-    label: data?.participant?.firstName + data?.participant?.middleName ?? " " + data?.participant?.lastName,
-    value: data?.participant?.id
-  }]
-
-  useEffect(() => {
-    if (selectedProject) {
-      fetch(selectedProject?.id);
-    }
-  }, [fetch, selectedProject])
+  const { data, isFetching, participant, supportCoordinators } = useGetProjectDetail()
 
   return (
     <Drawer

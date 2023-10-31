@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import moment from "moment";
-
 
 import {
   PaginatedTableValue,
@@ -11,39 +10,22 @@ import {
 import { defaultDateFormat } from "@/core/lib/date.utilsleanq_support_coordinator";
 
 import {
-  useAppDispatch,
   useAppSelector,
 } from "@/store/hooksleanq_support_coordinator";
 import {
-  clearSelected,
   projectData,
-  selectProject,
-  toogleProjectDrawer,
 } from "@/store/features/projects/projectSliceleanq_support_coordinator";
-import { useProjectListQuery } from "@/store/features/projects/apiSliceleanq_support_coordinator";
-
 
 import SkeletonTable from "@/components/loaders/TableSkeletonleanq_support_coordinator";
 import CusTable from "@/components/tables/Tableleanq_support_coordinator";
 import ProjectDetailDrawer from "./projectDetail/ProjectDetailDrawer";
+import useGetProjectList from "../hook/useGetProjectList";
 
 function ProjectsList({ value, searchText }: { value: PaginatedTableValue, searchText: string }) {
-  const { paginationMeta, setPaginationMeta } = value;
 
-  const { showProjectDetailDrawer, selectedProject } = useAppSelector(projectData);
-  const dispatch = useAppDispatch();
+  const { showProjectDetailDrawer } = useAppSelector(projectData);
 
-  const { data, isLoading, isFetching, error } = useProjectListQuery({
-    limit: paginationMeta.limit,
-    page: paginationMeta.page ?? 1,
-    searchText
-  });
-
-  useEffect(() => {
-    if (data && data?.meta) {
-      setPaginationMeta(data?.meta);
-    }
-  }, [data, setPaginationMeta]);
+  const { isLoading, isFetching, data, onRowClick, handleDrawerToogle } = useGetProjectList(value, searchText)
 
   if (isLoading) {
     return <SkeletonTable />;
@@ -52,20 +34,14 @@ function ProjectsList({ value, searchText }: { value: PaginatedTableValue, searc
   return (
     <div className="flex flex-col">
       <CusTable
-        onRowClick={(row: any) => {
-          dispatch(selectProject(row));
-          dispatch(toogleProjectDrawer(true));
-        }}
+        onRowClick={onRowClick}
         columns={columns}
         dataSource={data?.data ?? []}
         loading={isFetching}
       />
       <ProjectDetailDrawer
         open={showProjectDetailDrawer}
-        handleDrawerToogle={() => {
-          dispatch(clearSelected());
-          dispatch(toogleProjectDrawer(false));
-        }}
+        handleDrawerToogle={handleDrawerToogle}
       />
     </div>
   );

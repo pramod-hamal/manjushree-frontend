@@ -11,8 +11,8 @@
     "prebuild": "cross-env NODE_ENV=production ts-node --project ./tsconfig.node.json ./scripts/genAntdCss.tsx"
   },
   "dependencies": {
-    "@ant-design/cssinjs": "^1.16.1",
-    "@ant-design/icons": "^5.2.4",
+    "@ant-design/cssinjs": "^1.17.2",
+    "@ant-design/icons": "^5.2.6",
     "@ant-design/static-style-extract": "^1.0.1",
     "@hello-pangea/dnd": "^16.3.0",
     "@react-google-maps/api": "^2.19.2",
@@ -20,7 +20,7 @@
     "@types/node": "20.4.5",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
-    "antd": "^5.9.4",
+    "antd": "^5.10.3",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "chart.js": "^4.3.3",

@@ -24,7 +24,7 @@ export default function CusDrawer({
       className="bg-white"
       title={title ?? <div></div>}
       width={width ?? 900}
-      headerStyle={{ border: "none" }}
+      styles={{ header: { border: "none" } }}
       closable={false}
       onClose={handleDrawerToogle}
       open={open}

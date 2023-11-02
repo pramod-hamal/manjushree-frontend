@@ -70,6 +70,7 @@ export default function CusTable(tableProps: CusTableProps) {
       sticky={sticky}
       loading={loading}
       onRow={onRow}
+      rowKey={"id"}
     />
   );
 }

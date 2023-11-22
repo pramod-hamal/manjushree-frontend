@@ -35,7 +35,7 @@ export default function ProjectDetailDrawer({ open, handleDrawerToogle }: any) {
   return (
     <Drawer
       width={900}
-      headerStyle={{ border: "none" }}
+      styles={{ header: { border: "none" } }}
       closable={false}
       onClose={handleDrawerToogle}
       open={open}

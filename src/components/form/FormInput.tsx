@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import { Input, InputNumber } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 
@@ -29,8 +29,9 @@ export default function FormInput(inputProps: FormInputProps): any {
     onKeyDown,
     copy = false
   } = inputProps;
+  const id = useId()
   return (
-    <div className="flex flex-col gap-3 text-sm" key={key}>
+    < div className="flex flex-col gap-3 text-sm" key={key ?? id} >
       {label && (
         <div className="flex items-center gap-2">
           {required && <span className="text-sm text-primary-danger">*</span>}
@@ -39,6 +40,7 @@ export default function FormInput(inputProps: FormInputProps): any {
         </div>
       )}
       <Input
+        key={key ?? id}
         ref={ref}
         className="h-[40px] rounded-none"
         placeholder={placeHolder}
@@ -53,7 +55,7 @@ export default function FormInput(inputProps: FormInputProps): any {
 
       />
       {errors && <ErrorMessage message={errors} />}
-    </div>
+    </div >
   );
 }
 

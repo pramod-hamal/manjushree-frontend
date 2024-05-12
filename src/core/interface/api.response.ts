@@ -5,6 +5,7 @@ export interface APIBaseResponse<t>{
   timeStamp?:string;
   message:string;
   error?:any;
+  msg: any,
   data:t,
   meta?:PaginationMetaDTO
 }

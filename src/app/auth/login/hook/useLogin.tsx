@@ -32,11 +32,11 @@ const useLoginForm = () => {
         try {
             const data = await login(values).unwrap();
             router.push(routes.dashboard);
-            setCookie("token", data.data.accessToken)
+            setCookie("token", data.token)
             showToast({ title: "Login Successfull", type: "success" });
         } catch (error: any) {
             const errorData: APIBaseResponse<any> = error.data;
-            showToast({ title: errorData.error?.message, type: "error" });
+            showToast({ title: errorData?.msg, type: "error" });
             setSubmitting(false);
             setLoader(false);
         }

@@ -5,9 +5,9 @@ export const endpoints = {
     validate: "/admin/tenants/validate"
   },
   auth: {
-    signIn: "/auth/sign-in",
+    signIn: "/auth/login",
     geMe: "/auth/me"
-  },
+  }, 
   dropdowns: {
     contact: "/dropdown/contact",
     organizationalContact: "/dropdown/contact/organization",
@@ -62,6 +62,9 @@ export const endpoints = {
         getById: "participant/plan-service/"
       }
     }
+  },
+  members: {
+    getAll: "/api/getmember"
   },
   users: {
     getAll: "/users",

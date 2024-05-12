@@ -16,13 +16,16 @@ import { getNamefirstChar } from "@/core/lib/getFristChar.utilleanq_support_coor
 export default function Header() {
   const { data, error }: any = useGetMeQuery("");
   const router = useRouter();
-
-  const { user } = useAppSelector(appState);
-
-  if (error && error?.status === 401) {
-    deleteCookie("token", {});
-    router.replace(routes.login)
+  let user = {
+    firstName: "Admin",
+    lastName: "Admin"
   }
+  // const { user } = useAppSelector(appState);
+  // console.log("user is ", user)
+  // if (error && error?.status === 401) {
+  //   deleteCookie("token", {});
+  //   router.replace(routes.login)
+  // }
 
   return (
     <div className="sticky top-0 z-20 flex items-center justify-between px-5 text-black bg-white shadow h-14">

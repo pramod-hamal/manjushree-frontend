@@ -9,7 +9,7 @@ import StoreProvider from "@/store/providerleanq_support_coordinator";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Support Coordinator",
+  title: "Manjushree",
   description: "",
 };
 

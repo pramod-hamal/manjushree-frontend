@@ -17,13 +17,13 @@ export const usersApi = createApi({
   tagTypes: ["Users", "List", "Detail", "Contactlist"],
   endpoints: (build) => ({
     getAll: build.query<
-      APIBaseResponse<UserList>,
+      APIBaseResponse<UserList>, 
       { limit: number; page: number, searchText: string }
     >({
       query: (args) => {
         const { limit, page, searchText } = args;
         return {
-          url: endpoints.users.getAll,
+          url: endpoints.members.getAll,
           params: { limit, page, searchText },
         };
       },

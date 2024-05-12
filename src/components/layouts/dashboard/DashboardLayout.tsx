@@ -9,12 +9,12 @@ import {
   AppState,
   LayoutState,
 } from "@/store/features/appSliceleanq_support_coordinator";
+import { getCookie } from "cookies-next";
 
 function DashboardLayoutComponent({ children }: { children: React.ReactNode }) {
   const { layoutState }: AppState = useAppSelector(appState);
 
   const { minimized }: LayoutState = layoutState;
-
   return (
     <div className="flex transition-all">
       <Sidebar />

@@ -13,7 +13,7 @@ export default function PageLoader() {
                     src="/images/logo.svg"
                 />
                 <span className="text-3xl font-semibold text-primary-title">
-                    Support Coordinator
+                    Manjushree
                 </span>
             </div>
         </div>

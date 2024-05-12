@@ -31,6 +31,7 @@ const appSlice = createSlice({
             (state, action) => {
               const response: APIBaseResponse<any> = action.payload;
               if (response.statusCode === 200) {
+                console.log("resonse",response.data)
                 state.user = response.data;
               }
             }

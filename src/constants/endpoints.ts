@@ -64,7 +64,8 @@ export const endpoints = {
     }
   },
   members: {
-    getAll: "/api/getmember"
+    getAll: "/api/getmember",
+    add: "/api/createmember",
   },
   users: {
     getAll: "/users",

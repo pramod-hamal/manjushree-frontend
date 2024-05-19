@@ -1,21 +1,20 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { Skeleton } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import { Skeleton } from "antd";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-import CusTable from "@/components/tables/Tableleanq_support_coordinator";
 import { SearchInput } from "@/components/form/FormInputleanq_support_coordinator";
+import CusTable from "@/components/tables/Tableleanq_support_coordinator";
 
-import { routes } from "@/constants/routesleanq_support_coordinator";
 import NavigateButton from "@/components/buttons/Navigateleanq_support_coordinator";
-import { useGetAllQuery } from "@/store/features/users/apiSliceleanq_support_coordinator";
+import { routes } from "@/constants/routesleanq_support_coordinator";
 import {
   PaginatedTableValue,
   withPaginatedTable,
 } from "@/core/hoc/withPaginatedTableleanq_support_coordinator";
-import { data } from "autoprefixer";
+import { useGetAllQuery } from "@/store/features/users/apiSliceleanq_support_coordinator";
 
 function UsersList({ value }: { value: PaginatedTableValue }) {
   const { paginationMeta, setPaginationMeta } = value;
@@ -35,7 +34,6 @@ function UsersList({ value }: { value: PaginatedTableValue }) {
     }
   }, [data, setPaginationMeta]);
 
-  console.log("data", data);
   if (isLoading === true) {
     return <Skeleton />;
   }

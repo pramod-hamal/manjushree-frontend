@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FormikHelpers, useFormik } from "formik";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import * as yup from "yup";
 
 import { emailRegex } from "@/core/lib/regexleanq_support_coordinator";
@@ -17,19 +17,22 @@ const useAddUser = () => {
     const [addUser] = useAddMutation();
 
     const initialValues: CreateUserDTO = {
-        firstName: "",
-        middleName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        role: null,
+        MemberId:"",
+        Name: "",
+        Gender: null,
+        Address: "",
+        Class: "",
+        ContactNo: "",
+        Email: "",
     };
 
     const validationSchema = yup.object().shape({
-        firstName: yup.string().required("Required"),
-        lastName: yup.string().required("Required"),
-        email: yup.string().matches(emailRegex, "Invalid Email").required("Required"),
-        phone: yup.string().required("Required"),
+        MemberId: yup.string().required("Required"),
+        Name: yup.string().required("Required"),
+        Email: yup.string().matches(emailRegex, "Invalid Email").required("Required"),
+        Gender: yup.string().required("Required"),
+        Address: yup.string().required("Required"),
+        Class: yup.string().required("Required"),
     });
 
 
@@ -37,11 +40,12 @@ const useAddUser = () => {
         values: CreateUserDTO,
         { setSubmitting }: FormikHelpers<CreateUserDTO>
     ) => {
-        await addUser({ ...values, phone: values.phone.toString() })
+        console.log(values)
+        await addUser({ ...values, JoinDate: new Date().toISOString(), paymentStatus: false})
             .unwrap()
             .then(() => {
                 setShowModal(true);
-                showToast({ title: "User Added", type: "success" });
+                showToast({ title: "Member Added", type: "success" });
                 router.back();
             })
             .catch((error: any) => {

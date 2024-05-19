@@ -6,7 +6,7 @@ export const routes = {
       dashboard: "/manjushree/dashboard",
       // user
       users: "/manjushree/members",
-      addUser: "/manjushree/users/add",
+      addUser: "/manjushree/members/add",
       userProfile: (id: string | number) => `/manjushree/users/${id}`,
       // projects
       projects: "/manjushree/projects",

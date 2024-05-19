@@ -8,12 +8,15 @@ export interface GetUserByIDDTO {
 }
 
 export interface CreateUserDTO {
-    firstName: string;
-    middleName: string | null;
-    lastName: string;
-    email: string;
-    phone: string;
-    role?: number | null
+    MemberId:string,
+    Name: string,
+    Gender: string | null,
+    Address: string,
+    Class: string,
+    ContactNo: string,
+    Email: string,
+    JoinDate?: string,
+
 }
 
 export interface CreateUserResponse {

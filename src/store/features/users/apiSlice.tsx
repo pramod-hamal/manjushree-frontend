@@ -31,7 +31,7 @@ export const usersApi = createApi({
     }),
     add: build.mutation<APIBaseResponse<CreateUserResponse>, any>({
       query: (userData: CreateUserDTO) => ({
-        url: endpoints.users.add,
+        url: endpoints.members.add,
         body: userData,
         method: "POST",
       }),

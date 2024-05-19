@@ -23,7 +23,7 @@ import { Skeleton } from "antd";
 
 export const metadata: Metadata = {
   title: "Dashboard",
-  description: "Support Coordinator Dashboard",
+  description: "Manjushree Dashboard",
 };
 
 export default function Dashboard() {

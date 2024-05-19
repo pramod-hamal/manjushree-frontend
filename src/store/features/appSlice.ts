@@ -4,40 +4,37 @@ import { authApi } from "./auth/apiSlice";
 import { APIBaseResponse } from "@/core/interface/api.responseleanq_support_coordinator";
 
 export interface AppState {
-    layoutState: LayoutState,
-    user:any|null
+  layoutState: LayoutState;
+  user: any | null;
 }
 
 export interface LayoutState {
-    minimized: boolean;
+  minimized: boolean;
 }
 
 const initialState: AppState = {
-    layoutState: { minimized: false },
-    user:null
-}
+  layoutState: { minimized: false },
+  user: null,
+};
 
 const appSlice = createSlice({
-    initialState,
-    name: "app",
-    reducers: {
-        toogleDrawer(state, action) {
-            state.layoutState.minimized = action.payload;
-        }
+  initialState,
+  name: "app",
+  reducers: {
+    toogleDrawer(state, action) {
+      state.layoutState.minimized = action.payload;
     },
-    extraReducers:(builder)=>{
-        builder.addMatcher(
-            authApi.endpoints.getMe.matchFulfilled,
-            (state, action) => {
-              const response: APIBaseResponse<any> = action.payload;
-              if (response.statusCode === 200) {
-                console.log("resonse",response.data)
-                state.user = response.data;
-              }
-            }
-          );
-    }
-})
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      authApi.endpoints.getMe.matchFulfilled,
+      (state, action) => {
+        const response: APIBaseResponse<any> = action.payload;
+        state.user = response;
+      }
+    );
+  },
+});
 
 export const { toogleDrawer } = appSlice.actions;
 

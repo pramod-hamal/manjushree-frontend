@@ -18,7 +18,6 @@ export type protectedBaseQuery = BaseQueryFn<
 
 export const protectedBaseQuery: protectedBaseQuery = async (args, api, extraOptions) => {
   let result: QueryReturnValue<unknown, FetchBaseQueryError, FetchBaseQueryMeta> = await apiQuery(args, api, extraOptions)
-  console.log("result isssss***********", result)
   if (result.error && result.error.status === 401) {
     deleteCookie("token")
     location.replace("/auth/login")

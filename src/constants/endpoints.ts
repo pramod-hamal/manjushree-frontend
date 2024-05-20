@@ -67,6 +67,10 @@ export const endpoints = {
     getAll: "/api/getmember",
     add: "/api/createmember",
   },
+  class: {
+    getAll: "/api/getclasses",
+    add: "/api/createclass"
+  },
   users: {
     getAll: "/users",
     add: "/users",

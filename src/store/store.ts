@@ -21,59 +21,66 @@ import { dropdownApi } from "./features/dropdown/apiSlice";
 import { participantPlanApi } from "./features/participants/plan/apiSlice";
 import { userReducer } from "./features/users/userSlice";
 import { importAPISlice } from "./features/settings/import/apiSlice";
+import { classApi } from "./features/class/apiSlice";
+import { classReducer } from "./features/class/classSlice";
 
 export const stores = configureStore({
-    // Root Reducers
-    reducer: {
-        //appstate
-        app: appReducer,
-        // dropdown
-        [dropdownApi.reducerPath]: dropdownApi.reducer,
-        // auth
-        auth: authSlice.reducer,
-        [authApi.reducerPath]: authApi.reducer,
-        // projects
-        projects: projectReducer,
-        [projectsApi.reducerPath]: projectsApi.reducer,
-        // contact
-        [contactApi.reducerPath]: contactApi.reducer,
-        // participant
-        participantDetail: participantDetailReducer,
-        participantHealth: participantHealthReducer,
-        participantDocument: participantDocumentReducer,
-        contactDetail: contactDetailReducer,
-        [participantsApi.reducerPath]: participantsApi.reducer,
-        [participantDetailApi.reducerPath]: participantDetailApi.reducer,
-        [participantHealthApi.reducerPath]: participantHealthApi.reducer,
-        [participantDocumentApi.reducerPath]: participantDocumentApi.reducer,
-        [participantDetailContactApi.reducerPath]: participantDetailContactApi.reducer,
-        [participantPlanApi.reducerPath]: participantPlanApi.reducer,
-        // Users
-        [usersApi.reducerPath]: usersApi.reducer,
-        users: userReducer,
+  // Root Reducers
+  reducer: {
+    //appstate
+    app: appReducer,
+    // dropdown
+    [dropdownApi.reducerPath]: dropdownApi.reducer,
+    // auth
+    auth: authSlice.reducer,
+    [authApi.reducerPath]: authApi.reducer,
+    // projects
+    projects: projectReducer,
+    [projectsApi.reducerPath]: projectsApi.reducer,
+    // contact
+    [contactApi.reducerPath]: contactApi.reducer,
+    // participant
+    participantDetail: participantDetailReducer,
+    participantHealth: participantHealthReducer,
+    participantDocument: participantDocumentReducer,
+    contactDetail: contactDetailReducer,
+    [participantsApi.reducerPath]: participantsApi.reducer,
+    [participantDetailApi.reducerPath]: participantDetailApi.reducer,
+    [participantHealthApi.reducerPath]: participantHealthApi.reducer,
+    [participantDocumentApi.reducerPath]: participantDocumentApi.reducer,
+    [participantDetailContactApi.reducerPath]:
+      participantDetailContactApi.reducer,
+    [participantPlanApi.reducerPath]: participantPlanApi.reducer,
+    // Users
+    [usersApi.reducerPath]: usersApi.reducer,
+    users: userReducer,
+    // Users
+    [classApi.reducerPath]: classApi.reducer,
+    class: classReducer,
 
-        // Settings
-        [importAPISlice.reducerPath]: importAPISlice.reducer
-    },
-    // Initializing create api middlewares
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({})
-        .concat(
-            authApi.middleware,
-            dropdownApi.middleware,
-            projectsApi.middleware,
-            contactApi.middleware,
-            participantsApi.middleware,
-            participantDetailApi.middleware,
-            participantHealthApi.middleware,
-            participantDocumentApi.middleware,
-            participantDetailContactApi.middleware,
-            participantPlanApi.middleware,
-            usersApi.middleware,
-            importAPISlice.middleware
-        )
+    // Settings
+    [importAPISlice.reducerPath]: importAPISlice.reducer,
+  },
+  // Initializing create api middlewares
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({}).concat(
+      authApi.middleware,
+      dropdownApi.middleware,
+      projectsApi.middleware,
+      contactApi.middleware,
+      participantsApi.middleware,
+      participantDetailApi.middleware,
+      participantHealthApi.middleware,
+      participantDocumentApi.middleware,
+      participantDetailContactApi.middleware,
+      participantPlanApi.middleware,
+      usersApi.middleware,
+      classApi.middleware,
+      importAPISlice.middleware
+    ),
 });
 
 // create types for state and dispatch
-export type RootState = ReturnType<typeof stores.getState>
+export type RootState = ReturnType<typeof stores.getState>;
 // Store Dispatch Type
-export type AppDispatch = typeof stores.dispatch
+export type AppDispatch = typeof stores.dispatch;

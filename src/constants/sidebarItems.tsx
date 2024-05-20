@@ -21,6 +21,11 @@ export const sidebarItems: SidebarItem[] = [
     link: routes.users,
     title: "Members",
     icon: <UserOutlined style={{ fontSize: 14 }} />,
+  },
+  {
+    link: routes.class,
+    title: "class",
+    icon: <UserOutlined style={{ fontSize: 14 }} />,
   }
 
 ];

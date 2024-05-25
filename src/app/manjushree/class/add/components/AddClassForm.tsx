@@ -19,7 +19,6 @@ export default function AddClassForm() {
     page:  1,
     searchText:"",  
   });
-  console.log("class data", data)
   const { formik, showModal, setShowModal } = useAddClass();
 
   return (

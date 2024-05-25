@@ -24,7 +24,12 @@ export const sidebarItems: SidebarItem[] = [
   },
   {
     link: routes.class,
-    title: "class",
+    title: "Class",
+    icon: <UserOutlined style={{ fontSize: 14 }} />,
+  },
+  {
+    link: routes.payment,
+    title: "Payment",
     icon: <UserOutlined style={{ fontSize: 14 }} />,
   }
 

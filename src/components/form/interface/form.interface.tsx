@@ -78,6 +78,7 @@ export interface CusSelectProps {
     onChange: any;
     options: CusSelectOption[];
     value: any;
+    mode?: "multiple" | "tags";
     label?: string;
     errors?: any;
     required?: boolean;

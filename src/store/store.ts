@@ -23,6 +23,8 @@ import { userReducer } from "./features/users/userSlice";
 import { importAPISlice } from "./features/settings/import/apiSlice";
 import { classApi } from "./features/class/apiSlice";
 import { classReducer } from "./features/class/classSlice";
+import { paymentApi } from "./features/payment/apiSlice";
+import { paymentReducer } from "./features/payment/paymentSlice";
 
 export const stores = configureStore({
   // Root Reducers
@@ -58,6 +60,9 @@ export const stores = configureStore({
     [classApi.reducerPath]: classApi.reducer,
     class: classReducer,
 
+    [paymentApi.reducerPath]: paymentApi.reducer,
+    payments: paymentReducer,
+
     // Settings
     [importAPISlice.reducerPath]: importAPISlice.reducer,
   },
@@ -76,6 +81,7 @@ export const stores = configureStore({
       participantPlanApi.middleware,
       usersApi.middleware,
       classApi.middleware,
+      paymentApi.middleware,
       importAPISlice.middleware
     ),
 });

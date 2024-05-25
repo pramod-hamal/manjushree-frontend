@@ -7,6 +7,8 @@ export const routes = {
       // user
       users: "/manjushree/members",
       class: "/manjushree/class",
+      payment: "/manjushree/payment",
+      addPayment: "/manjushree/payment/add",
       addClass: "/manjushree/class/add",
       addUser: "/manjushree/members/add",
       userProfile: (id: string | number) => `/manjushree/users/${id}`,

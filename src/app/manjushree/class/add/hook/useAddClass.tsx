@@ -5,7 +5,6 @@ import * as yup from "yup";
 
 import { useToast } from "@/core/lib/toast/useToastleanq_support_coordinator";
 
-import { GetClassDTO } from "@/store/features/class/interface/user.interfaceleanq_support_coordinator";
 import { useAddMutation } from "@/store/features/class/apiSliceleanq_support_coordinator";
 
 const useAddClass = () => {
@@ -15,7 +14,7 @@ const useAddClass = () => {
     const router = useRouter();
     const [addClass] = useAddMutation();
 
-    const initialValues: GetClassDTO = {
+    const initialValues: any = {
         name: "",
         instructor: "",
         description: "",
@@ -24,6 +23,7 @@ const useAddClass = () => {
           startTime: "",
           endTime: "",
         },
+        enrolledMembers: [],
         capacity: 0,
     };
 
@@ -41,7 +41,7 @@ const useAddClass = () => {
 
 
     const handleAddClass = async (
-        values: GetClassDTO,
+        values: any,
         { setSubmitting }: FormikHelpers<any>
     ) => {
         await addClass({ ...values})

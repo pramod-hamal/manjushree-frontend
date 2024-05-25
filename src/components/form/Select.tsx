@@ -22,6 +22,7 @@ export default function CusSelect(selectProps: CusSelectProps) {
         placeholder={selectProps.placeHolder ?? ""}
         onChange={selectProps.onChange}
         options={selectProps.options}
+        mode={selectProps.mode}
       />
       {selectProps.errors && <ErrorMessage message={selectProps.errors} />}
     </div>

@@ -28,7 +28,7 @@ const classSlice = createSlice({
     );
   },
 });
-
+ 
 export const {} = classSlice.actions;
 export const classReducer = classSlice.reducer;
 export const classState = (state: RootState) => state.users;

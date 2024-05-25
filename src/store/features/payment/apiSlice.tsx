@@ -9,10 +9,10 @@ import {
   GetUserByIDDTO,
 } from "./interface/user.interface";
 import { UserContactResponse } from "./interface/user.contact.interface";
-
-export const classApi:any = createApi({
+ 
+export const paymentApi:any = createApi({
   baseQuery: protectedBaseQuery,
-  reducerPath: "classApi",
+  reducerPath: "paymentApi",
   tagTypes: ["Users", "List", "Detail", "Contactlist"],
   endpoints: (build) => ({
     getAll: build.query<
@@ -22,7 +22,7 @@ export const classApi:any = createApi({
       query: (args) => {
         const { limit, page, searchText } = args;
         return {
-          url: endpoints.class.getAll,
+          url: endpoints.payment.getAll,
           params: { limit, page, searchText },
         };
       },
@@ -30,7 +30,7 @@ export const classApi:any = createApi({
     }),
     add: build.mutation<APIBaseResponse<CreateUserResponse>, any>({
       query: (userData: CreateUserDTO) => ({
-        url: endpoints.class.add,
+        url: endpoints.payment.add,
         body: userData,
         method: "POST",
       }),
@@ -78,4 +78,4 @@ export const {
   useAllContactsQuery,
   useAddContactMutation,
   useDeleteContactMutation,
-} = classApi;
+} = paymentApi;

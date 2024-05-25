@@ -14,8 +14,9 @@ import {
   PaginatedTableValue,
   withPaginatedTable,
 } from "@/core/hoc/withPaginatedTableleanq_support_coordinator";
-import { useGetAllQuery } from "@/store/features/class/apiSliceleanq_support_coordinator";
-function ClassList({ value }: { value: PaginatedTableValue }) {
+import { useGetAllQuery } from "@/store/features/payment/apiSliceleanq_support_coordinator";
+
+function PaymentList({ value }: { value: PaginatedTableValue }) {
   const { paginationMeta, setPaginationMeta } = value;
   const [searchText, setSearchText] = useState("");
 
@@ -24,10 +25,8 @@ function ClassList({ value }: { value: PaginatedTableValue }) {
   const { isLoading, isFetching, error, data }: any = useGetAllQuery({
     limit: paginationMeta.limit,
     page: paginationMeta.page ?? 1,
-    searchText,  
+    searchText,
   });
-
-
 
   useEffect(() => {
     if (data && data?.meta) {
@@ -53,7 +52,7 @@ function ClassList({ value }: { value: PaginatedTableValue }) {
         <NavigateButton
           icon={<PlusOutlined />}
           title="Add New"
-          link={routes.addClass}
+          link={routes.addPayment}
         />
       </div>
       <CusTable
@@ -67,69 +66,40 @@ function ClassList({ value }: { value: PaginatedTableValue }) {
     </div>
   );
 }
- 
-export default withPaginatedTable(ClassList);
+
+export default withPaginatedTable(PaymentList);
 
 const columns: any = [
   {
-    title: "Instructor",
+    title: "Name",
     // sorter: (a: any, b: any)
     sortDirections: ["descend"],
     render: (data: any) => {
-      return <div>{data.instructor}</div>;
+      return <div>{data?.MemberId?.Name}</div>;
     },
   },
-  { title: "Name", dataIndex: "name" },
   {
-    title: "Description",
-    dataIndex: "description",
+    title: "Email",
+    // sorter: (a: any, b: any)
+    sortDirections: ["descend"],
+    render: (data: any) => {
+      return <div>{data?.MemberId?.Email}</div>;
+    },
+  },
+  { title: "Payment Method", dataIndex: "PaymentMethod" },
+  {
+    title: "Amount",
+    dataIndex: "Amount",
     defaultSortOrder: "descend",
-    sorter: (a: any, b: any) => a.phone - b.phone,
   },
   {
-    title: "Day",
-    dataIndex: "schedule",
-    key: "dayOfWeek",
+    title: "Status",
     render: (data: any) => {
-      return <div>{data?.dayOfWeek}</div>;
-    }
+      return <div>{data?.Status ? "Paid" : "Unpaid"}</div>;
+    },
   },
   {
-    title: "Start Time",
-    dataIndex: "schedule",
-    key: "startTime",
-    render: (data: any) => {
-      return <div>{data?.startTime}</div>;
-    }
-  },
-  {
-    title: "End Time",
-    dataIndex: "schedule",
-    key: "endTime",
-    render: (data: any) => {
-      return <div>{data?.endTime}</div>;
-    }
-  },
-  {
-    title: "Capacity",
-    dataIndex: "capacity",
-  },
-];
-
-/**
- * Get Status Background Color using user status
- * @param {any} status:string
- * @returns {string | undefined}
- */
-const getStatusBackground = (status: string): string | undefined => {
-  switch (status) {
-    case "active":
-      return "bg-status-active";
-    case "restricted":
-      return "bg-status-restricted";
-    case "deactivated":
-      return "bg-status-deactivated";
-    default:
-      break;
+    title: "Payment Date",
+    dataIndex: "PaymentDate",
   }
-};
+];

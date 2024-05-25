@@ -62,7 +62,7 @@ export const endpoints = {
         getById: "participant/plan-service/"
       }
     }
-  },
+  }, 
   members: {
     getAll: "/api/getmember",
     add: "/api/createmember",
@@ -70,6 +70,10 @@ export const endpoints = {
   class: {
     getAll: "/api/getclasses",
     add: "/api/createclass"
+  },
+  payment: {
+    getAll: "/api/getpayment",
+    add: "/api/createPayment"
   },
   users: {
     getAll: "/users",
